@@ -22,14 +22,26 @@ jobs:
       matrix:
         ubuntu_version: ["22.04", "24.04", "24.10"]
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:${{ matrix.ubuntu_version }}
     steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          tags: ghostty-ubuntu:${{ matrix.ubuntu_version }}
+          build-args: |
+            UBUNTU_VERSION=${{ matrix.ubuntu_version }}
+          push: false
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Checkout ghostty-ubuntu
         uses: actions/checkout@v4
       
       - name: Build Ghostty
-        run: ./build-ghostty.sh
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty-ubuntu:${{ matrix.ubuntu_version }} /bin/bash build-ghostty.sh
       
       - name: Upload Artifact
         if: inputs.release_version == ''
