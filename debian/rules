@@ -20,6 +20,7 @@ override_dh_auto_build:
 	    -Dcpu=baseline \
 	    -Dpie=true \
 	    -Demit-docs \
+	    -Dgtk-x11=true \
 	    -Dversion-string=1.0.0
 
 #override_dh_auto_install:

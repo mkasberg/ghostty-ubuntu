@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "22.04"
   workflow_dispatch:
     inputs:
       release_version:
@@ -20,23 +21,13 @@ jobs:
     name: Build Ghostty
     strategy:
       matrix:
-        ubuntu_version: ["24.04", "24.10"]
         source_only: [true, false]
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:${{ matrix.ubuntu_version }}
+      image: ubuntu:22.04
     steps:
       - name: Checkout ghostty-ubuntu
         uses: actions/checkout@v4
-      
-      - name: Set Release Distribution
-        run: |
-          if [ "${{ matrix.ubuntu_version }}" = "24.04" ]; then
-            UBUNTU_DIST="noble"
-          else
-            UBUNTU_DIST="oracular"
-          fi
-          sed -i "s/UNRELEASED/$UBUNTU_DIST/" debian/changelog
 
       - name: Build Ghostty
         run: |
@@ -51,7 +42,7 @@ jobs:
         if: inputs.release_version == ''
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.ubuntu_version }}-${{ matrix.source_only }}
+          name: package-22.04-${{ matrix.source_only }}
           retention-days: 7
           path: |
             ghostty_*.*
