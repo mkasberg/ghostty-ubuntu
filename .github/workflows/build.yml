@@ -20,7 +20,7 @@ jobs:
     name: Build Ghostty
     strategy:
       matrix:
-        ubuntu_version: ["24.04", "24.10"]
+        ubuntu_version: ["22.04", "24.04", "24.10"]
         source_only: [true, false]
     runs-on: ubuntu-latest
     container:
@@ -34,7 +34,9 @@ jobs:
       
       - name: Set Release Distribution
         run: |
-          if [ "${{ matrix.ubuntu_version }}" = "24.04" ]; then
+          if [ "${{ matrix.ubuntu_version }}" = "22.04" ]; then
+            UBUNTU_DIST="jammy"
+          elif [ "${{ matrix.ubuntu_version }}" = "24.04" ]; then
             UBUNTU_DIST="noble"
           else
             UBUNTU_DIST="oracular"
