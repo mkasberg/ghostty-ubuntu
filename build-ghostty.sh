@@ -42,4 +42,4 @@ cp -r debian "ghostty-$GHOSTTY_VERSION/debian"
 
 # Build Ghostty
 cd "ghostty-$GHOSTTY_VERSION"
-debuild --prepend-path /usr/local/bin -us -uc
+debuild --prepend-path /usr/local/bin -us -uc $@

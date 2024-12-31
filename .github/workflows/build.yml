@@ -21,6 +21,7 @@ jobs:
     strategy:
       matrix:
         ubuntu_version: ["24.04", "24.10"]
+        source_only: [true, false]
     runs-on: ubuntu-latest
     container:
       image: ubuntu:${{ matrix.ubuntu_version }}
@@ -38,13 +39,18 @@ jobs:
           sed -i "s/UNRELEASED/$UBUNTU_DIST/" debian/changelog
 
       - name: Build Ghostty
-        run: ./build-ghostty.sh
+        run: |
+          ARGS=""
+          if [ "${{ matrix.source_only }}" == "true" ]; then
+            ARGS="-S"
+          fi
+          ./build-ghostty.sh $ARGS
       
       - name: Upload Artifact
         if: inputs.release_version == ''
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.ubuntu_version }}
+          name: package-${{ matrix.ubuntu_version }}-${{ matrix.source_only }}
           retention-days: 7
           path: |
             ghostty_*.*
