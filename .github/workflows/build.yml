@@ -31,7 +31,7 @@ jobs:
       
       - name: Set Release Distribution
         run: |
-          if [ "${{ matrix.ubuntu_version }}" == "24.04" ]; then
+          if [ "${{ matrix.ubuntu_version }}" = "24.04" ]; then
             UBUNTU_DIST="noble"
           else
             UBUNTU_DIST="oracular"
@@ -41,10 +41,11 @@ jobs:
       - name: Build Ghostty
         run: |
           ARGS=""
-          if [ "${{ matrix.source_only }}" == "true" ]; then
+          if [ "${{ matrix.source_only }}" = "true" ]; then
             ARGS="-S"
           fi
-          ./build-ghostty.sh $ARGS
+          echo "build-ghostty ARGS: $ARGS"
+          ./build-ghostty.sh "$ARGS"
       
       - name: Upload Artifact
         if: inputs.release_version == ''
