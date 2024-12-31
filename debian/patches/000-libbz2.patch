@@ -1,8 +1,8 @@
 From: Mike Kasberg <kasberg.mike@gmail.com>
 Description: Patch libbzip2 to libbz2 for debian
-diff -Nru ghostty-1.0.0.orig/build.zig ghostty-1.0.0/build.zig
---- ghostty-1.0.0.orig/build.zig
-+++ ghostty-1.0.0/build.zig
+diff -Nru ghostty-1.0.1.orig/build.zig ghostty-1.0.1/build.zig
+--- ghostty-1.0.1.orig/build.zig
++++ ghostty-1.0.1/build.zig
 @@ -1064,7 +1064,7 @@
          step.root_module.addImport("freetype", freetype_dep.module("freetype"));
  

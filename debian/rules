@@ -20,7 +20,7 @@ override_dh_auto_build:
 	    -Dcpu=baseline \
 	    -Dpie=true \
 	    -Demit-docs \
-	    -Dversion-string=1.0.0
+	    -Dversion-string=1.0.1
 
 #override_dh_auto_install:
 #	dh_auto_install -- prefix=/usr
