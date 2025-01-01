@@ -6,11 +6,6 @@ on:
     branches:
       - main
   workflow_dispatch:
-    inputs:
-      release_version:
-        description: If empty, rest with build artifact. If nonempty, release that version.
-        type: string
-        required: false
 
 permissions:
   contents: write
@@ -21,7 +16,6 @@ jobs:
     strategy:
       matrix:
         ubuntu_version: ["22.04", "24.04", "24.10"]
-        build_type: ["source", "binary"]
     runs-on: ubuntu-latest
     container:
       image: ubuntu:${{ matrix.ubuntu_version }}
@@ -34,30 +28,20 @@ jobs:
       
       - name: Set Release Distribution
         run: |
-          if [ "${{ matrix.ubuntu_version }}" = "22.04" ]; then
-            UBUNTU_DIST="jammy"
-          elif [ "${{ matrix.ubuntu_version }}" = "24.04" ]; then
-            UBUNTU_DIST="noble"
-          else
-            UBUNTU_DIST="oracular"
-          fi
-          sed -i "s/UNRELEASED/$UBUNTU_DIST/" debian/changelog
+
 
       - name: Build Ghostty
+        run: ./build-ghostty.sh "${{ matrix.ubuntu_version }}"
+
+      - name: Lint .deb Package
         run: |
-          ARGS=""
-          if [ "${{ matrix.build_type }}" = "source" ]; then
-            ARGS="-S"
-          fi
-          echo "build-ghostty ARGS: $ARGS"
-          ./build-ghostty.sh "$ARGS"
+          echo $PWD
+          ls
+          lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
       
       - name: Upload Artifact
-        if: inputs.release_version == ''
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.build_type }}-${{ matrix.ubuntu_version }}
+          name: package-${{ matrix.ubuntu_version }}
           retention-days: 7
-          path: |
-            ghostty_*.*
-        
+          path: ghostty_*.deb

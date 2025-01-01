@@ -1,10 +1,10 @@
-ghostty (1.0.1-0~ppa1) UNRELEASED; urgency=low
+ghostty (1.0.1-0~ppa1) DIST; urgency=low
 
   * https://ghostty.org/docs/install/release-notes/1-0-1
 
  -- Mike Kasberg <kasberg.mike@gmail.com>  Tue, 31 Dec 2024 14:45:00 -0700
 
-ghostty (1.0.0-0~ppa1) UNRELEASED; urgency=low
+ghostty (1.0.0-0~ppa1) DIST; urgency=low
 
   * Initial release.
 

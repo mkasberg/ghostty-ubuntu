@@ -8,7 +8,7 @@ DEBIAN_FRONTEND="noninteractive"
 ZIG_VERSION="0.13.0"
 
 # Install Build Tools
-apt-get -qq update && apt-get -qq -y install build-essential debhelper devscripts pandoc libonig-dev libbz2-dev wget
+apt-get -qq update && apt-get -qq -y install build-essential libonig-dev libbz2-dev lintian pandoc wget
 
 wget -q "https://github.com/jedisct1/minisign/releases/download/0.11/minisign-0.11-linux.tar.gz"
 tar -xzf minisign-0.11-linux.tar.gz
