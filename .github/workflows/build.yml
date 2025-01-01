@@ -28,6 +28,9 @@ jobs:
     steps:
       - name: Checkout ghostty-ubuntu
         uses: actions/checkout@v4
+
+      - name: Setup Build Env
+        run: ./setup-env.sh
       
       - name: Set Release Distribution
         run: |
