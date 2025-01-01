@@ -21,7 +21,6 @@ jobs:
     strategy:
       matrix:
         ubuntu_version: ["22.04", "24.04", "24.10"]
-        build_type: ["source", "binary"]
     runs-on: ubuntu-latest
     container:
       image: ubuntu:${{ matrix.ubuntu_version }}
@@ -31,8 +30,8 @@ jobs:
 
       - name: Setup Build Env
         run: ./setup-env.sh
-      
-      - name: Set Release Distribution
+
+      - name: Build Ghostty
         run: |
           if [ "${{ matrix.ubuntu_version }}" = "22.04" ]; then
             UBUNTU_DIST="jammy"
@@ -41,23 +40,13 @@ jobs:
           else
             UBUNTU_DIST="oracular"
           fi
-          sed -i "s/UNRELEASED/$UBUNTU_DIST/" debian/changelog
-
-      - name: Build Ghostty
-        run: |
-          ARGS=""
-          if [ "${{ matrix.build_type }}" = "source" ]; then
-            ARGS="-S"
-          fi
-          echo "build-ghostty ARGS: $ARGS"
-          ./build-ghostty.sh "$ARGS"
+          ./build-ghostty.sh "$UBUNTU_DIST"
       
       - name: Upload Artifact
         if: inputs.release_version == ''
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.build_type }}-${{ matrix.ubuntu_version }}
+          name: package-${{ matrix.ubuntu_version }}
           retention-days: 7
-          path: |
-            ghostty_*.*
+          path: ghostty-*/ghostty_*.deb
         

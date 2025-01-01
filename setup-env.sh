@@ -8,7 +8,10 @@ DEBIAN_FRONTEND="noninteractive"
 ZIG_VERSION="0.13.0"
 
 # Install Build Tools
-apt-get -qq update && apt-get -qq -y install build-essential debhelper devscripts pandoc libonig-dev libbz2-dev wget
+# We need ruby for fpm
+apt-get -qq update && apt-get -qq -y install build-essential pandoc libonig-dev libbz2-dev wget ruby
+
+gem install fpm
 
 wget -q "https://github.com/jedisct1/minisign/releases/download/0.11/minisign-0.11-linux.tar.gz"
 tar -xzf minisign-0.11-linux.tar.gz
