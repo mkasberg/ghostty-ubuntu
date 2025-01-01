@@ -39,4 +39,7 @@ cd ..
 
 cp -r DEBIAN/ "ghostty-$GHOSTTY_VERSION/zig-out/DEBIAN/"
 
+## postinst is used by dpkg-deb; ensure it is executable
+chmod +x DEBIAN/postinst
+
 dpkg-deb --build ghostty-$GHOSTTY_VERSION/zig-out
