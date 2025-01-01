@@ -1,4 +1,7 @@
 #!/usr/bin/make -f
+
+ZIG_VERSION = 0.13.0
+
 # You must remove unused comment lines for the released package.
 export DH_VERBOSE = 1
 #export DEB_BUILD_MAINT_OPTIONS = hardening=+all
@@ -9,6 +12,14 @@ export DH_VERBOSE = 1
 	dh $@
 
 override_dh_auto_configure:
+	# Install zig to /opt and symlink to /usr/local/bin as part of the "configure" step.
+	# This needs to be part of our build process because Ubuntu doesn't have an official
+	# zig package but we want to build on ubuntu PPA build servers.
+	wget "https://ziglang.org/download/$(ZIG_VERSION)/zig-linux-x86_64-$(ZIG_VERSION).tar.xz"
+	tar -xf "zig-linux-x86_64-$(ZIG_VERSION).tar.xz" -C /opt
+	rm "zig-linux-x86_64-$(ZIG_VERSION).tar.xz"
+	ln -s "/opt/zig-linux-x86_64-$(ZIG_VERSION)/zig" /usr/local/bin/zig
+	# And fetch the zig cache now.
 	ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
 
 override_dh_auto_build:

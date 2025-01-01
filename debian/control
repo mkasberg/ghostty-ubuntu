@@ -2,7 +2,7 @@ Source: ghostty
 Section: utils
 Priority: optional
 Maintainer: Mike Kasberg <kasberg.mike@gmail.com>
-Build-Depends: debhelper-compat (= 13), libgtk-4-dev, libadwaita-1-dev, libonig-dev, libbz2-dev
+Build-Depends: debhelper-compat (= 13), libgtk-4-dev, libadwaita-1-dev, libonig-dev, libbz2-dev, wget
 Standards-Version: 4.6.1
 Homepage: https://ghostty.org/
 Rules-Requires-Root: no
