@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+# Register Ghostty as an option for ubuntu default terminal
+update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/ghostty 50
