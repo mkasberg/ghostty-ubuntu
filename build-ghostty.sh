@@ -4,13 +4,8 @@ set -e
 
 GHOSTTY_VERSION="1.0.1"
 
-if [ "$1" = "22.04" ]; then
-  UBUNTU_DIST="jammy"
-elif [ "$1" = "24.04" ]; then
-  UBUNTU_DIST="noble"
-else
-  UBUNTU_DIST="oracular"
-fi
+UBUNTU_VERSION=$(lsb_release -sr)
+UBUNTU_DIST=$(lsb_release -sc)
 
 #FULL_VERSION="$GHOSTTY_VERSION-0~${UBUNTU_DIST}1"
 FULL_VERSION="$GHOSTTY_VERSION-0~ppa2"

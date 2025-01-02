@@ -27,7 +27,7 @@ jobs:
         run: ./setup-env.sh
 
       - name: Build Ghostty
-        run: ./build-ghostty.sh "${{ matrix.ubuntu_version }}"
+        run: ./build-ghostty.sh
 
       - name: Lint .deb Package
         run: lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
