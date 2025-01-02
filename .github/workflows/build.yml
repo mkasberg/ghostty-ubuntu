@@ -25,19 +25,12 @@ jobs:
 
       - name: Setup Build Env
         run: ./setup-env.sh
-      
-      - name: Set Release Distribution
-        run: |
-
 
       - name: Build Ghostty
         run: ./build-ghostty.sh "${{ matrix.ubuntu_version }}"
 
       - name: Lint .deb Package
-        run: |
-          echo $PWD
-          ls
-          lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
+        run: lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

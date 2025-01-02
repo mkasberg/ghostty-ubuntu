@@ -1,0 +1,8 @@
+# Ghostty source
+ghostty-*.tar.gz
+ghostty-*.*.*/
+
+# .deb Packages
+*.deb
+
+
