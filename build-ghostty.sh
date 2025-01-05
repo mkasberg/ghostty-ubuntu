@@ -10,7 +10,6 @@ UBUNTU_DIST=$(lsb_release -sc)
 #FULL_VERSION="$GHOSTTY_VERSION-0~${UBUNTU_DIST}1"
 FULL_VERSION="$GHOSTTY_VERSION-0~ppa3"
 
-
 # Fetch Ghostty Source
 wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz"
 wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz.minisig"
