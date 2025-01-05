@@ -16,12 +16,8 @@ install on Ubuntu. If you're looking for the Ghostty source code, see
 
 ```sh
 source /etc/os-release
-curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest \
-	| grep "browser_download_url.*amd64_${VERSION_ID}.deb" \
-	| cut -d : -f 2,3 \
-	| tr -d \" \
-	| head -n 1 \
-	| xargs -n 1 curl -LO
+GHOSTTY_DEB_URL=$(curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/[^\s/]+/ghostty_[^\s/_]+_amd64_${VERSION_ID}.deb")
+curl -LO "$GHOSTTY_DEB_URL"
 sudo dpkg -i ghostty_*amd64_${VERSION_ID}.deb
 rm ghostty_*amd64_${VERSION_ID}.deb
 ```
