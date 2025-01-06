@@ -53,8 +53,9 @@ gzip -n -9 zig-out/usr/share/doc/ghostty/changelog.Debian
 gzip -n -9 zig-out/usr/share/man/man1/ghostty.1
 gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
 
-## postinst is used by dpkg-deb; ensure it is executable
-chmod +x DEBIAN/postinst
+## postinst and postrm are used by dpkg-deb; ensure they are executable
+chmod +x zig-out/DEBIAN/postinst
+chmod +x zig-out/DEBIAN/postrm
 
 dpkg-deb --build zig-out ghostty_${FULL_VERSION}_amd64.deb
 mv ghostty_${FULL_VERSION}_amd64.deb ../
