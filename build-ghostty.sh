@@ -57,5 +57,10 @@ gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
 chmod +x zig-out/DEBIAN/postinst
 chmod +x zig-out/DEBIAN/postrm
 
+# Zsh looks for /usr/local/share/zsh/site-functions/
+# but looks for /usr/share/zsh/vendor-completions/
+# (note the difference when we're not in /usr/local).
+mv zig-out/usr/share/zsh/site-functions zig-out/usr/share/zsh/vendor-completions
+
 dpkg-deb --build zig-out ghostty_${FULL_VERSION}_amd64.deb
 mv ghostty_${FULL_VERSION}_amd64.deb ../
