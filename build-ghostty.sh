@@ -11,6 +11,12 @@ UBUNTU_DIST=$(lsb_release -sc)
 FULL_VERSION="$GHOSTTY_VERSION-0~ppa2"
 
 
+DEBEMAIL="kasberg.mike@gmail.com"
+DEBFULLNAME="Mike Kasberg"
+DEBUILD_DPKG_BUILDPACKAGE_OPTS="-i -I -us -uc"
+DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"
+DEB_BUILD_MAINT_OPTIONS="hardening=+all"
+
 # Fetch Ghostty Source
 wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz"
 wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz.minisig"
@@ -19,44 +25,12 @@ minisign -Vm "ghostty-$GHOSTTY_VERSION.tar.gz" -P RWQlAjJC23149WL2sEpT/l0QKy7hMI
 rm ghostty-$GHOSTTY_VERSION.tar.gz.minisig
 
 tar -xzmf "ghostty-$GHOSTTY_VERSION.tar.gz"
+ln -s "ghostty-$GHOSTTY_VERSION.tar.gz" "ghostty_$GHOSTTY_VERSION.orig.tar.gz"
 
+cp -r debian "ghostty-$GHOSTTY_VERSION/debian"
+sed -i "s/DIST/$UBUNTU_DIST/" "ghostty-$GHOSTTY_VERSION/debian/changelog"
+
+# Build Ghostty
 cd "ghostty-$GHOSTTY_VERSION"
-
-# On Ubuntu it's libbz2, not libbzip2
-sed -i 's/linkSystemLibrary2("bzip2", dynamic_link_opts)/linkSystemLibrary2("bz2", dynamic_link_opts)/' build.zig
-
-# Fetch Zig Cache
-ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
-
-# Build Ghostty with zig
-zig build \
-  --summary all \
-  --prefix ./zig-out/usr \
-  --system /tmp/offline-cache/p \
-  -Doptimize=ReleaseFast \
-  -Dcpu=baseline \
-  -Dpie=true \
-  -Demit-docs \
-  -Dversion-string=$GHOSTTY_VERSION
-
-# Debian control files
-cp -r ../DEBIAN/ ./zig-out/DEBIAN/
-
-# Changelog and copyright
-mkdir -p ./zig-out/usr/share/doc/ghostty/
-cp ../copyright ./zig-out/usr/share/doc/ghostty/
-cp ../changelog.Debian ./zig-out/usr/share/doc/ghostty/
-sed -i "s/DIST/$UBUNTU_DIST/" zig-out/usr/share/doc/ghostty/changelog.Debian
-gzip -n -9 zig-out/usr/share/doc/ghostty/changelog.Debian
-
-# Compress manpages
-gzip -n -9 zig-out/usr/share/man/man1/ghostty.1
-gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
-
-# Zsh looks for /usr/local/share/zsh/site-functions/
-# but looks for /usr/share/zsh/vendor-completions/
-# (note the difference when we're not in /usr/local).
-mv zig-out/usr/share/zsh/site-functions zig-out/usr/share/zsh/vendor-completions
-
-dpkg-deb --build zig-out ghostty_${FULL_VERSION}_amd64.deb
-mv ghostty_${FULL_VERSION}_amd64.deb ../
+# TODO remove --prepend-path so we can work on a PPA build server
+debuild --prepend-path /usr/local/bin -S -us -uc

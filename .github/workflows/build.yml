@@ -28,13 +28,10 @@ jobs:
 
       - name: Build Ghostty
         run: ./build-ghostty.sh
-
-      - name: Lint .deb Package
-        run: lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: package-${{ matrix.ubuntu_version }}
           retention-days: 7
-          path: ghostty_*.deb
+          path: ghostty_*.*
