@@ -16,6 +16,10 @@ jobs:
     strategy:
       matrix:
         ubuntu_version: ["22.04", "24.04", "24.10"]
+        architecture: ["amd64", "arm64"]
+        #exclude:
+        #- ubuntu_version: "nothing"
+        #- architecture: "still nothing"
     runs-on: ubuntu-latest
     container:
       image: ubuntu:${{ matrix.ubuntu_version }}
@@ -23,18 +27,28 @@ jobs:
       - name: Checkout ghostty-ubuntu
         uses: actions/checkout@v4
 
+      - name: Setup QEMU for arm64 (if required)
+        if: matrix.architecture == 'arm64'
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
       - name: Setup Build Env
         run: ./setup-env.sh
 
       - name: Build Ghostty
-        run: ./build-ghostty.sh
+        run: |
+          echo "building for Ubuntu ${{ matrix.ubuntu_version }} and architecture ${{ matrix.ubuntu_version }}"
+          ./build-ghostty.sh
 
       - name: Lint .deb Package
-        run: lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
+        run: |
+          echo "lint package for ${{ matrix.architecture }}"
+          lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.ubuntu_version }}
+          name: package-${{ matrix.ubuntu_version }}-${{ matrix.architecture }}
           retention-days: 7
           path: ghostty_*.deb
