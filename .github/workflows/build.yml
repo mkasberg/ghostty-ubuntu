@@ -32,7 +32,9 @@ jobs:
         run: ./setup-env.sh
 
       - name: Build Ghostty
-        run: ./build-ghostty.sh
+        run: |
+          apt-get update && apt search libglib2
+          ./build-ghostty.sh
 
       - name: Lint .deb Package
         run: lintian ghostty_*.deb || true # Lintian shouldn't fail our build yet
