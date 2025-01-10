@@ -1,15 +1,16 @@
 ghostty (1.0.1-0~ppa3) DIST; urgency=low
 
-  * Fix a regression on 22.04 where we had an incorrect dependency on ligblib-2.0-0t64 instead of libglib2.0-0
+  * Fix a regression on 22.04 where we had an incorrect dependency on
+    ligblib-2.0-0t64 instead of libglib2.0-0
 
- -- Mike Kasberg <kasberg.mike@gmail.com>  Tue, 31 Dec 2024 14:45:00 -0700
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Thu, 09 Jan 2024 20:00:00 -0700
 
 ghostty (1.0.1-0~ppa2) DIST; urgency=low
 
   * Recognize Ghostty as an alternative for x-terminal-emulator
   * Fix zsh completion by installing it to vendor-completions
 
- -- Mike Kasberg <kasberg.mike@gmail.com>  Tue, 31 Dec 2024 14:45:00 -0700
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Wed, 08 Jan 2024 09:00:00 -0700
 
 ghostty (1.0.1-0~ppa1) DIST; urgency=low
 
