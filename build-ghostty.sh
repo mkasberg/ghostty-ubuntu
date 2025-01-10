@@ -53,9 +53,9 @@ gzip -n -9 zig-out/usr/share/doc/ghostty/changelog.Debian
 gzip -n -9 zig-out/usr/share/man/man1/ghostty.1
 gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
 
-## postinst and postrm are used by dpkg-deb; ensure they are executable
+## postinst and prerm are used by dpkg-deb; ensure they are executable
 chmod +x zig-out/DEBIAN/postinst
-chmod +x zig-out/DEBIAN/postrm
+chmod +x zig-out/DEBIAN/prerm
 
 # Package name changed after 22.04
 if [ "$UBUNTU_VERSION" = "22.04" ]; then
