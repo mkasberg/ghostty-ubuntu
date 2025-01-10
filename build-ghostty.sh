@@ -57,6 +57,11 @@ gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
 chmod +x zig-out/DEBIAN/postinst
 chmod +x zig-out/DEBIAN/postrm
 
+# Package name changed after 22.04
+if [ "$UBUNTU_VERSION" = "22.04" ]; then
+  sed -i "s/libglib2.0-0t64/libglib2.0-0/" zig-out/DEBIAN/control
+fi
+
 # Zsh looks for /usr/local/share/zsh/site-functions/
 # but looks for /usr/share/zsh/vendor-completions/
 # (note the difference when we're not in /usr/local).
