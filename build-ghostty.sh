@@ -8,7 +8,7 @@ UBUNTU_VERSION=$(lsb_release -sr)
 UBUNTU_DIST=$(lsb_release -sc)
 
 #FULL_VERSION="$GHOSTTY_VERSION-0~${UBUNTU_DIST}1"
-FULL_VERSION="$GHOSTTY_VERSION-0~ppa2"
+FULL_VERSION="$GHOSTTY_VERSION-0~ppa3"
 
 
 # Fetch Ghostty Source
@@ -68,4 +68,4 @@ fi
 mv zig-out/usr/share/zsh/site-functions zig-out/usr/share/zsh/vendor-completions
 
 dpkg-deb --build zig-out ghostty_${FULL_VERSION}_amd64.deb
-mv ghostty_${FULL_VERSION}_amd64.deb ../
+mv ghostty_${FULL_VERSION}_amd64.deb ../ghostty_${FULL_VERSION}_amd64_${UBUNTU_VERSION}.deb
