@@ -57,7 +57,10 @@ jobs:
 
       - name: Lint .deb Package
         # Lintian shouldn't fail our build yet
-        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }} lintian ghostty_*.deb || true 
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }} lintian ghostty_*.deb || true
+
+      - name: Test Installation
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }} dpkg -i ghostty_*.deb
         
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
