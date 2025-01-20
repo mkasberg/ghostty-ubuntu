@@ -4,10 +4,10 @@ set -e
 
 GHOSTTY_VERSION="1.0.1"
 
-UBUNTU_VERSION=$(lsb_release -sr)
-UBUNTU_DIST=$(lsb_release -sc)
+DISTRO_VERSION=$(lsb_release -sr)
+DISTRO=$(lsb_release -sc)
 
-#FULL_VERSION="$GHOSTTY_VERSION-0~${UBUNTU_DIST}1"
+#FULL_VERSION="$GHOSTTY_VERSION-0~${DISTRO}1"
 FULL_VERSION="$GHOSTTY_VERSION-0~ppa3"
 
 # Fetch Ghostty Source
@@ -45,7 +45,7 @@ cp -r ../DEBIAN/ ./zig-out/DEBIAN/
 mkdir -p ./zig-out/usr/share/doc/ghostty/
 cp ../copyright ./zig-out/usr/share/doc/ghostty/
 cp ../changelog.Debian ./zig-out/usr/share/doc/ghostty/
-sed -i "s/DIST/$UBUNTU_DIST/" zig-out/usr/share/doc/ghostty/changelog.Debian
+sed -i "s/DIST/$DISTRO/" zig-out/usr/share/doc/ghostty/changelog.Debian
 gzip -n -9 zig-out/usr/share/doc/ghostty/changelog.Debian
 
 # Compress manpages
@@ -56,8 +56,8 @@ gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
 chmod +x zig-out/DEBIAN/postinst
 chmod +x zig-out/DEBIAN/prerm
 
-# Package name changed after 22.04
-if [ "$UBUNTU_VERSION" = "22.04" ]; then
+# Package name changed after ubuntu 22.04
+if [ "$DISTRO" = "ubuntu" && "$DISTRO_VERSION" = "22.04" ]; then
   sed -i "s/libglib2.0-0t64/libglib2.0-0/" zig-out/DEBIAN/control
 fi
 
@@ -67,4 +67,4 @@ fi
 mv zig-out/usr/share/zsh/site-functions zig-out/usr/share/zsh/vendor-completions
 
 dpkg-deb --build zig-out ghostty_${FULL_VERSION}_amd64.deb
-mv ghostty_${FULL_VERSION}_amd64.deb ../ghostty_${FULL_VERSION}_amd64_${UBUNTU_VERSION}.deb
+mv ghostty_${FULL_VERSION}_amd64.deb ../ghostty_${FULL_VERSION}_amd64_${DISTRO_VERSION}.deb

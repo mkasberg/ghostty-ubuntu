@@ -1,5 +1,6 @@
-ARG UBUNTU_VERSION="24.10"
-FROM ubuntu:${UBUNTU_VERSION}
+ARG DISTRO_VERSION="24.10"
+ARG DISTRO="ubuntu"
+FROM ${DISTRO}:${DISTRO_VERSION}
 
 # Install Build Tools
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
