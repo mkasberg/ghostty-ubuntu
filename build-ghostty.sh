@@ -38,8 +38,16 @@ zig build \
   -Demit-docs \
   -Dversion-string=$GHOSTTY_VERSION
 
+UNAME_M="$(uname -m)"
+if [ "${UNAME_M}" = "x86_64" ]; then
+    DEBIAN_ARCH="amd64"
+elif [ "${UNAME_M}" = "aarch64" ]; then \
+    DEBIAN_ARCH="arm64"
+fi
+
 # Debian control files
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
+sed -i "s/amd64/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
 
 # Changelog and copyright
 mkdir -p ./zig-out/usr/share/doc/ghostty/
@@ -61,5 +69,5 @@ chmod +x zig-out/DEBIAN/prerm
 # (note the difference when we're not in /usr/local).
 mv zig-out/usr/share/zsh/site-functions zig-out/usr/share/zsh/vendor-completions
 
-dpkg-deb --build zig-out ghostty_${FULL_VERSION}_amd64.deb
-mv ghostty_${FULL_VERSION}_amd64.deb ../ghostty_${FULL_VERSION}_amd64_${DISTRO_VERSION}.deb
+dpkg-deb --build zig-out "ghostty_${FULL_VERSION}_${DEBIAN_ARCH}.deb"
+mv "ghostty_${FULL_VERSION}_${DEBIAN_ARCH}.deb" "../ghostty_${FULL_VERSION}_${DEBIAN_ARCH}_${DISTRO_VERSION}.deb"

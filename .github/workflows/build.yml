@@ -15,12 +15,24 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  # Repeated pushes to a PR will cancel all previous still running builds of the
+  # PR (for faster feedback), while multiple merges to main will not cancel.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
 jobs:
   build-ghostty:
     name: Build Ghostty
     strategy:
+      fail-fast: false
       matrix:
-        builds: 
+        arch:
+          - name: amd64
+            runner: ubuntu-24.04
+          - name: arm64
+            runner: ubuntu-24.04-arm
+        builds:
           - distro: "ubuntu"
             version: "22.04"
           - distro: "ubuntu"
@@ -29,7 +41,7 @@ jobs:
             version: "24.10"
           - distro: "debian"
             version: "bookworm"
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.arch.runner }}
     steps:
         # See the docs: https://github.com/docker/build-push-action
       - name: Set up Docker Buildx
@@ -40,7 +52,7 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v6
         with:
-          tags: ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}
+          tags: ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch.name }}
           build-args: |
             DISTRO=${{ matrix.builds.distro }}
             DISTRO_VERSION=${{ matrix.builds.version }}
@@ -53,19 +65,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Ghostty
-        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }} /bin/bash build-ghostty.sh
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch.name }} /bin/bash build-ghostty.sh
 
       - name: Lint .deb Package
         # Lintian shouldn't fail our build yet
-        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }} lintian ghostty_*.deb || true
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch.name }} lintian ghostty_*.deb || true
 
       - name: Test Installation
-        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }} dpkg -i ghostty_*.deb
-        
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch.name }} dpkg -i ghostty_*.deb
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.builds.distro }}-${{ matrix.builds.version }}
+          name: package-${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch.name }}
           retention-days: 7
           path: ghostty_*.deb
 
