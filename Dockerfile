@@ -3,8 +3,8 @@ ARG DISTRO="ubuntu"
 FROM ${DISTRO}:${DISTRO_VERSION}
 
 # Install Build Tools
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
-    apt-get -qq -y install \
+RUN apt-get -qq update && \
+    DEBIAN_FRONTEND="noninteractive" TZ="Etc/UTC" apt-get -qq -y install \
     build-essential \
     libbz2-dev \
     libonig-dev \
@@ -29,7 +29,7 @@ RUN wget -q "https://ziglang.org/download/$ZIG_VERSION/zig-linux-$(uname -m)-$ZI
     ln -s "/opt/zig-linux-$(uname -m)-$ZIG_VERSION/zig" /usr/local/bin/zig
 
 # Install Ghostty Dependencies
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
-    apt-get -qq -y install \
+RUN apt-get -qq update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get -qq -y install \
     libadwaita-1-dev \
     libgtk-4-dev
