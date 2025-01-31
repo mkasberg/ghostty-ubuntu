@@ -33,8 +33,9 @@ jobs:
           - name: arm64
             runner: ubuntu-24.04-arm
         builds:
-          - distro: "ubuntu"
-            version: "22.04"
+          # Build errors with Ghostty 1.1. Can put this back when we fix the errors.
+          # - distro: "ubuntu"
+          #   version: "22.04"
           - distro: "ubuntu"
             version: "24.04"
           - distro: "ubuntu"

@@ -22,7 +22,7 @@ tar -xzmf "ghostty-$GHOSTTY_VERSION.tar.gz"
 cd "ghostty-$GHOSTTY_VERSION"
 
 # On Ubuntu it's libbz2, not libbzip2
-sed -i 's/linkSystemLibrary2("bzip2", dynamic_link_opts)/linkSystemLibrary2("bz2", dynamic_link_opts)/' build.zig
+sed -i 's/linkSystemLibrary2("bzip2", dynamic_link_opts)/linkSystemLibrary2("bz2", dynamic_link_opts)/' src/build/SharedDeps.zig
 
 # Fetch Zig Cache
 ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
