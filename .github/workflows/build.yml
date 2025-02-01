@@ -28,9 +28,8 @@ jobs:
       fail-fast: false
       matrix:
         builds:
-          # Build errors with Ghostty 1.1. Can put this back when we fix the errors.
-          # - distro: "ubuntu"
-          #   version: "22.04"
+          - distro: "ubuntu"
+            version: "22.04"
           - distro: "ubuntu"
             version: "24.04"
           - distro: "ubuntu"
