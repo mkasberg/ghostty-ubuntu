@@ -40,6 +40,14 @@ cd "ghostty-$GHOSTTY_VERSION"
 # On Ubuntu it's libbz2, not libbzip2
 sed -i 's/linkSystemLibrary2("bzip2", dynamic_link_opts)/linkSystemLibrary2("bz2", dynamic_link_opts)/' src/build/SharedDeps.zig
 
+if [ $(lsb_release -sr) = "22.04" ]; then
+  # Patch for older versions of some libs on ubuntu 22.04
+  # Generated like this (from ghostty git source):
+  # git diff -u > ../ghostty-ubuntu/ubuntu_22.04.patch
+  echo "Patch for Ubuntu 22.04"
+  patch -p1 < ../ubuntu_22.04.patch
+fi
+
 echo "Fetch Zig Cache"
 ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
 
