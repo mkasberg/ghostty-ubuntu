@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "upgrade" ] || [ "$1" = "install" ]; then
+    # Add Ghostty diversion in terminfo
+    dpkg-divert --package ghostty --no-rename --add "/usr/share/terminfo/g/ghostty" 
+fi
+
+exit 0

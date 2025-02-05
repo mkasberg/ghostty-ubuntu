@@ -60,8 +60,9 @@ gzip -n -9 zig-out/usr/share/doc/ghostty/changelog.Debian
 gzip -n -9 zig-out/usr/share/man/man1/ghostty.1
 gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
 
-## postinst and prerm are used by dpkg-deb; ensure they are executable
+## postinst, preinst and prerm are used by dpkg-deb; ensure they are executable
 chmod +x zig-out/DEBIAN/postinst
+chmod +x zig-out/DEBIAN/preinst
 chmod +x zig-out/DEBIAN/prerm
 
 # Zsh looks for /usr/local/share/zsh/site-functions/
