@@ -70,11 +70,24 @@ issue or PR if you notice any problems!
 
 GitHub Actions will run CI on each PR to test that we can produce a build.
 
-If you want to test locally, you should be able to run
-[setup-env.sh](https://github.com/mkasberg/ghostty-ubuntu/blob/main/setup-env.sh)
-and
-[build-ghostty.sh](https://github.com/mkasberg/ghostty-ubuntu/blob/main/build-ghostty.sh)
-on your own Ubuntu system or in an Ubuntu Docker container.
+If you want to test locally, our current approach uses Docker for a build
+environment. The details of how the process works are in
+[build.yml](.github/workflows//build.yml), but at a high level you can build the
+docker image
+
+```bash
+docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=24.10 .
+```
+
+And then use that build environment to produce a binary .deb package
+
+```bash
+docker run --rm -v$PWD:/workspace -w /workspace ghostty-ubuntu:latest /bin/bash build-ghostty.sh
+```
+
+Alternatively, you can try running [build-ghostty.sh](build-ghostty.sh) on your
+own system, but you'll have to have all the build dependencies installed as in
+the [Dockerfile](Dockerfile).
 
 ## Roadmap
 
