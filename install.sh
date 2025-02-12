@@ -34,6 +34,20 @@ elif [ "$ID" = "debian" ]; then
     echo "This installer is not compatible with Debian $VERSION_CODENAME"
     exit 1
   fi
+  elif [ "$ID" = "kali" ]; then
+  # Map Kali versions to Debian codenames
+  declare -A KALI_TO_DEBIAN=(
+    ["2022"]="bullseye"
+    ["2023"]="bookworm"
+    ["2024"]="bookworm"
+  )
+  KALI_YEAR=$(echo "$VERSION_ID" | cut -d'.' -f1)
+  DEBIAN_CODENAME=${KALI_TO_DEBIAN[$KALI_YEAR]}
+  if [ -z "$DEBIAN_CODENAME" ]; then
+    echo "This installer is not compatible with Kali Linux $VERSION_ID"
+    exit 1
+  fi
+  SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
 elif [ "$ID" = "linuxmint" ]; then
   declare -A SUPPORTED_VERSIONS=(
     ["oracular"]="24.10"
