@@ -74,9 +74,11 @@ case "$ID" in
     echo "If this distribution is based on Ubuntu, you can open an issue to add support to the install script."
     echo "https://github.com/mkasberg/ghostty-ubuntu/issues/new?template=Blank+issue"
     echo ""
-    echo "Please run 'cat /etc/os-release' and include the output in the issue on GitHub."
+    echo "Please copy and paste the following information into the issue on GitHub to identify your distribution."
     echo ""
-    echo "In the mean time, you can try manually installing the correct .deb file."
+    cat /etc/os-release
+    echo ""
+    echo "In the mean time, you can try manually installing a .deb file from https://github.com/mkasberg/ghostty-ubuntu?tab=readme-ov-file#manual-installation"
     exit 1
     ;;
 esac
