@@ -4,7 +4,12 @@ set -e
 
 GHOSTTY_VERSION="1.1.2"
 
-DISTRO_VERSION=$(lsb_release -sr)
+# Use 24.10 format for ubuntu versions, "bookwork" format for Debian
+if [ $(lsb_release -si) = "Debian" ]; then
+  DISTRO_VERSION=$(lsb_release -sc)
+else
+  DISTRO_VERSION=$(lsb_release -sr)
+fi
 DISTRO=$(lsb_release -sc)
 
 #FULL_VERSION="$GHOSTTY_VERSION-0~${DISTRO}1"
