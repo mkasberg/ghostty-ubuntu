@@ -22,7 +22,7 @@ ARCH=$(dpkg --print-architecture)
 
 case "$ID" in
   ubuntu|pop)
-      if [[ "$VERSION_ID" =~ ^(24.10|24.04)$ ]]; then
+      if [[ "$VERSION_ID" =~ ^(24.10|24.04|22.04)$ ]]; then
       SUFFIX="${ARCH}_${VERSION_ID}"
     else
       echo "This installer is not compatible with Ubuntu $VERSION_ID"
@@ -58,6 +58,7 @@ case "$ID" in
     declare -A SUPPORTED_VERSIONS=(
       ["oracular"]="24.10"
       ["noble"]="24.04"
+      ["jammy"]="22.04"
     )
 
     if [[ -n "${SUPPORTED_VERSIONS[$UBUNTU_CODENAME]}" ]]; then

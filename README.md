@@ -36,11 +36,11 @@ If you prefer to download and install the package manually instead of running th
 1. Download the .deb package for your Ubuntu version. (Also available on our [Releases](https://github.com/mkasberg/ghostty-ubuntu/releases) page.)
    - **Ubuntu 24.10 Oracular:** [ghostty_1.1.2-0.ppa1_amd64_24.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_amd64_24.10.deb)
    - **Ubuntu 24.04 LTS Noble:** [ghostty_1.1.2-0.ppa1_amd64_24.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_amd64_24.04.deb)
-   - **Ubuntu 22.04 LTS Jammy:** (1.1 delayed) [ghostty_1.0.1-0.ppa4_amd64_22.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.0.1-0-ppa4/ghostty_1.0.1-0.ppa4_amd64_22.04.deb)
+   - **Ubuntu 22.04 LTS Jammy:** [ghostty_1.1.2-0.ppa1_amd64_22.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_amd64_22.04.deb)
    - **Debian Bookworm:** [ghostty_1.1.2-0.ppa1_amd64_bookworm.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_amd64_bookworm.deb)
    - **Arm64 Ubuntu 24.10 Oracular:** [ghostty_1.1.2-0.ppa1_arm64_24.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_arm64_24.10.deb)
    - **Arm64 Ubuntu 24.04 LTS Noble:** [ghostty_1.1.2-0.ppa1_arm64_24.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_arm64_24.04.deb)
-   - **Arm64 Ubuntu 22.04 LTS Jammy:** (1.1 delayed) [ghostty_1.0.1-0.ppa4_arm64_22.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.0.1-0-ppa4/ghostty_1.0.1-0.ppa4_arm64_22.04.deb)
+   - **Arm64 Ubuntu 22.04 LTS Jammy:** [ghostty_1.1.2-0.ppa1_arm64_22.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_arm64_22.04.deb)
    - **Arm64 Debian Bookworm:** [ghostty_1.1.2-0.ppa1_arm64_bookworm.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.1.2-0-ppa1/ghostty_1.1.2-0.ppa1_arm64_bookworm.deb)
 2. Install the downloaded .deb package.
 
