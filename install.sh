@@ -54,7 +54,7 @@ case "$ID" in
     SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
     ;;
 
-  linuxmint)
+  linuxmint|zorin)
     declare -A SUPPORTED_VERSIONS=(
       ["oracular"]="24.10"
       ["noble"]="24.04"
@@ -64,7 +64,7 @@ case "$ID" in
     if [[ -n "${SUPPORTED_VERSIONS[$UBUNTU_CODENAME]}" ]]; then
       SUFFIX="${ARCH}_${SUPPORTED_VERSIONS[$UBUNTU_CODENAME]}"
     else
-      echo "This installer is not compatible with Linux Mint $VERSION"
+      echo "This installer is not compatible with $ID $VERSION"
       exit 1
     fi
     ;;
