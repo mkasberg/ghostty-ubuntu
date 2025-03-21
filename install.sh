@@ -21,7 +21,7 @@ source /etc/os-release
 ARCH=$(dpkg --print-architecture)
 
 case "$ID" in
-  ubuntu|pop|tuxedo)
+  ubuntu|pop|tuxedo|neon)
       if [[ "$VERSION_ID" =~ ^(24.10|24.04|22.04)$ ]]; then
       SUFFIX="${ARCH}_${VERSION_ID}"
     else
