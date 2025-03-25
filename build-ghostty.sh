@@ -2,7 +2,7 @@
 
 set -e
 
-GHOSTTY_VERSION="1.1.2"
+GHOSTTY_VERSION="1.1.3"
 
 # Use 24.10 format for ubuntu versions, "bookwork" format for Debian
 if [ $(lsb_release -si) = "Debian" ]; then

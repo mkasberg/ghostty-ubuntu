@@ -1,3 +1,10 @@
+ghostty (1.1.3-0~ppa1) DIST; urgency=low
+
+  * Update to Ghostty 1.1.3
+  * https://ghostty.org/docs/install/release-notes/1-1-3
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Fri, 24 Mar 2025 19:00:00 -0700
+
 ghostty (1.1.2-0~ppa1) DIST; urgency=low
 
   * Update to Ghostty 1.1.2
@@ -5,7 +12,7 @@ ghostty (1.1.2-0~ppa1) DIST; urgency=low
   * Install minisign with apt-get for better build integrity (#70)
   * https://ghostty.org/docs/install/release-notes/1-1-2
 
- -- Mike Kasberg <kasberg.mike@gmail.com>  Fri, 31 Jan 2025 07:00:00 -0700
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Fri, 15 Feb 2025 07:00:00 -0700
 
 ghostty (1.1.0-0~ppa1) DIST; urgency=low
 
