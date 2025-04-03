@@ -22,16 +22,25 @@ ARCH=$(dpkg --print-architecture)
 
 case "$ID" in
   ubuntu|pop|tuxedo|neon)
-      if [[ "$VERSION_ID" =~ ^(24.10|24.04|22.04)$ ]]; then
+    if [[ "$VERSION_ID" =~ ^(24.10|24.04|22.04)$ ]]; then
       SUFFIX="${ARCH}_${VERSION_ID}"
     else
       echo "This installer is not compatible with Ubuntu $VERSION_ID"
       exit 1
     fi
     ;;
+  
+  elementary)
+    if [[ "$UBUNTU_VERSION_ID" =~ ^(24.10|24.04|22.04)$ ]]; then
+      SUFFIX="${ARCH}_${UBUNTU_VERSION_ID}"
+    else
+      echo "This installer is not compatible with Ubuntu $UBUNTU_VERSION_ID"
+      exit 1
+    fi
+    ;;
 
   debian)
-      if [ "$VERSION_CODENAME" = "bookworm" ]; then
+    if [ "$VERSION_CODENAME" = "bookworm" ]; then
       SUFFIX="${ARCH}_${VERSION_CODENAME}"
     else
       echo "This installer is not compatible with Debian $VERSION_CODENAME"
@@ -70,16 +79,20 @@ case "$ID" in
     ;;
 
   *)
-    echo "This install script is not compatible with $ID."
-    echo "If this distribution is based on Ubuntu, you can open an issue to add support to the install script."
-    echo "https://github.com/mkasberg/ghostty-ubuntu/issues/new?template=Blank+issue"
-    echo ""
-    echo "Please copy and paste the following information into the issue on GitHub to identify your distribution."
-    echo ""
-    cat /etc/os-release
-    echo ""
-    echo "In the mean time, you can try manually installing a .deb file from https://github.com/mkasberg/ghostty-ubuntu?tab=readme-ov-file#manual-installation"
-    exit 1
+    if [[ "$UBUNTU_VERSION_ID" =~ ^(24.10|24.04|22.04)$ ]]; then
+      SUFFIX="${ARCH}_${UBUNTU_VERSION_ID}"
+    else
+      echo "This install script is not compatible with $ID."
+      echo "If this distribution is based on Ubuntu, you can open an issue to add support to the install script."
+      echo "https://github.com/mkasberg/ghostty-ubuntu/issues/new?template=Blank+issue"
+      echo ""
+      echo "Please copy and paste the following information into the issue on GitHub to identify your distribution."
+      echo ""
+      cat /etc/os-release
+      echo ""
+      echo "In the mean time, you can try manually installing a .deb file from https://github.com/mkasberg/ghostty-ubuntu?tab=readme-ov-file#manual-installation"
+      exit 1
+    fi
     ;;
 esac
 
