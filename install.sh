@@ -64,14 +64,9 @@ case "$ID" in
     ;;
 
   linuxmint|zorin)
-    if [ "$ID_LIKE" = "debian" ]; then
+    if [ "$DEBIAN_CODENAME" = "bookworm" ]; then
       # Handle LMDE (Linux Mint Debian Edition)
-      if [ "$DEBIAN_CODENAME" = "bookworm" ]; then
-        SUFFIX="${ARCH}_${VERSION_CODENAME}"
-      else
-        echo "This installer is not compatible with LMDE $VERSION_CODENAME"
-        exit 1
-      fi
+      SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
     else
       declare -A SUPPORTED_VERSIONS=(
         ["oracular"]="24.10"
