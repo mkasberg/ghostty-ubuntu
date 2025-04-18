@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Mike Kasberg <kasberg.mike@gmail.com>
 Homepage: https://ghostty.org/
 Package: ghostty
-Version: 1.1.3-0~ppa1
+Version: 1.1.3-0~ppa2
 Architecture: amd64
 Depends: libadwaita-1-0, libc6, libfontconfig1, libfreetype6, libglib2.0-0t64 | libglib2.0-0, libgtk-4-1, libharfbuzz0b, libonig5, libx11-6
 Provides: x-terminal-emulator
