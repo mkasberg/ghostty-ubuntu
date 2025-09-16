@@ -1,5 +1,5 @@
 diff --git a/pkg/freetype/face.zig b/pkg/freetype/face.zig
-index eea3c685..f57f9af0 100644
+index 84178b860..9f872fcc2 100644
 --- a/pkg/freetype/face.zig
 +++ b/pkg/freetype/face.zig
 @@ -33,8 +33,8 @@ pub const Face = struct {
@@ -49,18 +49,3 @@ index d63a481b..69cd2d51 100644
      .{ Error.InvalidPosixBracketType, c.ONIGERR_INVALID_POSIX_BRACKET_TYPE },
      .{ Error.InvalidLookBehindPattern, c.ONIGERR_INVALID_LOOK_BEHIND_PATTERN },
      .{ Error.InvalidRepeatRangePattern, c.ONIGERR_INVALID_REPEAT_RANGE_PATTERN },
-diff --git a/src/font/face/freetype.zig b/src/font/face/freetype.zig
-index b56e9469..ba85b973 100644
---- a/src/font/face/freetype.zig
-+++ b/src/font/face/freetype.zig
-@@ -284,10 +284,6 @@ pub const Face = struct {
-             .color = self.face.hasColor(),
-         }) catch return false;
- 
--        // If the glyph is SVG we assume colorized
--        const glyph = self.face.handle.*.glyph;
--        if (glyph.*.format == freetype.c.FT_GLYPH_FORMAT_SVG) return true;
--
-         return false;
-     }
- 
