@@ -33,7 +33,7 @@ jobs:
           - distro: "ubuntu"
             version: "25.04"
           - distro: "debian"
-            version: "bookworm"
+            version: "trixie"
         arch: [amd64, arm64]
         include:
           - arch: amd64
