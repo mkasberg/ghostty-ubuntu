@@ -40,7 +40,7 @@ case "$ID" in
     ;;
 
   debian)
-    if [ "$VERSION_CODENAME" = "bookworm" ]; then
+    if [ "$VERSION_CODENAME" = "trixie" ]; then
       SUFFIX="${ARCH}_${VERSION_CODENAME}"
     else
       echo "This installer is not compatible with Debian $VERSION_CODENAME"
@@ -51,8 +51,7 @@ case "$ID" in
   kali)
     # Map Kali versions to Debian codenames
     declare -A KALI_TO_DEBIAN=(
-      ["2023"]="bookworm"
-      ["2024"]="bookworm"
+      ["2025"]="trixie"
     )
     KALI_YEAR=$(echo "$VERSION_ID" | cut -d'.' -f1)
     DEBIAN_CODENAME=${KALI_TO_DEBIAN[$KALI_YEAR]}
@@ -64,7 +63,7 @@ case "$ID" in
     ;;
 
   linuxmint|zorin)
-    if [ "$DEBIAN_CODENAME" = "bookworm" ]; then
+    if [ "$DEBIAN_CODENAME" = "trixie" ]; then
       # Handle LMDE (Linux Mint Debian Edition)
       SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
     else
