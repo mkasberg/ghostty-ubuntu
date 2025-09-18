@@ -40,9 +40,9 @@ else
   BUILD_ARGS="-fno-sys=gtk4-layer-shell"
 fi
 
-zig build \
+DESTDIR=zig-out zig build \
   --summary all \
-  --prefix ./zig-out/usr \
+  --prefix /usr \
   --system /tmp/offline-cache/p \
   -Doptimize=ReleaseFast \
   -Dcpu=baseline \
