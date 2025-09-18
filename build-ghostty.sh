@@ -62,6 +62,9 @@ fi
 # Debian control files
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
 sed -i "s/amd64/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
+if [ "$DISTRO_VERSION" = "25.04" ]; then
+  sed -i "s/Depends:/Depends: libgtk4-layer-shell0,/g" ./zig-out/DEBIAN/control
+fi
 
 # Changelog and copyright
 mkdir -p ./zig-out/usr/share/doc/ghostty/
