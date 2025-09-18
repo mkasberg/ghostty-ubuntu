@@ -1,3 +1,10 @@
+ghostty (1.2.0-0~ppa2) DIST; urgency=low
+
+  * Fix a bug with config files containing an incorrect zig-out prefix
+  * Declare dependency on libgtk4-layer-shell0 on Ubuntu 25.04+
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Wed, 17 Sep 2025 21:30:00 -0600
+
 ghostty (1.2.0-0~ppa1) DIST; urgency=low
 
   * Update to Ghostty 1.2.0
