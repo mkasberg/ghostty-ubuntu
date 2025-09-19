@@ -119,5 +119,5 @@ if [[ $EUID -ne 0 ]]; then
 else
   SUDO=""
 fi
-$SUDO dpkg -i "$GHOSTTY_DEB_FILE"
+$SUDO apt-get install -y ./"$GHOSTTY_DEB_FILE"
 rm "$GHOSTTY_DEB_FILE"
