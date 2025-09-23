@@ -14,7 +14,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
     libonig-dev \
     lintian \
     lsb-release \
-    minisign \
     pandoc \
     wget \
     # Ghostty Dependencies
@@ -29,6 +28,9 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
     fi && \
     # Clean up for better caching
     rm -rf /var/lib/apt/lists/*
+
+ADD install-minisign.sh .
+RUN bash install-minisign.sh
 
 # Install zig
 # https://ziglang.org/download/
