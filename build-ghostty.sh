@@ -13,7 +13,7 @@ fi
 DISTRO=$(lsb_release -sc)
 
 #FULL_VERSION="$GHOSTTY_VERSION-0~${DISTRO}1"
-FULL_VERSION="$GHOSTTY_VERSION-0~ppa2"
+FULL_VERSION="$GHOSTTY_VERSION-0~ppa3"
 
 echo "Fetch Ghostty Source"
 wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz"
@@ -34,7 +34,7 @@ ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
 
 echo "Build Ghostty with zig"
 # Set build args based on distro version
-if [ "$DISTRO_VERSION" = "25.04" ]; then
+if [ "$DISTRO_VERSION" = "25.04" ] || [ "$DISTRO_VERSION" = "25.10" ]; then
   BUILD_ARGS=""
 else
   BUILD_ARGS="-fno-sys=gtk4-layer-shell"
@@ -62,7 +62,7 @@ fi
 # Debian control files
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
 sed -i "s/amd64/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
-if [ "$DISTRO_VERSION" = "25.04" ]; then
+if [ "$DISTRO_VERSION" = "25.04" ] || [ "$DISTRO_VERSION" = "25.10" ]; then
   sed -i "s/Depends:/Depends: libgtk4-layer-shell0,/g" ./zig-out/DEBIAN/control
 fi
 
