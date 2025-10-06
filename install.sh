@@ -68,7 +68,7 @@ case "$ID" in
       SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
     else
       declare -A SUPPORTED_VERSIONS=(
-        ["oracular"]="25.10"
+        ["questing"]="25.10"
         ["plucky"]="25.04"
         ["noble"]="24.04"
       )
