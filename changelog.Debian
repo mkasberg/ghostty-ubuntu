@@ -1,3 +1,11 @@
+ghostty (1.2.1-0~ppa1) DIST; urgency=low
+
+  * Add support for Ubuntu 25.10
+  * Updage to Ghostty 1.2.1
+  * https://ghostty.org/docs/install/release-notes/1-2-1
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Mon, 06 Oct 2025 21:30:00 -0700
+
 ghostty (1.2.0-0~ppa2) DIST; urgency=low
 
   * Fix a bug with config files containing an incorrect zig-out prefix
