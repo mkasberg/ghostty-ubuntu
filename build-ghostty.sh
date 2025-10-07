@@ -13,7 +13,7 @@ fi
 DISTRO=$(lsb_release -sc)
 
 #FULL_VERSION="$GHOSTTY_VERSION-0~${DISTRO}1"
-FULL_VERSION="$GHOSTTY_VERSION-0~ppa3"
+FULL_VERSION="$GHOSTTY_VERSION-0~ppa1"
 
 echo "Fetch Ghostty Source"
 wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz"
