@@ -1,7 +1,14 @@
+ghostty (1.2.2-0~ppa1) DIST; urgency=low
+
+  * Update to Ghostty 1.2.2
+  * https://ghostty.org/docs/install/release-notes/1-2-2
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Thu, 09 Oct 2025 21:00:00 -0600
+
 ghostty (1.2.1-0~ppa1) DIST; urgency=low
 
   * Add support for Ubuntu 25.10
-  * Updage to Ghostty 1.2.1
+  * Update to Ghostty 1.2.1
   * https://ghostty.org/docs/install/release-notes/1-2-1
 
  -- Mike Kasberg <kasberg.mike@gmail.com>  Mon, 06 Oct 2025 21:30:00 -0700
