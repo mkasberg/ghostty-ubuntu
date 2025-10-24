@@ -12,8 +12,7 @@ else
 fi
 DISTRO=$(lsb_release -sc)
 
-#FULL_VERSION="$GHOSTTY_VERSION-0~${DISTRO}1"
-FULL_VERSION="$GHOSTTY_VERSION-0~ppa1"
+DEBIAN_VERSION="$GHOSTTY_VERSION-0~ppa1"
 
 echo "Fetch Ghostty Source"
 wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz"
@@ -61,7 +60,8 @@ fi
 
 # Debian control files
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
-sed -i "s/amd64/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
+sed -i "s/DEBIAN_ARCH/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
+sed -i "s/DEBIAN_VERSION/$DEBIAN_VERSION/g" ./zig-out/DEBIAN/control
 if [ "$DISTRO_VERSION" = "25.04" ] || [ "$DISTRO_VERSION" = "25.10" ]; then
   sed -i "s/Depends:/Depends: libgtk4-layer-shell0,/g" ./zig-out/DEBIAN/control
 fi
@@ -88,5 +88,5 @@ chmod +x zig-out/DEBIAN/prerm
 mv zig-out/usr/share/zsh/site-functions zig-out/usr/share/zsh/vendor-completions
 
 echo "Build Debian Package"
-dpkg-deb --build zig-out "ghostty_${FULL_VERSION}_${DEBIAN_ARCH}.deb"
-mv "ghostty_${FULL_VERSION}_${DEBIAN_ARCH}.deb" "../ghostty_${FULL_VERSION}_${DEBIAN_ARCH}_${DISTRO_VERSION}.deb"
+dpkg-deb --build zig-out "ghostty_${DEBIAN_VERSION}_${DEBIAN_ARCH}.deb"
+mv "ghostty_${DEBIAN_VERSION}_${DEBIAN_ARCH}.deb" "../ghostty_${DEBIAN_VERSION}_${DEBIAN_ARCH}_${DISTRO_VERSION}.deb"
