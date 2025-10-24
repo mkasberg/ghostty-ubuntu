@@ -1,3 +1,10 @@
+ghostty (1.2.3-0~ppa1) DIST; urgency=low
+
+  * Update to Ghostty 1.2.3
+  * https://ghostty.org/docs/install/release-notes/1-2-3
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Thu, 23 Oct 2025 20:40:00 -0700
+
 ghostty (1.2.2-0~ppa1) DIST; urgency=low
 
   * Update to Ghostty 1.2.2
