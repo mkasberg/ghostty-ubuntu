@@ -2,7 +2,13 @@
 
 set -e
 
+# https://ghostty.org/docs/install/build
 GHOSTTY_VERSION="1.2.3"
+
+DEBIAN_SUFFIX="0~ppa1"
+SOURCE_FILENAME="ghostty-$GHOSTTY_VERSION"
+SOURCE_URL="https://release.files.ghostty.org/$GHOSTTY_VERSION/$SOURCE_FILENAME.tar.gz"
+MINISIG_URL="$SOURCE_URL.minisig"
 
 # Use 25.04 format for ubuntu versions, "bookwork" format for Debian
 if [ $(lsb_release -si) = "Debian" ]; then
@@ -12,18 +18,17 @@ else
 fi
 DISTRO=$(lsb_release -sc)
 
-DEBIAN_VERSION="$GHOSTTY_VERSION-0~ppa1"
-
 echo "Fetch Ghostty Source"
-wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz"
-wget -q "https://release.files.ghostty.org/$GHOSTTY_VERSION/ghostty-$GHOSTTY_VERSION.tar.gz.minisig"
+wget -q "$SOURCE_URL"
+wget -q "$MINISIG_URL"
 
-minisign -Vm "ghostty-$GHOSTTY_VERSION.tar.gz" -P RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV
-rm ghostty-$GHOSTTY_VERSION.tar.gz.minisig
+minisign -Vm "$SOURCE_FILENAME.tar.gz" -P RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV
+rm "$SOURCE_FILENAME.tar.gz.minisig"
 
-tar -xzmf "ghostty-$GHOSTTY_VERSION.tar.gz"
+tar -xzmf "$SOURCE_FILENAME.tar.gz"
 
-cd "ghostty-$GHOSTTY_VERSION"
+cd "$SOURCE_FILENAME"
+
 
 # On Ubuntu it's libbz2, not libbzip2
 sed -i 's/linkSystemLibrary2("bzip2", dynamic_link_opts)/linkSystemLibrary2("bz2", dynamic_link_opts)/' src/build/SharedDeps.zig
@@ -57,6 +62,8 @@ if [ "${UNAME_M}" = "x86_64" ]; then
 elif [ "${UNAME_M}" = "aarch64" ]; then \
     DEBIAN_ARCH="arm64"
 fi
+
+DEBIAN_VERSION="$GHOSTTY_VERSION-$DEBIAN_SUFFIX"
 
 # Debian control files
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
