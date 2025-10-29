@@ -5,10 +5,18 @@ set -e
 # https://ghostty.org/docs/install/build
 GHOSTTY_VERSION="1.2.3"
 
-DEBIAN_SUFFIX="0~ppa1"
-SOURCE_FILENAME="ghostty-$GHOSTTY_VERSION"
-SOURCE_URL="https://release.files.ghostty.org/$GHOSTTY_VERSION/$SOURCE_FILENAME.tar.gz"
-MINISIG_URL="$SOURCE_URL.minisig"
+if [ "$1" == "tip" ]; then
+  DEBIAN_SUFFIX="0~nightly"
+  SOURCE_FILENAME="ghostty-source"
+  SOURCE_URL="https://github.com/ghostty-org/ghostty/releases/download/tip/$SOURCE_FILENAME.tar.gz"
+  MINISIG_URL="$SOURCE_URL.minisig"
+else
+  DEBIAN_SUFFIX="0~ppa1"
+  SOURCE_FILENAME="ghostty-$GHOSTTY_VERSION"
+  SOURCE_URL="https://release.files.ghostty.org/$GHOSTTY_VERSION/$SOURCE_FILENAME.tar.gz"
+  MINISIG_URL="$SOURCE_URL.minisig"
+fi
+
 
 # Use 25.04 format for ubuntu versions, "bookwork" format for Debian
 if [ $(lsb_release -si) = "Debian" ]; then
@@ -27,8 +35,11 @@ rm "$SOURCE_FILENAME.tar.gz.minisig"
 
 tar -xzmf "$SOURCE_FILENAME.tar.gz"
 
-cd "$SOURCE_FILENAME"
+cd ghostty-*/
 
+if [ "$1" == "tip" ]; then
+  GHOSTTY_VERSION=$(cat VERSION)
+fi
 
 # On Ubuntu it's libbz2, not libbzip2
 sed -i 's/linkSystemLibrary2("bzip2", dynamic_link_opts)/linkSystemLibrary2("bz2", dynamic_link_opts)/' src/build/SharedDeps.zig
@@ -63,7 +74,8 @@ elif [ "${UNAME_M}" = "aarch64" ]; then \
     DEBIAN_ARCH="arm64"
 fi
 
-DEBIAN_VERSION="$GHOSTTY_VERSION-$DEBIAN_SUFFIX"
+CLEAN_GHOSTTY_VERSION=$(echo "$GHOSTTY_VERSION" | sed "s/-/+/g")
+DEBIAN_VERSION="$CLEAN_GHOSTTY_VERSION-$DEBIAN_SUFFIX"
 
 # Debian control files
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
