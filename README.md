@@ -28,7 +28,7 @@ install on Ubuntu. If you're looking for the Ghostty source code, see
 If you prefer to download and install the package manually instead of running the short script above, here are instructions.
 
 1. Download the .deb package for your Ubuntu version. (Also available on our [Releases](https://github.com/mkasberg/ghostty-ubuntu/releases) page.)
-   - **Ubuntu 25.10 Plucky:** [ghostty_1.2.3-0.ppa1_amd64_25.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_25.10.deb)
+   - **Ubuntu 25.10 Questing:** [ghostty_1.2.3-0.ppa1_amd64_25.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_25.10.deb)
    - **Ubuntu 25.04 Plucky:** [ghostty_1.2.3-0.ppa1_amd64_25.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_25.04.deb)
    - **Ubuntu 24.04 LTS Noble:** [ghostty_1.2.3-0.ppa1_amd64_24.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_24.04.deb)
    - **Debian Trixie:** [ghostty_1.2.3-0.ppa1_amd64_trixie.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_trixie.deb)
