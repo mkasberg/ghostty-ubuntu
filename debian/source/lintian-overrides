@@ -1,0 +1,1 @@
+zig source: source-contains-prebuilt-wasm-binary [stage1/zig1.wasm]

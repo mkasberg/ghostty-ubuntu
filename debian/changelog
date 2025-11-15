@@ -1,0 +1,5 @@
+zig (0.14.1~0-ppa1) stable; urgency=medium
+
+  * Initial PPA release
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Fri, 14 Nov 2025 20:00:00 -0700
