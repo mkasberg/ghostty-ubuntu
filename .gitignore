@@ -1,0 +1,10 @@
+# Use `uscan --repack -v` to get orig sources.
+*.tar.xz
+
+# Ignore Build Output
+*.dsc
+*.changes
+*.build
+*.buildinfo
+*.upload
+zig/debian/files
