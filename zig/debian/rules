@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-VERSION=0.14
+VERSION=0.15
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
 export ZIG_GLOBAL_CACHE_DIR=/tmp/zig-cache

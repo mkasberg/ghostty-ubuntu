@@ -1,3 +1,9 @@
+zig (0.15.2~us1-ppa1) questing; urgency=medium
+
+  * Zig 0.15.2 for PPA
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Sun, 23 Nov 2025 20:34:00 -0700
+
 zig (0.14.1~us1-ppa3) questing; urgency=medium
 
   * PPA release ppa3, fixing some build issues
