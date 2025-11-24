@@ -1,2 +1,2 @@
-usr/lib/zig/* /usr/lib/zig0.14/lib
-usr/share/doc/zig0.14 usr/share/doc
+usr/lib/zig/* /usr/lib/zig/lib
+usr/share/doc/zig usr/share/doc

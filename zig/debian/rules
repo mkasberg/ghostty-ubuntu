@@ -27,7 +27,7 @@ override_dh_auto_install:
 	dh_auto_install
 
 	# dh_shlibdeps fails to get dependency information for /usr/lib/llvm-20/lib/libLLVM.so.20.1
-	# llvm-20-dev is explicitly added as a runtime dependency of zig0.14
+	# llvm-20-dev is explicitly added as a runtime dependency of zig
 	chrpath -d debian/tmp/usr/bin/zig
 
 override_dh_auto_test:
