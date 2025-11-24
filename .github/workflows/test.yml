@@ -1,0 +1,21 @@
+name: Test Build
+
+on:
+  pull_request:
+    branches:
+      - ppa
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y devscripts
+      - name: Build zig0.15
+        run: |
+          cd zig0.15
+          uscan --repack -v
+          debuild -S -sa
