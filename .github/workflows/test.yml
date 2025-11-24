@@ -1,4 +1,4 @@
-name: Test Build
+name: Run Tests
 
 on:
   pull_request:
@@ -7,15 +7,20 @@ on:
 
 jobs:
   build:
+    name: Test Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y devscripts
+          sudo apt-get install -y devscripts build-essential
+          cd zig0.15
+          sudo apt-get build-dep -y .
+
       - name: Build zig0.15
         run: |
           cd zig0.15
           uscan --repack -v
-          debuild -S -sa
+          debuild -S -sa -us -uc
