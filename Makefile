@@ -5,4 +5,4 @@ clean:
 	cd zig0.15 && dh_clean
 
 	# Clean up package files from the root directory.
-	rm *.build *.buildinfo *.changes *.dsc *.tar.xz *.upload
+	rm -f *.build *.buildinfo *.changes *.dsc *.tar.xz *.upload
