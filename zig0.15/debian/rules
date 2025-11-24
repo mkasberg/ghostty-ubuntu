@@ -20,15 +20,18 @@ export BBASE:=obj-$(DEB_HOST_MULTIARCH)/stage3
 
 # make a man page and move the docs to usr/share/doc
 override_dh_auto_install:
-	help2man -s 1 -N -n "zig compiler and build tool" -v version $(BBASE)/bin/zig -o zig.1
-	mkdir -p debian/tmp/usr/share/doc/zig
-	mv $(BBASE)/lib/zig/docs/* debian/tmp/usr/share/doc/zig/
+	help2man -s 1 -N -n "zig compiler and build tool" -v version $(BBASE)/bin/zig -o zig$(VERSION).1
+	mkdir -p debian/tmp/usr/share/doc/zig$(VERSION)
+	mv $(BBASE)/lib/zig/docs/* debian/tmp/usr/share/doc/zig$(VERSION)/
 	rmdir $(BBASE)/lib/zig/docs
 	dh_auto_install
 
 	# dh_shlibdeps fails to get dependency information for /usr/lib/llvm-20/lib/libLLVM.so.20.1
-	# llvm-20-dev is explicitly added as a runtime dependency of zig
+	# llvm-20-dev is explicitly added as a runtime dependency of zig0.15
 	chrpath -d debian/tmp/usr/bin/zig
+
+	# Create symlink /usr/bin/zig0.15
+	ln -s ../lib/zig0.15/bin/zig debian/tmp/usr/bin/zig0.15
 
 override_dh_auto_test:
 	$(BBASE)/bin/zig test test/behavior.zig

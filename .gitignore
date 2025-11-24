@@ -7,4 +7,4 @@
 *.build
 *.buildinfo
 *.upload
-zig/debian/files
+zig0.15/debian/files
