@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+GHOSTTY_VERSION ?= $(shell dpkg-parsechangelog -S version)
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	zig build \
+		--summary all \
+		--prefix /usr \
+		-Doptimize=ReleaseFast \
+		-Dcpu=baseline \
+		-Dpie=true \
+		-Demit-docs \
+		-Dversion-string=$(GHOSTTY_VERSION)
+
+override_dh_auto_install:
+	dh_auto_install

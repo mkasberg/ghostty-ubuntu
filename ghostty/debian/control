@@ -1,0 +1,34 @@
+Source: ghostty
+Section: utils
+Priority: optional
+Maintainer: Mike Kasberg <kasberg.mike@gmail.com>
+Homepage: https://ghostty.org/
+Standards-Version: 4.6.2
+Build-Depends: debhelper-compat (= 13), 
+               pandoc,
+               pkg-config,
+               libadwaita-1-dev,
+               libgtk-4-dev,
+               libgtk4-layer-shell-dev,
+               libxml2-utils,
+               zig0.15
+
+Package: ghostty
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libadwaita-1-0,
+         libc6,
+         libfontconfig1,
+         libfreetype6,
+         libglib2.0-0t64 | libglib2.0-0,
+         libgtk-4-1,
+         libgtk4-layer-shell0,
+         libharfbuzz0b,
+         libonig5,
+         libx11-6
+Provides: x-terminal-emulator
+Description: Fast, feature-rich, and cross-platform terminal emulator
+ Ghostty is a terminal emulator that differentiates itself by being fast,
+ feature-rich, and native. While there are many excellent terminal emulators
+ available, they all force you to choose between speed, features, or native
+ UIs. Ghostty provides all three.
