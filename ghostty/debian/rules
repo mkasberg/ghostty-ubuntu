@@ -7,9 +7,11 @@ GHOSTTY_VERSION ?= $(shell dpkg-parsechangelog -S version)
 	dh $@
 
 override_dh_auto_build:
-	zig build \
+	zig0.15 build \
 		--summary all \
 		--prefix /usr \
+		--system vendor-zig-cache/p \
+		--global-cache-dir zig-cache \
 		-Doptimize=ReleaseFast \
 		-Dcpu=baseline \
 		-Dpie=true \
