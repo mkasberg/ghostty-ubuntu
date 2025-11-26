@@ -1,3 +1,6 @@
-version=4
-opts="pgpsigurlmangle=s/$/.minisig/, sigtype=minisig" \
-  https://release.files.ghostty.org/ (["d.]+)/ghostty-(["d.]+)\.tar\.gz
+Version: 5
+Source: https://github.com/ghostty-org/ghostty/tags
+Matching-Pattern: https://github.com/ghostty-org/ghostty/releases/tag/@ANY_VERSION@
+Download-Url-Mangle: s|https://github.com/ghostty-org/ghostty/releases/tag/@ANY_VERSION@|https://release.files.ghostty.org/$1/ghostty-$1.tar.gz|
+Filename-Mangle: s|https://github.com/ghostty-org/ghostty/releases/tag/@ANY_VERSION@|ghostty-$1.tar.gz|
+Pgp-Mode: none
