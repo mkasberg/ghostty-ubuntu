@@ -1,3 +1,9 @@
+ghostty (1.2.3+nightly20251127~vendor1-0~ppa4) questing; urgency=medium
+
+  * Fix install dest.
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Thu, 27 Nov 2025 13:00:00 -0700
+
 ghostty (1.2.3+nightly20251127~vendor1-0~ppa3) questing; urgency=medium
 
   * Fix build deps.

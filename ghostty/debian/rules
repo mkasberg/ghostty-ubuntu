@@ -6,8 +6,8 @@ GHOSTTY_VERSION ?= $(shell cat VERSION | sed 's/main+/ubuntu-nightly-/g')
 %:
 	dh $@
 
-override_dh_auto_build:
-	zig0.15 build \
+override_dh_auto_install:
+	DESTDIR=$(CURDIR)/debian/ghostty zig0.15 build \
 		--summary all \
 		--prefix /usr \
 		--system vendor-zig-cache/p \
@@ -17,6 +17,3 @@ override_dh_auto_build:
 		-Dpie=true \
 		-Demit-docs \
 		-Dversion-string=$(GHOSTTY_VERSION)
-
-override_dh_auto_install:
-	dh_auto_install
