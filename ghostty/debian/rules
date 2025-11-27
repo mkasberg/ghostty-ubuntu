@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-GHOSTTY_VERSION ?= $(shell dpkg-parsechangelog -S version)
+GHOSTTY_VERSION ?= $(shell cat VERSION | sed 's/main+/ubuntu-nightly-/g')
 
 %:
 	dh $@

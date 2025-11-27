@@ -8,8 +8,10 @@ Build-Depends: debhelper-compat (= 13),
                pandoc,
                pkg-config,
                libadwaita-1-dev,
+               libbz2-dev,
                libgtk-4-dev,
                libgtk4-layer-shell-dev,
+               libonig-dev,
                libxml2-utils,
                zig0.15
 
