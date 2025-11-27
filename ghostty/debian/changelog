@@ -1,4 +1,10 @@
-ghostty (1.2.3~vendor1-0~ppa5) questing; urgency=medium
+ghostty (1.2.3+nightly20251127~vendor1-0~ppa1) questing; urgency=medium
+
+  * Nightly build.
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Mon, 26 Nov 2025 14:20:00 -0700
+
+hostty (1.2.3~vendor1-0~ppa5) questing; urgency=medium
 
   * Fix build process.
 
