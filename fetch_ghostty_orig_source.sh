@@ -49,11 +49,12 @@ echo "Fetching zig cache..."
 ZIG_GLOBAL_CACHE_DIR="${GHOSTTY_DIR}/vendor-zig-cache" "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.exe' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.dll' -delete
+find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.chm' -delete
 
 echo "Repacking ghostty source..."
 tar -czf "${REPACK_TARBALL}" "${GHOSTTY_DIR}"
 
 echo "Cleaning up..."
-rm -rf "${GHOSTTY_DIR}"
+#rm -rf "${GHOSTTY_DIR}"
 
 echo "Successfully created ${REPACK_TARBALL}"

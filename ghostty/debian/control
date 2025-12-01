@@ -6,7 +6,7 @@ Homepage: https://ghostty.org/
 Standards-Version: 4.6.2
 Build-Depends: debhelper-compat (= 13), 
                pandoc,
-               pkg-config,
+               pkgconf,
                libadwaita-1-dev,
                libbz2-dev,
                libgtk-4-dev,
