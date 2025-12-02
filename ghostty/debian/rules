@@ -17,3 +17,6 @@ override_dh_auto_install:
 		-Dpie=true \
 		-Demit-docs \
 		-Dversion-string=$(GHOSTTY_VERSION)
+
+override_dh_install:
+	dh_install --sourcedir=debian/ghostty
