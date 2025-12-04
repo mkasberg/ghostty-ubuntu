@@ -1,1 +1,4 @@
-x-terminal-emulator /usr/bin/x-terminal-emulator /usr/bin/ghostty 50
+Name: x-terminal-emulator
+Link: /usr/bin/x-terminal-emulator
+Alternative: /usr/bin/ghostty
+Priority: 50
