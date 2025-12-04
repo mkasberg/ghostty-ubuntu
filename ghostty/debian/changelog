@@ -1,3 +1,9 @@
+ghostty (1.2.3+nightly20251204~vendor1-0~ppa1) questing; urgency=medium
+
+  * Fix debian build sourcedir.
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Wed, 03 Dec 2025 18:30:00 -0700
+
 ghostty (1.2.3+nightly20251201~vendor1-0~ppa1) questing; urgency=medium
 
   * Fix install dest.
