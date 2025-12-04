@@ -55,6 +55,6 @@ echo "Repacking ghostty source..."
 tar -czf "${REPACK_TARBALL}" "${GHOSTTY_DIR}"
 
 echo "Cleaning up..."
-#rm -rf "${GHOSTTY_DIR}"
+rm -rf "${GHOSTTY_DIR}"
 
 echo "Successfully created ${REPACK_TARBALL}"
