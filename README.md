@@ -11,7 +11,7 @@ A recent version of zig is needed to build ghostty.
 
 ## Ghostty
 
-    ./fetch_ghostty_orig_source.sh 1.2.3  # Or any version
+    ./fetch-ghostty-orig-source.sh 1.2.3  # Or any version
     cd ghostty
     debuild -S -sa
     dput ppa:mkasberg/ghostty-ubuntu ../ghostty_*_source.changes

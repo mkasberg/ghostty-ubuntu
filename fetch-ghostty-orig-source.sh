@@ -5,15 +5,23 @@
 # This is a custom script because we need to vendor some dependencies in
 # order to build in PPA.
 #
-# Usage: ./fetch_ghostty_orig_source.sh 1.2.3
+# Usage: ./fetch-ghostty-orig-source.sh [version]
+#   version: defaults to 'tip'
 
 set -e
 
-VERSION=$1
-if [ -z "$VERSION" ]; then
-  echo "Usage: $0 <version>"
-  exit 1
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    echo "Usage: $0 [version]"
+    echo "  version: defaults to 'tip'"
+    echo "  Examples:"
+    echo "    $0 tip"
+    echo "    $0 1.2.3"
+    echo ""
+    echo "Creates the .orig.tar.gz for ghostty with vendored dependencies."
+    exit 0
 fi
+
+VERSION=${1:-tip}
 
 
 REPACK_SUFFIX="~vendor1"
