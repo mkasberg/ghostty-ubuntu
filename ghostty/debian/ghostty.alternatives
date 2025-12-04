@@ -1,1 +1,1 @@
-x-terminal-emulator /usr/bin/ghostty 50
+x-terminal-emulator /usr/bin/x-terminal-emulator /usr/bin/ghostty 50
