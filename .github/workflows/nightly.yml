@@ -39,12 +39,18 @@ jobs:
           # Import GPG private key
           echo "${{ secrets.PPA_GPG_PRIVATE_KEY }}" | gpg --import --batch --no-tty
           
-          # Configure GPG for non-interactive signing
+          # Configure GPG agent for non-interactive signing
           cat > ~/.gnupg/gpg-agent.conf << 'EOF'
           allow-loopback-pinentry
-          pinentry-mode loopback
           EOF
           chmod 600 ~/.gnupg/gpg-agent.conf
+          
+          # Configure GPG for non-interactive signing
+          cat > ~/.gnupg/gpg.conf << 'EOF'
+          pinentry-mode loopback
+          EOF
+          chmod 600 ~/.gnupg/gpg.conf
+          
           gpgconf --kill gpg-agent
           gpgconf --launch gpg-agent
 
