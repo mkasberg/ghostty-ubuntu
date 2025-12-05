@@ -17,11 +17,9 @@ fi
 
 VERSION=${1:-tip}
 PPA="ppa:mkasberg/ghostty-ubuntu"
-DATE=$(date -u +"%Y%m%d")
 TIMESTAMP=$(date -u -R)
 
 echo "Building Ghostty nightly for version: $VERSION"
-echo "Date: $DATE (UTC)"
 echo "PPA: $PPA"
 
 # Fetch the source and create .orig.tar.gz
@@ -30,58 +28,21 @@ echo "Fetching Ghostty source..."
 
 # Determine the base version and PPA number
 if [[ "$VERSION" == "tip" ]]; then
+    PACKAGE_NAME="ghostty-nightly"
     # Find the REPACK_TARBALL created by fetch-ghostty-orig-source.sh
-    REPACK_TARBALL=$(ls ghostty_*+nightly${DATE}~vendor1.orig.tar.gz 2>/dev/null | head -n1)
+    REPACK_TARBALL=$(ls ghostty-nightly_*+nightly*~ppa1.orig.tar.gz 2>/dev/null | head -n1)
     if [ -z "$REPACK_TARBALL" ]; then
         echo "Error: Could not find repackaged tarball for tip build"
         exit 1
     fi
-    # Extract BASE_VERSION from REPACK_TARBALL filename
-    BASE_VERSION=$(echo "$REPACK_TARBALL" | sed -n 's/^ghostty_\([^)]*\)\.orig\.tar\.gz$/\1/p')
+    # Extract FULL_VERSION from REPACK_TARBALL filename
+    FULL_VERSION=$(echo "$REPACK_TARBALL" | sed -n 's/^ghostty-nightly_\([^)]*\)\.orig\.tar\.gz$/\1/p')
 else
-    BASE_VERSION="${VERSION}~vendor1"
-    REPACK_TARBALL="ghostty_${VERSION}~vendor1.orig.tar.gz"
+    PACKAGE_NAME="ghostty"
+    FULL_VERSION="${VERSION}~ppa1"
+    REPACK_TARBALL="ghostty_${VERSION}~ppa1.orig.tar.gz"
 fi
 
-# Parse changelog to find the latest entry and determine PPA number
-CHANGELOG_FILE="ghostty/debian/changelog"
-if [ -f "$CHANGELOG_FILE" ]; then
-    # Get the latest version from changelog
-    LATEST_VERSION=$(head -n1 "$CHANGELOG_FILE" | sed -n 's/ghostty (\([^)]*\)).*/\1/p')
-    
-    if [[ "$LATEST_VERSION" =~ ^${BASE_VERSION}-0~ppa([0-9]+)$ ]]; then
-        LATEST_PPA=${BASH_REMATCH[1]}
-        # Extract date from latest version to check if it's the same day
-        if [[ "$LATEST_VERSION" =~ \+nightly([0-9]{8})~vendor1-0~ppa([0-9]+)$ ]]; then
-            LATEST_DATE=${BASH_REMATCH[1]}
-            LATEST_PPA_NUM=${BASH_REMATCH[2]}
-            
-            if [[ "$LATEST_DATE" == "$DATE" ]]; then
-                # Same date, increment PPA number
-                PPA_NUM=$((LATEST_PPA_NUM + 1))
-                echo "Same date as latest build ($LATEST_DATE), incrementing PPA number to: $PPA_NUM"
-            else
-                # Different date, reset to PPA1
-                PPA_NUM=1
-                echo "Different date from latest build ($LATEST_DATE vs $DATE), resetting PPA number to: $PPA_NUM"
-            fi
-        else
-            # Fallback: couldn't parse date, start with PPA1
-            PPA_NUM=1
-            echo "Couldn't parse date from latest version, starting with PPA number: $PPA_NUM"
-        fi
-    else
-        # No matching version found, start with PPA1
-        PPA_NUM=1
-        echo "No matching version found in changelog, starting with PPA number: $PPA_NUM"
-    fi
-else
-    # No changelog found, start with PPA1
-    PPA_NUM=1
-    echo "No changelog found, starting with PPA number: $PPA_NUM"
-fi
-
-FULL_VERSION="${BASE_VERSION}-0~ppa${PPA_NUM}"
 echo "Full version: $FULL_VERSION"
 
 # Create temporary build directory
@@ -99,13 +60,13 @@ cp "${REPACK_TARBALL}" "$BUILD_DIR/"
 
 # Copy Debian packaging to temp directory
 echo "Copying Debian packaging..."
-cp -r ghostty/debian "$BUILD_DIR/$UPSTREAM_DIR/"
+cp -r "$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
 
 # Update changelog in temp directory
 CHANGELOG_FILE="$BUILD_DIR/$UPSTREAM_DIR/debian/changelog"
 echo "Updating changelog..."
 cat > "$CHANGELOG_FILE" << EOF
-ghostty ($FULL_VERSION) questing; urgency=medium
+${PACKAGE_NAME} ($FULL_VERSION) questing; urgency=medium
 
   * Nightly build.
 
@@ -125,12 +86,12 @@ cd -  # return to original directory
 
 # Move results to current directory and cleanup
 echo "Moving build results and cleaning up..."
-mv "$BUILD_DIR"/ghostty_* ./
+mv "$BUILD_DIR"/${PACKAGE_NAME}_* ./
 rm -rf "$BUILD_DIR"
 
 # Upload to PPA
 echo "Uploading to PPA..."
-dput "$PPA" ghostty_*_source.changes
+dput "$PPA" ${PACKAGE_NAME}_*_source.changes
 
 echo "Nightly build completed successfully!"
 echo "Version: $FULL_VERSION"

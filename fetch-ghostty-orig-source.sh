@@ -23,14 +23,15 @@ fi
 
 VERSION=${1:-tip}
 
-
-REPACK_SUFFIX="~vendor1"
+REPACK_SUFFIX="~ppa1"
 GHOSTTY_PUBKEY="RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV"
 if [[ "$VERSION" == "tip" ]]; then
+  PACKAGE_NAME="ghostty-nightly"
   GHOSTTY_TARBALL="ghostty-source.tar.gz"
   REPACK_TARBALL=""
   TARBALL_URL="https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-source.tar.gz"
 else
+  PACKAGE_NAME="ghostty"
   GHOSTTY_TARBALL="ghostty-${VERSION}.tar.gz"
   GHOSTTY_DIR="ghostty-${VERSION}"
   REPACK_TARBALL="ghostty_${VERSION}${REPACK_SUFFIX}.orig.tar.gz"
@@ -64,9 +65,9 @@ echo "Repacking ghostty source..."
 if [ -z "$REPACK_TARBALL" ]; then
   # Extract version from GHOSTTY_DIR name like "ghostty-1.3.0-main+1207240"
   EXTRACTED_VERSION=$(echo "$GHOSTTY_DIR" | sed -n 's/^ghostty-\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/p')
-  DATE=$(date -u +"%Y%m%d")
+  DATE=$(date -u +"%Y%m%dT%H%M")
   if [ -n "$EXTRACTED_VERSION" ]; then
-    REPACK_TARBALL="ghostty_${EXTRACTED_VERSION}+nightly${DATE}${REPACK_SUFFIX}.orig.tar.gz"
+    REPACK_TARBALL="ghostty-nightly_${EXTRACTED_VERSION}+nightly${DATE}${REPACK_SUFFIX}.orig.tar.gz"
   else
     echo "Error: Could not extract version from GHOSTTY_DIR: $GHOSTTY_DIR"
     exit 1
