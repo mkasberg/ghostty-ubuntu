@@ -31,8 +31,10 @@ echo "Fetching Ghostty source..."
 # Determine the base version and PPA number
 if [[ "$VERSION" == "tip" ]]; then
     BASE_VERSION="1.2.3+nightly${DATE}~vendor1"
+    REPACK_TARBALL="ghostty_1.2.3+nightly${DATE}~vendor1.orig.tar.gz"
 else
     BASE_VERSION="${VERSION}~vendor1"
+    REPACK_TARBALL="ghostty_${VERSION}~vendor1.orig.tar.gz"
 fi
 
 # Parse changelog to find the latest entry and determine PPA number
@@ -76,7 +78,25 @@ fi
 FULL_VERSION="${BASE_VERSION}-0~ppa${PPA_NUM}"
 echo "Full version: $FULL_VERSION"
 
-# Update changelog
+# Create temporary build directory
+BUILD_DIR=$(mktemp -d)
+echo "Using temporary build directory: $BUILD_DIR"
+
+# Extract upstream source to temp directory
+echo "Extracting upstream source..."
+tar -xzf "${REPACK_TARBALL}" -C "$BUILD_DIR"
+UPSTREAM_DIR=$(basename "$BUILD_DIR"/*)
+
+# Copy the upstream tarball to where dpkg-source expects it
+echo "Copying upstream tarball for dpkg-source..."
+cp "${REPACK_TARBALL}" "$BUILD_DIR/"
+
+# Copy Debian packaging to temp directory
+echo "Copying Debian packaging..."
+cp -r ghostty/debian "$BUILD_DIR/$UPSTREAM_DIR/"
+
+# Update changelog in temp directory
+CHANGELOG_FILE="$BUILD_DIR/$UPSTREAM_DIR/debian/changelog"
 echo "Updating changelog..."
 cat > "$CHANGELOG_FILE" << EOF
 ghostty ($FULL_VERSION) questing; urgency=medium
@@ -91,14 +111,20 @@ EOF
 echo "Updated changelog:"
 head -n5 "$CHANGELOG_FILE"
 
-# Build the source package
+# Build the source package in temp directory
 echo "Building source package..."
-cd ghostty
+cd "$BUILD_DIR/$UPSTREAM_DIR"
 debuild -S -sa
+cd -  # return to original directory
+
+# Move results to current directory and cleanup
+echo "Moving build results and cleaning up..."
+mv "$BUILD_DIR"/ghostty_* ./
+rm -rf "$BUILD_DIR"
 
 # Upload to PPA
 echo "Uploading to PPA..."
-dput "$PPA" ../ghostty_*_source.changes
+dput "$PPA" ghostty_*_source.changes
 
 echo "Nightly build completed successfully!"
 echo "Version: $FULL_VERSION"
