@@ -29,7 +29,7 @@ GHOSTTY_PUBKEY="RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV"
 if [[ "$VERSION" == "tip" ]]; then
   DATE=$(date -u +"%Y%m%d")
   GHOSTTY_TARBALL="ghostty-source.tar.gz"
-  REPACK_TARBALL="ghostty_1.2.3+nightly${DATE}${REPACK_SUFFIX}.orig.tar.gz"
+  REPACK_TARBALL=""
   TARBALL_URL="https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-source.tar.gz"
 else
   GHOSTTY_TARBALL="ghostty-${VERSION}.tar.gz"
@@ -61,6 +61,17 @@ find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.dll' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.chm' -delete
 
 echo "Repacking ghostty source..."
+# If REPACK_TARBALL is not set (tip builds), extract version from GHOSTTY_DIR
+if [ -z "$REPACK_TARBALL" ]; then
+  # Extract version from GHOSTTY_DIR name like "ghostty-1.3.0-main+1207240"
+  EXTRACTED_VERSION=$(echo "$GHOSTTY_DIR" | sed -n 's/^ghostty-\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/p')
+  if [ -n "$EXTRACTED_VERSION" ]; then
+    REPACK_TARBALL="ghostty_${EXTRACTED_VERSION}+nightly${DATE}${REPACK_SUFFIX}.orig.tar.gz"
+  else
+    echo "Error: Could not extract version from GHOSTTY_DIR: $GHOSTTY_DIR"
+    exit 1
+  fi
+fi
 tar -czf "${REPACK_TARBALL}" "${GHOSTTY_DIR}"
 
 echo "Cleaning up..."
