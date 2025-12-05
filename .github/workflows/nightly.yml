@@ -22,6 +22,12 @@ jobs:
       - name: Checkout packaging repository
         uses: actions/checkout@v4
 
+      - name: Add Ghostty PPA
+        run: |
+          apt-get update
+          apt-get install -y software-properties-common
+          add-apt-repository -y ppa:mkasberg/ghostty-ubuntu
+
       - name: Install system dependencies
         run: |
           apt-get update
