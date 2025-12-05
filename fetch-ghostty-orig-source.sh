@@ -54,6 +54,7 @@ fi
 tar -xzf "${GHOSTTY_TARBALL}"
 
 echo "Fetching zig cache..."
+sed -i 's/zig fetch/zig0.15 fetch/g' "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
 ZIG_GLOBAL_CACHE_DIR="${GHOSTTY_DIR}/vendor-zig-cache" "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.exe' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.dll' -delete
