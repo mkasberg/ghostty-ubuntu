@@ -5,11 +5,6 @@ on:
     # Run daily at midnight UTC
     - cron: '0 0 * * *'
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to build (default: tip)'
-        required: false
-        default: 'tip'
 
 jobs:
   build:
@@ -75,8 +70,7 @@ jobs:
           fi
           
           # Run the build script
-          VERSION="${{ github.event.inputs.version || 'tip' }}"
-          ./build-ghostty.sh "$VERSION"
+          ./build-ghostty.sh "1.2.3"
         env:
           DEBEMAIL: "kasberg.mike@gmail.com"
           DEBFULLNAME: "Mike Kasberg"
