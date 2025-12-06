@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Automated nightly build script for Ghostty PPA
+# Automated build script for Ghostty PPA
 #
-# Usage: ./build-nightly.sh [version]
+# Usage: ./build-ghostty.sh [version]
 #   version: defaults to "tip"
 #
 
@@ -19,7 +19,7 @@ VERSION=${1:-tip}
 PPA="ppa:mkasberg/ghostty-ubuntu"
 TIMESTAMP=$(date -u -R)
 
-echo "Building Ghostty nightly for version: $VERSION"
+echo "Building Ghostty for version: $VERSION"
 echo "PPA: $PPA"
 
 # Fetch the source and create .orig.tar.gz
