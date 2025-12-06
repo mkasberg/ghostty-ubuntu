@@ -1,4 +1,4 @@
-name: Build Ghostty Tip
+name: Build Ghostty Tip (Binary)
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build-ghostty:
-    name: Build Ghostty Tip
+    name: Build Ghostty Tip Binary Package
     strategy:
       fail-fast: false
       matrix:
@@ -49,6 +49,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           tags: ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ matrix.zig_version }}
+          context: "{{defaultContext}}:build-binary"
           build-args: |
             DISTRO=${{ matrix.builds.distro }}
             DISTRO_VERSION=${{ matrix.builds.version }}
@@ -62,7 +63,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Ghostty
-        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ matrix.zig_version }} /bin/bash build-ghostty.sh tip
+        run: |
+          docker run --rm -v$PWD/build-binary:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ matrix.zig_version }} /bin/bash build-ghostty.sh tip
+          mv ./build-binary/ghsotty_*.deb ./
 
       - name: Lint .deb Package
         # Lintian shouldn't fail our build yet
