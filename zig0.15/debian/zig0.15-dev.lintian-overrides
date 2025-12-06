@@ -1,8 +1,0 @@
-# U+00B1 used for denoting +/- INF
-zig0.15-dev: national-encoding
-
-# ignore
-zig0.15-dev: repeated-path-segment
-
-# false flag for name Brower
-zig0.15-dev: spelling-error-in-copyright

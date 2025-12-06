@@ -14,21 +14,22 @@ fi
 
 PPA="ppa:mkasberg/ghostty-ubuntu"
 TIMESTAMP=$(date -u -R)
-PACKAGE_NAME=zig0.15
-VERSION="0.15.2"
+PACKAGE_NAME=zig0.14
+VERSION="0.14.1"
+PPA_SUFFIX=ppa1
 
 echo "Building Zig for version: $VERSION"
 echo "PPA: $PPA"
 
 # Fetch the source and create .orig.tar.xz
 echo "Fetching Zig source..."
-cd zig0.15
+cd zig0.14
 uscan --repack -v
 cd -
 
 # Determine the base version and PPA number
-FULL_VERSION="${VERSION}~us1-ppa3"
-REPACK_TARBALL="zig0.15_${VERSION}~us1.orig.tar.xz"
+FULL_VERSION="${VERSION}~us1-${PPA_SUFFIX}"
+REPACK_TARBALL="zig0.14_${VERSION}~us1.orig.tar.xz"
 
 echo "Full version: $FULL_VERSION"
 

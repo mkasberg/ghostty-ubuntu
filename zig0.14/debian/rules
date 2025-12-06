@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-VERSION=0.15
+VERSION=0.14
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
 export ZIG_GLOBAL_CACHE_DIR=/tmp/zig-cache
@@ -27,11 +27,11 @@ override_dh_auto_install:
 	dh_auto_install
 
 	# dh_shlibdeps fails to get dependency information for /usr/lib/llvm-20/lib/libLLVM.so.20.1
-	# llvm-20-dev is explicitly added as a runtime dependency of zig0.15
+	# llvm-20-dev is explicitly added as a runtime dependency of zig0.14
 	chrpath -d debian/tmp/usr/bin/zig
 
-	# Create symlink /usr/bin/zig0.15
-	ln -s ../lib/zig0.15/bin/zig debian/tmp/usr/bin/zig0.15
+	# Create symlink /usr/bin/zig0.14
+	ln -s ../lib/zig0.14/bin/zig debian/tmp/usr/bin/zig0.14
 
 override_dh_auto_test:
 	$(BBASE)/bin/zig test test/behavior.zig

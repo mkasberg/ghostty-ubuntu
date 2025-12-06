@@ -9,6 +9,6 @@ Ghostty packaging has two variants:
 
 Both packages conflict with each other to prevent simultaneous installation.
 
-Zig packaging source is at `zig0.15/debian`. We also have some non-standard scripts at the root of this
+Zig packaging source is at `zig0.14/debian`. We also have some non-standard scripts at the root of this
 repository.
 

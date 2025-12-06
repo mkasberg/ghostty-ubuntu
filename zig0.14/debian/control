@@ -1,4 +1,4 @@
-Source: zig0.15
+Source: zig0.14
 Priority: optional
 Maintainer: Mike Kasberg <kasberg.mike@gmail.com>
 Build-Depends: chrpath,
@@ -22,12 +22,12 @@ Section: devel
 Rules-Requires-Root: no
 Homepage: https://ziglang.org/
 
-Package: zig0.15
+Package: zig0.14
 Architecture: amd64 arm64
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         zig0.15-dev (= ${source:Version}),
+         zig0.14-dev (= ${source:Version}),
 # FIXME why aren't these getting picked up by dpkg-shlibdeps?
          llvm-20-dev,
          libbsd0,
@@ -44,7 +44,7 @@ Description: General-purpose imperative language
  .
  This package contains the binary for Zig.
 
-Package: zig0.15-dev
+Package: zig0.14-dev
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},

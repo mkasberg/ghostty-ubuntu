@@ -26,7 +26,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y git devscripts build-essential debhelper wget minisign dput gnupg equivs
-          apt-get build-dep -y ./zig0.15
+          apt-get build-dep -y ./zig0.14
 
       - name: Set up GPG signing
         run: |

@@ -2,7 +2,7 @@
 
 clean:
 	# Clean debian build artifacts for zig.
-	cd zig0.15 && dh_clean
+	cd zig0.14 && dh_clean
 	# Clean debian build artifacts for ghostty.
 	cd ghostty && dh_clean
 	# Clean debian build artifacts for ghostty-nightly.
