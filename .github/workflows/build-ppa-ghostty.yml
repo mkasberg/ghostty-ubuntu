@@ -12,8 +12,8 @@ on:
         default: 'tip'
 
 jobs:
-  nightly-build:
-    name: Build and Upload Nightly
+  ghostty-build:
+    name: Build and Upload Ghostty
     runs-on: ubuntu-latest
     container:
       image: ubuntu:25.10
@@ -21,8 +21,6 @@ jobs:
     steps:
       - name: Checkout packaging repository
         uses: actions/checkout@v4
-        with:
-          ref: ppa
 
       - name: Add Ghostty PPA
         run: |
@@ -34,7 +32,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y git devscripts build-essential debhelper wget minisign dput gnupg equivs
-          apt-get build-dep -y ./ghostty
+          apt-get build-dep -y ./build-ppa/ghostty-nightly
 
       - name: Set up GPG signing
         run: |
@@ -68,7 +66,7 @@ jobs:
           allow_unsigned_uploads = 0
           EOF
 
-      - name: Run nightly build
+      - name: Run ghostty build
         run: |
           # Set GPG passphrase if provided
           if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then
@@ -78,7 +76,7 @@ jobs:
           
           # Run the build script
           VERSION="${{ github.event.inputs.version || 'tip' }}"
-          ./build-nightly.sh "$VERSION"
+          .build-ppa/build-ghostty.sh "$VERSION"
         env:
           DEBEMAIL: "kasberg.mike@gmail.com"
           DEBFULLNAME: "Mike Kasberg"

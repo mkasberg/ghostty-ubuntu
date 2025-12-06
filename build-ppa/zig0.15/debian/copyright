@@ -1,0 +1,1026 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: zig
+Upstream-Contact: Andrew Kelley <andrew@ziglang.org>
+Source: https://ziglang.org/
+# The following files contain vendored content, or are prebuilt binaries,
+# or are non-free, and are thus excluded from the Debianized tarball.
+Files-Excluded: lib/include lib/std/compress/testdata/rfc8478.txt lib/tsan
+
+Files: *
+Copyright: 2015-2025 Zig contributors
+License: Expat
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ "Software"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+ .
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# It's not strictly necessary, but common practice makes the Debian packaging
+# author explicit with its own stanza.
+Files: debian/*
+Copyright: 2025 nick black <dank@debian.org>
+           2024 Nick Hastings <nicholaschastings@gmail.com>
+License: Expat
+
+Files: lib/*
+Copyright: 1996, ACN S.A
+           2018-2020, ANSSI
+           2017-2018, ARM Limited
+           2012-2021, ARM Ltd
+           1995, Adrian M. Rodriguez <adrian@remus.rutgers.edu>
+           2016-2017, Advanced Micro Devices, Inc
+           1999, Al Smith
+           2020, Alexander Aring <alex.aring@gmail.com>
+           2018-2021, Amazon.com, Inc. or its affiliates
+           2003-2004, Andi Kleen SuSE Labs
+           2001, Andreas Gruenbacher <a.gruenbacher@computer.org>
+           2003, Andreas Gruenbacher <agruen@suse.de>
+           2014-2021, Andrew Kelley
+           1998, Apple Computer
+           1998-2021, Apple Computer, Inc
+           1994-2020, Apple Inc
+           2000-2017, Apple, Inc
+           2017-2019, Arm Ltd
+           Avi Kivity <avi@qumranet.com>
+           B.A.T.M.A.N. contributors:
+           2014-2020, Broadcom
+           2018, Canonical Ltd
+           1986-1999, Carnegie Mellon University
+           1997, Carsten Paeth <calle@calle.de>
+           1997, Carsten Paeth <calle@calle.in-berlin.de>
+           2013, Cavium, Inc
+           2009-2010, Chelsio, Inc
+           2019, Christoph Hellwig
+           2005-2006, Cisco Systems
+           2007, Cisco Systems, Inc
+           2016, Cisco Systems, Inc. and/or its affiliates
+           2007, Cluster File Systems, Inc
+           2021, Code Construct
+           2019, Collabora ltd
+           1993, Daniel Boulet and RTMX Inc
+           2015, Dave Penkler <dpenkler@gmail.com>
+           1992, David Giller <rafetmad@oxy.edu>
+           1999, David Jeffery
+           1994-1997, David S. Miller <davem@caip.rutgers.edu>
+           1995-2007, David S. Miller <davem@davemloft.net>
+           1996-2001, David S. Miller <davem@redhat.com>
+           2004-2010, David Woodhouse <dwmw2@infradead.org>
+           1996, David van Leeuwen <david@tm.tno.nl>
+           2007, Davide Libenzi <davidel@xmailserver.org>
+           2017, Dell, Inc
+           1994, Drew Eckhardt
+           2008, EMC Corporation
+           1994-1995, Eberhard Mönkeberg <emoenke@gwdg.de>
+           1998, Eddie C. Dost <ecd@skynet.be>
+           2012-2015, Emulex
+           2000-2001, Eric Brower <ebrower@usa.net>
+           1997-1998, Erik Andersen <andersee@debian.org>
+           FSRTL_WILD_CHARACTER
+           2016-2018, Facebook
+           1998-1999, Frodo Looijaard <frodol@dds.nl>
+           1995-2003, Geert Uytterhoeven
+           2021, Glider bv
+           2021, Google
+           2019, Google LLC
+           2011-2012, Google, Inc
+           1998, Grant R. Guenther <grant@torque.net>
+           1992, Greg Harp
+           2008, Greg Kroah-Hartman <gregkh@suse.de>
+           2016-2020, HabanaLabs, Ltd
+           2019, Hangzhou C-SKY Microsystems co.,ltd
+           1993-1997, Hannu Savolainen
+           1996-1998, Hans Reiser, see reiserfs/README for licensing
+           2000-2002, Harald Welte <laforge@gnumonks.org>
+           2005, Harald Welte <laforge@netfilter.org>
+           2005, Henk Vergonet <Henk.Vergonet@gmail.com>
+           1999, Hewlett-Packard Co
+           2016, Hisilicon Limited
+           2020, IBM
+           1999-2021, IBM Corp
+           2008-2019, IBM Corporation
+           1998, INESC
+           2018, IVI Foundation, Inc
+           2005-2018, Ian Kent <raven@themaw.net>
+           2014, Imagination Technologies Ltd
+           2002, Intel <eli.kupermann@intel.com>
+           2015, Intel Corp
+           2003-2021, Intel Corporation
+           2017-2018, Intel Corporation, Inc
+           2019, Intel Corporation. rsvd
+           2016-2017, Intel Deutschland GmbH
+           2013-2015, Intel Mobile Communications GmbH
+           1997, Jakub Jelinek <jj@sunsite.mff.cuni.cz>
+           2006-2008, James Smart, Emulex Corporation
+           2020, Jan (janneke) Nieuwenhuizen <janneke@gnu.org>
+           2015-2019, Jason A. Donenfeld <Jason@zx2c4.com>
+           2001, Jay Schulist <jschlst@samba.org>
+           1997-2007, Jean Tourrilhes
+           2001, Jeff Garzik <jgarzik@pobox.com>
+           2019, Jens Axboe
+           1998-2002, Jens Axboe <axboe@suse.de>
+           1999-2000, Jeremy Fitzhardinge <jeremy@goop.org>
+           2007, Jiri Kosina
+           2005, John McCutchan
+           1999-2005, Krzysztof Halasa <khc@pm.waw.pl>
+           1996, L. Peter Deutsch
+           2009-2010, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+           2009, Laurent Pinchart <laurent.pinchart@skynet.be>
+           2014-2019, Linaro Ltd
+           2001-2012, MIPS Technologies, Inc
+           2001, Marc Boucher <marc@mbsi.ca>
+           1995-1997, Marco van Wieringen - ELM Consultancy B.V
+           1997-1999, Martin Mares <mj@ucw.cz>
+           2015-2018, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+           2020-2021, Maximilian Luz <luzmaximilian@gmail.com>
+           2006-2017, Mellanox Technologies
+           2016-2020, Mellanox Technologies Ltd
+           2017-2018, Mellanox Technologies inc
+           2016, Mellanox Technologies, LTD
+           1992, Michael K. Johnson
+           2017-2020, Mickaël Salaün <mic@digikod.net>
+           1998-2000, Microgate Corporation
+           2017, Microsemi Corporation
+           2011, Microsoft Corporation
+           1996, Miguel de Icaza
+           2002, MontaVista Software Inc
+           2012-2020, NVIDIA Corporation
+           2020-2021, NXP
+           1992-1995, NeXT Computer, Inc
+           2019, Netronome Systems, Inc
+           2007-2017, Nicira, Inc
+           2008, Nokia Corporation
+           2008-2010, Novell, Inc
+           1995-1997, Olaf Kirch <okir@monad.swb.de>
+           2005, Open Grid Computing, Inc
+           2020-2021, OpenSynergy GmbH
+           2017, Oracle
+           2006-2017, Oracle Corporation
+           2008-2018, Oracle and/or its affiliates
+           2011-2014, PLUMgrid, http://plumgrid.com
+           2005, PathScale, Inc
+           1996-1998, Paul Mackerras
+           1999, Paul `Rusty' Russell & Michael J. Neuling
+           Pavel Machek <pavel@ucw.cz.>
+           2001-2004, Peter Osterlund <petero2@telia.com>
+           2015-2016, QLogic Corporation
+           2017-2018, Qiang Yu <yuq825@gmail.com>
+           2020, Qualcomm Innovation Center, Inc
+           2006, Qumranet
+           1994-2006, Ralf Baechle
+           1994-2002, Ralf Baechle <ralf@gnu.org>
+           1995-2014, Ralf Baechle <ralf@linux-mips.org>
+           2000-2001, Ralph Metzler <ralph@convergence.de>
+           2000-2002, Red Hat
+           2010, Red Hat Inc
+           2001-2019, Red Hat, Inc
+           2008-2011, Red Hat, Inc., Ingo Molnar
+           2004, Red Hat, Inc., James Morris <jmorris@redhat.com>
+           2008-2011, Red Hat, Inc., Peter Zijlstra
+           2012-2015, Regents of the University of California
+           1992, Rick Sladkey
+           2017, Rockchip Electronics Co., Ltd
+           1998, Rusty Russell
+           2002, Rusty Russell IBM
+           2005, SPARTA, Inc
+           2010, ST-Ericsson AB
+           2011-2013, Samsung India Software Operations
+           2020, Samuel Cabrero <scabrero@suse.de>
+           2017, SiFive
+           2017, SiFive, Inc
+           1988-1999, Silicon Graphics
+           1999-2004, Silicon Graphics, Inc
+           1995, Simon "Guru Aleph-Null" Janes
+           1995-2000, Simon G. Vogl
+           2001-2003, Sistina Software (UK) Limited
+           1997-2003, Sistina Software, Inc
+           2007, Stefan Kopp, Gechingen, Germany
+           2011, Steffen Klassert <steffen.klassert@secunet.com>
+           1999, Stephane Eranian <eranian@hpl.hp.com>
+           Steven Whitehouse
+           2005, Stuart Brady
+           2008, Sun Microsystems
+           2001, Sun Microsystems <thockin@sun.com>
+           2021, Taehee Yoo <ap420073@gmail.com>
+           2017, Texas Instruments
+           2020, The Linux Foundation
+           2011-2018, The Regents of the
+           2011-2018, The Regents of the University of
+           2011-2017, The Regents of the University of California
+           2002, The Regents of the University of Michigan
+           1994, The University of Utah
+           1992-1994, Theodore Ts'o
+           1993, Theodore Ts'o. Redistribution of this file is
+           2006, Thiemo Seufer
+           1999, Thomas Davis <tadavis@lbl.gov>
+           2008-2009, Thomas Gleixner <tglx@linutronix.de>
+           1996-1998, Thomas Sailer, HB9JNX/AE4WA
+           1999-2018, Tigran Aivazian <aivazian.tigran@gmail.com>
+           2004-2005, Topspin Communications
+           1997, Transmeta Corporation
+           2002, Trond Myklebust
+           2007, USAGI/WIDE Project
+           1999, VMware, Inc. (Regis "HPReg" Duchesne)
+           2000, Vinh Truong <vinh.truong@eng.sun.com>
+           2005, Voltaire, Inc
+           2018, Western Digital Corporation
+           2019, Western Digital Corporation or its affiliates
+           2020, William Breathitt Gray
+           2008-2009, Wind River Systems
+           2009, Wolfgang Grandegger <wg@grandegger.com>
+           2019, Xilinx, Inc
+           Yaniv Kamay <yaniv@qumranet.com>
+License: Expat
+
+Files: lib/libunwind/* src/zig_clang_*.cpp src/zig_llvm-ar.cpp
+Copyright: 2009-2019 LLVM contributors
+License: LLVM-exception
+
+License: LLVM-exception
+ On Debian systems the full text of the Apache Software License 2.0 can be
+ found in the `/usr/share/common-licenses/Apache-2.0' file.
+ .
+ ---- LLVM Exceptions to the Apache 2.0 License ----
+ .
+ As an exception, if, as a result of your compiling your source code, portions
+ of this Software are embedded into an Object form of such source code, you
+ may redistribute such embedded portions in such Object form without complying
+ with the conditions of Sections 4(a), 4(b) and 4(d) of the License.
+ .
+ In addition, if you combine or link compiled forms of this Software with
+ software that is licensed under the GPLv2 ("Combined Software") and if a
+ court of competent jurisdiction determines that the patent provision (Section
+ 3), the indemnity provision (Section 9) or other Section of the License
+ conflicts with the conditions of the GPLv2, you may retroactively and
+ prospectively choose to deem waived or otherwise exclude such Section(s) of
+ the License, but only in their entirety and only with respect to the Combined
+ Software.
+
+Files: lib/libcxx/*
+License: APACHE-2-LLVM-EXCEPTIONS
+Copyright: 2003-2017 University of Illinois at Urbana-Champaign.
+
+
+Files: lib/libc/musl/*
+Copyright: 2012-2020, Arm Limited
+           2009-2011, Bruce D. Evans, Steven G. Kargl, David Schultz
+           2011-2012, Nicholas J. Kain, licensed under standard MIT license
+           1998-2014, Solar Designer and it is hereby released to the
+           2008, Steven G. Kargl, David Schultz, Bruce D. Evans
+           1993-2004, Sun Microsystems, Inc
+License: Expat
+
+Files: lib/libc/mingw/*
+Copyright: 2010, L'A' +
+           2010, L'a' +
+           1984-1995, Stephen L. Moshier
+           1993, Sun Microsystems, Inc
+           2010, a' +
+           claimed, absolutely no warranties
+License: ZPL-2.1
+
+Files: lib/libc/glibc/*
+Copyright: 1991-2021, Free Software Foundation, Inc
+           2011-2018, This file is part of the GNU C Library
+License: LGPL-2.1+
+
+Files: lib/libc/include/aarch64-linux-any/asm/*
+       lib/libc/include/any-linux-any/*
+       lib/libc/include/hexagon-linux-any/asm/*
+       lib/libc/include/riscv-linux-any/asm/unistd.h
+Copyright: 2012-2013, ARM Ltd
+           Author: Alex Williamson <alex.williamson@redhat.com>
+           2007, D G Murray
+           2018, David Abdurachmanov <david.abdurachmanov@gmail.com>
+           2010-2011, EIA Electronics
+           2015, Etnaviv Project
+           2008, Google, Inc
+           2009, Guennadi Liakhovetski <g.liakhovetski@gmx.de>
+           2012-2016, Hans Verkuil <hans.verkuil@cisco.com>
+           2015, Hans de Goede <hdegoede@redhat.com>
+           Huang Ying <ying.huang@intel.com>
+           2007-2015, IBM Corp
+           2013-2015, Ideas on Board
+           2010-2016, Intel Corp
+           2011-2015, Intel Corporation
+           2015, Intel Ltd
+           2000-2002, Joakim Axelsson <gozem@linux.nu>
+           2008-2011, Jonathan Cameron
+           2003-2011, Jozsef Kadlecsik <kadlec@netfilter.org>
+           2003-2005, K A Fraser
+           2016, Linus Walleij
+           Martin Josefsson <gandalf@wlug.westbo.se>
+           2016, Maxim Integrated Products
+           2013, Michael Ellerman, IBM Corp
+           2004-2010, Nokia Corporation
+           2018, Oleksandr Andrushchenko, EPAM Systems Inc
+           2005, Palmsource, Inc
+           Patrick Schaaf <bof@bof.de>
+           1994-2002, Paul Mackerras
+           2010-2012, Red Hat, Inc
+           2004, Red Hat, Inc., James Morris <jmorris@redhat.com>
+           2017, Renesas Electronics Corporation
+           1996-2012, Russell King
+           2015, Seagate Technology PLC
+           2006-2009, Solarflare Communications Inc
+           2006, Sony Computer Entertainment Inc
+           2006-2007, Sony Corporation
+           2004-2012, Synopsys, Inc. (www.synopsys.com)
+           2011, Texas Instruments
+           2012, Texas Instruments Inc
+           2009-2014, Texas Instruments, Inc
+           2010-2011, The Linux Foundation
+           2010-2011, Thomas Graf <tgraf@redhat.com>
+           2001-2005, Thomas Winischhofer, Vienna, Austria
+           2006, Thumtronics Pty Ltd
+           2016, Tom Herbert <tom@herbertland.com>
+           2018, VMware
+           2007-2013, VMware, Inc
+           2012, Virtual Open Systems and Columbia University
+           1999-2002, Vojtech Pavlik
+           2016, Western Digital
+           With inspiration from the i915 driver
+           2013-2015, Xilinx, Inc
+License: GPL-2
+
+Files: lib/libc/include/any-linux-any/drm/exynos_drm.h
+       lib/libc/include/any-linux-any/linux/apm_bios.h
+       lib/libc/include/any-linux-any/linux/aspeed-lpc-ctrl.h
+       lib/libc/include/any-linux-any/linux/aspeed-p2a-ctrl.h
+       lib/libc/include/any-linux-any/linux/audit.h
+       lib/libc/include/any-linux-any/linux/bt-bmc.h
+       lib/libc/include/any-linux-any/linux/connector.h
+       lib/libc/include/any-linux-any/linux/cycx_cfm.h
+       lib/libc/include/any-linux-any/linux/devlink.h
+       lib/libc/include/any-linux-any/linux/elf-fdpic.h
+       lib/libc/include/any-linux-any/linux/eventpoll.h
+       lib/libc/include/any-linux-any/linux/hash_info.h
+       lib/libc/include/any-linux-any/linux/hid.h
+       lib/libc/include/any-linux-any/linux/hiddev.h
+       lib/libc/include/any-linux-any/linux/hsr_netlink.h
+       lib/libc/include/any-linux-any/linux/i2o-dev.h
+       lib/libc/include/any-linux-any/linux/i8k.h
+       lib/libc/include/any-linux-any/linux/icmp.h
+       lib/libc/include/any-linux-any/linux/if.h
+       lib/libc/include/any-linux-any/linux/if_alg.h
+       lib/libc/include/any-linux-any/linux/if_arcnet.h
+       lib/libc/include/any-linux-any/linux/if_arp.h
+       lib/libc/include/any-linux-any/linux/if_bridge.h
+       lib/libc/include/any-linux-any/linux/if_cablemodem.h
+       lib/libc/include/any-linux-any/linux/if_ether.h
+       lib/libc/include/any-linux-any/linux/if_fc.h
+       lib/libc/include/any-linux-any/linux/if_fddi.h
+       lib/libc/include/any-linux-any/linux/if_hippi.h
+       lib/libc/include/any-linux-any/linux/if_macsec.h
+       lib/libc/include/any-linux-any/linux/if_plip.h
+       lib/libc/include/any-linux-any/linux/if_pppol2tp.h
+       lib/libc/include/any-linux-any/linux/if_pppox.h
+       lib/libc/include/any-linux-any/linux/if_team.h
+       lib/libc/include/any-linux-any/linux/if_tun.h
+       lib/libc/include/any-linux-any/linux/if_vlan.h
+       lib/libc/include/any-linux-any/linux/if_x25.h
+       lib/libc/include/any-linux-any/linux/igmp.h
+       lib/libc/include/any-linux-any/linux/in.h
+       lib/libc/include/any-linux-any/linux/in6.h
+       lib/libc/include/any-linux-any/linux/ip.h
+       lib/libc/include/any-linux-any/linux/ipv6_route.h
+       lib/libc/include/any-linux-any/linux/ivtv.h
+       lib/libc/include/any-linux-any/linux/ivtvfb.h
+       lib/libc/include/any-linux-any/linux/joystick.h
+       lib/libc/include/any-linux-any/linux/keyctl.h
+       lib/libc/include/any-linux-any/linux/mpls_iptunnel.h
+       lib/libc/include/any-linux-any/linux/ncsi.h
+       lib/libc/include/any-linux-any/linux/net.h
+       lib/libc/include/any-linux-any/linux/netdevice.h
+       lib/libc/include/any-linux-any/linux/netfilter/xt_connmark.h
+       lib/libc/include/any-linux-any/linux/netfilter/xt_osf.h
+       lib/libc/include/any-linux-any/linux/nfsd/cld.h
+       lib/libc/include/any-linux-any/linux/omapfb.h
+       lib/libc/include/any-linux-any/linux/phantom.h
+       lib/libc/include/any-linux-any/linux/ppdev.h
+       lib/libc/include/any-linux-any/linux/pps.h
+       lib/libc/include/any-linux-any/linux/ptp_clock.h
+       lib/libc/include/any-linux-any/linux/raid/*
+       lib/libc/include/any-linux-any/linux/route.h
+       lib/libc/include/any-linux-any/linux/sctp.h
+       lib/libc/include/any-linux-any/linux/seg6.h
+       lib/libc/include/any-linux-any/linux/seg6_iptunnel.h
+       lib/libc/include/any-linux-any/linux/seg6_local.h
+       lib/libc/include/any-linux-any/linux/serial_core.h
+       lib/libc/include/any-linux-any/linux/sockios.h
+       lib/libc/include/any-linux-any/linux/sonypi.h
+       lib/libc/include/any-linux-any/linux/spi/spidev.h
+       lib/libc/include/any-linux-any/linux/tc_act/tc_bpf.h
+       lib/libc/include/any-linux-any/linux/tc_act/tc_skbmod.h
+       lib/libc/include/any-linux-any/linux/tc_act/tc_tunnel_key.h
+       lib/libc/include/any-linux-any/linux/tc_act/tc_vlan.h
+       lib/libc/include/any-linux-any/linux/tcp.h
+       lib/libc/include/any-linux-any/linux/toshiba.h
+       lib/libc/include/any-linux-any/linux/udp.h
+       lib/libc/include/any-linux-any/linux/uhid.h
+       lib/libc/include/any-linux-any/linux/uinput.h
+       lib/libc/include/any-linux-any/linux/uio.h
+       lib/libc/include/any-linux-any/linux/uleds.h
+       lib/libc/include/any-linux-any/linux/usb/g_printer.h
+       lib/libc/include/any-linux-any/linux/usbdevice_fs.h
+       lib/libc/include/any-linux-any/misc/cxl.h
+       lib/libc/include/any-linux-any/mtd/mtd-abi.h
+       lib/libc/include/any-linux-any/mtd/mtd-user.h
+       lib/libc/include/any-linux-any/mtd/nftl-user.h
+       lib/libc/include/any-linux-any/mtd/ubi-user.h
+       lib/libc/include/any-linux-any/scsi/cxlflash_ioctl.h
+       lib/libc/include/any-linux-any/sound/asequencer.h
+       lib/libc/include/any-linux-any/sound/asound.h
+       lib/libc/include/any-linux-any/sound/asound_fm.h
+       lib/libc/include/any-linux-any/sound/emu10k1.h
+       lib/libc/include/any-linux-any/sound/hdsp.h
+       lib/libc/include/any-linux-any/sound/hdspm.h
+       lib/libc/include/any-linux-any/sound/sb16_csp.h
+       lib/libc/include/any-linux-any/sound/sfnt_info.h
+       lib/libc/include/any-linux-any/sound/tlv.h
+       lib/libc/include/any-linux-any/sound/usb_stream.h
+       lib/libc/include/any-windows-any/stdarg.h
+       lib/libc/include/mips-linux-any/asm/auxvec.h
+       lib/libc/include/powerpc-linux-any/asm/byteorder.h
+       lib/libc/include/powerpc-linux-any/asm/elf.h
+       lib/libc/include/powerpc-linux-any/asm/ipcbuf.h
+       lib/libc/include/powerpc-linux-any/asm/mman.h
+       lib/libc/include/powerpc-linux-any/asm/nvram.h
+       lib/libc/include/powerpc-linux-any/asm/opal-prd.h
+       lib/libc/include/powerpc-linux-any/asm/ptrace.h
+       lib/libc/include/powerpc-linux-any/asm/sembuf.h
+       lib/libc/include/powerpc-linux-any/asm/shmbuf.h
+       lib/libc/include/powerpc-linux-any/asm/sigcontext.h
+       lib/libc/include/powerpc-linux-any/asm/socket.h
+       lib/libc/include/powerpc-linux-any/asm/stat.h
+       lib/libc/include/powerpc-linux-any/asm/swab.h
+       lib/libc/include/powerpc-linux-any/asm/termbits.h
+       lib/libc/include/powerpc-linux-any/asm/termios.h
+       lib/libc/include/powerpc-linux-any/asm/types.h
+       lib/libc/include/powerpc-linux-any/asm/unistd.h
+       lib/libc/include/riscv-linux-any/asm/elf.h
+       lib/libc/include/x86-linux-any/asm/ist.h
+Copyright: 2003, + Evgeniy Polyakov <johnpol@2ka.mxt.ru>
+           4Front Technologies
+           Abramo Bagnara <abramo@alsa-project.org>
+           2001-2002, Alcôve <www.alcove.com>
+           2016, Amir Vadai <amir@vadai.me>
+           Andrea Paterniani <a.paterniani@swapp-eng.it>
+           1999, Andreas Gal
+           2000, Andrew Tridgell <tridge@valinux.com>
+           2002, Andy Grover <andrew.grover@intel.com>
+           1998-2003, Arnaldo Carvalho de Melo
+           2011-2013, Autronica Fire and Security AS
+           2015, Azael Avalos <coproscefalo@gmail.com>
+           1999-2000, Cisco, Inc
+           2007, Craig W. Nadler
+           Creative Labs, Inc
+           2012, David Herrmann
+           1999-2010, David Woodhouse <dwmw2@infradead.org>
+           2001-2006, Davide Libenzi
+           2000, Deep Blue Solutions Ltd
+           2013, Dmitry Kasatkin <d.kasatkin@samsung.com>
+           Evgeniy Polyakov <zbr@ioremap.net>
+           1998, Franco Venturi
+           1998-1999, Frank van de Pol <fvdpol@coil.demon.nl>
+           1989-2000, Free Software Foundation, Inc
+           2019, Google Inc
+           2004-2007, Hans Verkuil <hverkuil@xs4all.nl>
+           2010, Herbert Xu <herbert@gondor.apana.org.au>
+           2015, IBM
+           2001-2017, IBM Corp
+           2015-2016, IBM Corporation
+           2006-2007, Ian Armstrong <ian@iarmst.demon.co.uk>
+           2015, Imagination Technologies
+           1998, Ingo Molnar
+           1996-1998, Ingo Molnar, Gadi Oxman
+           2002, Intel Corp
+           2006, International Business Machines Corp
+           2016, Jamal Hadi Salim
+           1994-2003, Jaroslav Kysela <perex@perex.cz>
+           2006-2007, Jiri Kosina
+           2016, Jiri Pirko <jiri@mellanox.com>
+           2014-2015, Jiri Pirko <jiri@resnulli.us>
+           2011, Jiri Pirko <jpirko@redhat.com>
+           2005-2007, Jiri Slaby <jirislaby@gmail.com>
+           2010-2011, Jonas Bonn <jonas@southpole.se>
+           1996-2000, Jonathan A. Buzzard <jonathan@buzzard.org.uk>
+           2001, Junichi Morita <jun1m@mars.dti.ne.jp>
+           2007-2008, Karsten Wiese <fzu@wemgehoertderstaat.de>
+           2003-2004, Kevin Thayer <nufan_wfk@yahoo.com>
+           2002-2004, MARA Systems AB <https://www.marasystems.com>
+           2001, Massimo Dal Zotto <dz@debian.org>
+           2003, Matjaz Breskvar <phoenix@bsemi.com>
+           1999-2000, Maxim Krasnyansky <max_mk@yahoo.com>
+           2016, Mellanox Technologies
+           2001, Michael Ashley <m.ashley@unsw.edu.au>
+           1999-2001, Motorola, Inc
+           2005, Narayanan R S <nars@kadamba.org>
+           2004, Nokia Corporation
+           2010, OMICRON electronics GmbH
+           2001, PPC64 Team, IBM Corp
+           2003-2004, Red Hat Inc., Durham, North Carolina
+           1999-2000, Red Hat Software
+           2003-2012, Red Hat, Inc
+           2012, Regents of the University of California
+           2005-2009, Rodolfo Giometti <giometti@linux.it>
+           2006, SWAPP
+           2015, Sabrina Dubroca <sd@queasysnail.net>
+           2011, Samsung Electronics Co., Ltd
+           2018, Samuel Mendoza-Jonas, IBM Corporation
+           2001-2005, Stelian Pop <stelian@popies.net>
+           1994-2001, Stephen Rothwell <sfr@canb.auug.org.au>
+           1999-2000, Takashi Iwai
+           Takashi Iwai <tiwai@suse.de>
+           2000, Takaya Kinjo <t-kinjo@tc4.so-net.ne.jp>
+           2003, Thomas Charbonnel <thomas@undata.org>
+           2000, Thomas Sailer <sailer@ife.ee.ethz.ch>
+           1998-1999, Tim Waugh <tim@cyberelk.demon.co.uk>
+           1982-1988, UCB
+           1999, Uros Bizjak <uros@kss-loka.si>
+           1996-2001, Vojtech Pavlik
+           2003, Winfried Ritsch (IEM)
+License: GPL-2+
+
+Files: lib/libc/include/any-macos-any/AssertMacros.h
+       lib/libc/include/any-macos-any/Availability.h
+       lib/libc/include/any-macos-any/CommonCrypto/*
+       lib/libc/include/any-macos-any/ConditionalMacros.h
+       lib/libc/include/any-macos-any/MacTypes.h
+       lib/libc/include/any-macos-any/_ctermid.h
+       lib/libc/include/any-macos-any/_types.h
+       lib/libc/include/any-macos-any/_xlocale.h
+       lib/libc/include/any-macos-any/aio.h
+       lib/libc/include/any-macos-any/alloca.h
+       lib/libc/include/any-macos-any/architecture/*
+       lib/libc/include/any-macos-any/copyfile.h
+       lib/libc/include/any-macos-any/crt_externs.h
+       lib/libc/include/any-macos-any/dlfcn.h
+       lib/libc/include/any-macos-any/errno.h
+       lib/libc/include/any-macos-any/execinfo.h
+       lib/libc/include/any-macos-any/fcntl.h
+       lib/libc/include/any-macos-any/inttypes.h
+       lib/libc/include/any-macos-any/libproc.h
+       lib/libc/include/any-macos-any/mach-o/arch.h
+       lib/libc/include/any-macos-any/mach-o/arm64/*
+       lib/libc/include/any-macos-any/mach-o/dyld.h
+       lib/libc/include/any-macos-any/mach-o/fat.h
+       lib/libc/include/any-macos-any/mach-o/ranlib.h
+       lib/libc/include/any-macos-any/mach-o/x86_64/*
+       lib/libc/include/any-macos-any/malloc/*
+       lib/libc/include/any-macos-any/objc/message.h
+       lib/libc/include/any-macos-any/objc/objc.h
+       lib/libc/include/any-macos-any/poll.h
+       lib/libc/include/any-macos-any/pthread/*
+       lib/libc/include/any-macos-any/sched.h
+       lib/libc/include/any-macos-any/secure/*
+       lib/libc/include/any-macos-any/semaphore.h
+       lib/libc/include/any-macos-any/setjmp.h
+       lib/libc/include/any-macos-any/spawn.h
+       lib/libc/include/any-macos-any/sys/qos.h
+       lib/libc/include/any-macos-any/sys/statvfs.h
+       lib/libc/include/any-macos-any/syslog.h
+       lib/libc/include/any-macos-any/termios.h
+       lib/libc/include/any-macos-any/ucontext.h
+       lib/libc/include/any-macos-any/xlocale.h
+       lib/libc/include/any-macos-any/xlocale/*
+Copyright: 1997-2018, Apple Computer, Inc
+           1985-2020, Apple Inc
+           2004-2019, Apple, Inc
+           1992-1995, NeXT Computer, Inc
+           1988-1996, NeXT Software, Inc
+License: APSL-2
+
+Files: lib/libc/include/any-macos-any/_locale.h
+       lib/libc/include/any-macos-any/ar.h
+       lib/libc/include/any-macos-any/assert.h
+       lib/libc/include/any-macos-any/grp.h
+       lib/libc/include/any-macos-any/locale.h
+       lib/libc/include/any-macos-any/memory.h
+       lib/libc/include/any-macos-any/net/if_dl.h
+       lib/libc/include/any-macos-any/net/route.h
+       lib/libc/include/any-macos-any/netinet/*
+       lib/libc/include/any-macos-any/nl_types.h
+       lib/libc/include/any-macos-any/pwd.h
+       lib/libc/include/any-macos-any/runetype.h
+       lib/libc/include/any-macos-any/sys/_endian.h
+       lib/libc/include/any-macos-any/sys/dirent.h
+       lib/libc/include/any-macos-any/sys/errno.h
+       lib/libc/include/any-macos-any/sys/file.h
+       lib/libc/include/any-macos-any/sys/filio.h
+       lib/libc/include/any-macos-any/sys/ioccom.h
+       lib/libc/include/any-macos-any/sys/ioctl.h
+       lib/libc/include/any-macos-any/sys/ipc.h
+       lib/libc/include/any-macos-any/sys/lock.h
+       lib/libc/include/any-macos-any/sys/mman.h
+       lib/libc/include/any-macos-any/sys/param.h
+       lib/libc/include/any-macos-any/sys/proc.h
+       lib/libc/include/any-macos-any/sys/select.h
+       lib/libc/include/any-macos-any/sys/signal.h
+       lib/libc/include/any-macos-any/sys/stat.h
+       lib/libc/include/any-macos-any/sys/syslimits.h
+       lib/libc/include/any-macos-any/sys/termios.h
+       lib/libc/include/any-macos-any/sys/time.h
+       lib/libc/include/any-macos-any/sys/times.h
+       lib/libc/include/any-macos-any/sys/ttycom.h
+       lib/libc/include/any-macos-any/sys/ttydefaults.h
+       lib/libc/include/any-macos-any/sys/types.h
+       lib/libc/include/any-macos-any/sys/ucred.h
+       lib/libc/include/any-macos-any/sys/uio.h
+       lib/libc/include/any-macos-any/sys/un.h
+       lib/libc/include/any-macos-any/sys/unistd.h
+       lib/libc/include/any-macos-any/sys/utsname.h
+       lib/libc/include/any-macos-any/sys/vm.h
+       lib/libc/include/any-macos-any/sys/wait.h
+       lib/libc/include/any-macos-any/sysexits.h
+       lib/libc/include/any-macos-any/tar.h
+       lib/libc/include/any-macos-any/wchar.h
+Copyright: 1995-2020, Apple Computer, Inc
+           2000-2021, Apple Inc
+           2000-2012, Apple, Inc
+           1999, Citrus Project
+           1995, Jason Downs
+           1993-1995, NeXT Computer Inc
+           1995, NeXT Computer, Inc
+           1996-2000, The NetBSD Foundation, Inc
+           1980-1995, The Regents of the University of California
+           UNIX System Laboratories, Inc
+           1988, University of Utah
+           1995-1998, WIDE Project
+License: BSD-4-clause
+
+Files: lib/libc/include/any-macos-any/sys/shm.h
+Copyright: 1994, Adam Glass
+           2000-2002, Apple Computer, Inc
+License: APSL-2 or BSD-4-clause-Adam-Glass
+
+
+Files: lib/libc/wasi/*
+Copyright: 2012-2020, Arm Limited
+           2009-2011, Bruce D. Evans, Steven G. Kargl, David Schultz
+           2011-2012, Nicholas J. Kain, licensed under standard MIT license
+           1998-2014, Solar Designer and it is hereby released to the
+           2008, Steven G. Kargl, David Schultz, Bruce D. Evans
+           1993-2004, Sun Microsystems, Inc
+License: Apache-2 and Expat and APACHE-2-LLVM-EXCEPTIONS
+
+
+Files: lib/libc/include/any-macos-any/dispatch/*
+       lib/libc/include/any-macos-any/os/availability.h
+       lib/libc/include/any-macos-any/os/lock.h
+       lib/libc/include/any-macos-any/os/object.h
+       lib/libc/include/any-macos-any/os/workgroup.h
+       lib/libc/include/any-macos-any/os/workgroup_interval.h
+       lib/libc/include/any-macos-any/os/workgroup_object.h
+       lib/libc/include/any-macos-any/os/workgroup_parallel.h
+Copyright: 2008-2020, Apple Inc
+License: Apache-2
+
+Files: lib/libcxxabi/*
+License: Apache-2 or Expat or NCSA
+Copyright: LLVM Project
+
+License: APSL-2
+ This file contains Original Code and/or Modifications of Original
+ Code as defined in and that are subject to the Apple Public Source
+ License Version 2.0 (the 'License'). You may not use this file except
+ in compliance with the License. Please obtain a copy of the License
+ at http://www.opensource.apple.com/apsl/ and read it before using
+ this file.
+ .
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR
+ NON-INFRINGEMENT.  Please see the License for the specific language
+ governing rights and limitations under the License.
+
+License: Apache-2
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ ․
+    http://www.apache.org/licenses/LICENSE-2.0
+ ․
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ ․
+ On Debian systems, the complete text of the Apache License,
+ Version 2.0 can be found in "/usr/share/common-licenses/Apache-2.0".
+
+License: APACHE-2-LLVM-EXCEPTIONS
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ ․
+    http://www.apache.org/licenses/LICENSE-2.0
+ ․
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ ․
+ On Debian systems, the complete text of the Apache License,
+ Version 2.0 can be found in "/usr/share/common-licenses/Apache-2.0".
+ .
+ As an exception, if, as a result of your compiling your source code,
+ portions of this Software are embedded into an Object form of such
+ source code, you may redistribute such embedded portions in such
+ Object form without complying with the conditions of Sections 4(a),
+ 4(b) and 4(d) of the License.
+ .
+ In addition, if you combine or link compiled forms of this Software with
+ software that is licensed under the GPLv2 ("Combined Software") and if a
+ court of competent jurisdiction determines that the patent provision (Section
+ 3), the indemnity provision (Section 9) or other Section of the License
+ conflicts with the conditions of the GPLv2, you may retroactively and
+ prospectively choose to deem waived or otherwise exclude such Section(s) of
+ the License, but only in their entirety and only with respect to the Combined
+ Software.
+
+License: NetCDF
+ Access and use of this software shall impose the following
+ obligations and understandings on the user. The user is granted the
+ right, without any fee or cost, to use, copy, modify, alter, enhance
+ and distribute this software, and any derivative works thereof, and
+ its supporting documentation for any purpose whatsoever, provided
+ that this entire notice appears in all copies of the software,
+ derivative works and supporting documentation.  Further, UCAR
+ requests that the user credit UCAR/Unidata in any publications that
+ result from the use of this software or in any product that includes
+ this software. The names UCAR and/or Unidata, however, may not be
+ used in any advertising or publicity to endorse or promote any
+ products or commercial entity unless specific written permission is
+ obtained from UCAR/Unidata. The user also understands that
+ UCAR/Unidata is not obligated to provide the user with any support,
+ consulting, training or assistance of any kind with regard to the
+ use, operation and performance of this software nor to provide the
+ user with any updates, revisions, new versions or "bug fixes."
+ .
+ THIS SOFTWARE IS PROVIDED BY UCAR/UNIDATA "AS IS" AND ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED. IN NO EVENT SHALL UCAR/UNIDATA BE LIABLE FOR ANY
+ SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
+ RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF
+ CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+ CONNECTION WITH THE ACCESS, USE OR PERFORMANCE OF THIS SOFTWARE.
+
+License: BSD-2-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+ AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+
+License: BSD-2-clause-NetBSD
+ This code is derived from software contributed to The NetBSD Foundation
+ by Dieter Baron and Thomas Klausner.
+ .
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+ ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+
+License: BSD-4-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ 1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software must
+    display the following acknowledgement:
+      This product includes software developed by this project.
+ 4. Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY COPYRIGHT HOLDER "AS IS" AND ANY EXPRESS
+ OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: BSD-4-clause-Adam-Glass
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+    must display the following acknowledgement:
+      This product includes software developed by Adam Glass.
+ 4. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission
+ .
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: BSD-4-clause-Utah
+ Permission to use, copy, modify and distribute this software is hereby
+ granted provided that (1) source code retains these copyright, permission,
+ and disclaimer notices, and (2) redistributions including binaries
+ reproduce the notices in supporting documentation, and (3) all advertising
+ materials mentioning features or use of this software display the following
+ acknowledgement: ``This product includes software developed by the
+ Computer Systems Laboratory at the University of Utah.''
+ .
+ HE UNIVERSITY OF UTAH AND CSL ALLOW FREE USE OF THIS SOFTWARE IN ITS "AS
+ IS" CONDITION.  THE UNIVERSITY OF UTAH AND CSL DISCLAIM ANY LIABILITY OF
+ ANY KIND FOR ANY DAMAGES WHATSOEVER RESULTING FROM THE USE OF THIS SOFTWARE.
+ .
+ CSL requests users of this software to return to csl-dist@cs.utah.edu any
+ improvements that they make and grant CSL redistribution rights.
+
+License: CC0
+ On Debian systems, the full text of the Creative Commons Zero 1.0 Universal
+ can be found in the file `/usr/share/common-licenses/CC0-1.0'.
+
+License: GPL-2
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 of the License.
+ .
+ This package is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General Public
+ License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: GPL-2+
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later
+ version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the full text of the GNU General Public License
+ version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: LGPL-2.1+
+ This library is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as
+ published by the Free Software Foundation; either version 2.1 of the
+ License, or (at your option) any later version.
+ .
+ This library is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the full text of the GNU Lesser General Public
+ License version 2.1 can be found in the file
+ '/usr/share/common-licenses/LGPL-2.1'.
+Comment: Text from: https://spdx.org/licenses/LGPL-2.1-or-later.html
+
+License: NCSA
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ "Software"), to deal with the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+ .
+ * Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimers.
+ .
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimers in the
+   documentation and/or other materials provided with the distribution.
+ .
+ * Neither the names of the LLVM Team, University of Illinois at
+   Urbana-Champaign, nor the names of its contributors may be used to
+   endorse or promote products derived from this Software without specific
+   prior written permission.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ MPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+ SOFTWARE.
+Comment: Text from: lib/libcxxabi/LICENSE.TXT
+
+License: ZPL-2.1
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ 1. Redistributions in source code must retain the accompanying copyright
+    notice, this list of conditions, and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the accompanying
+    copyright notice, this list of conditions, and the following disclaimer
+    in the documentation and/or other materials provided with the
+    distribution.
+ 3. Names of the copyright holders must not be used to endorse or promote
+    products derived from this software without prior written permission
+    from the copyright holders.
+ 4. The right to distribute this software or to use it for any purpose does
+    not give you the right to use Servicemarks (sm) or Trademarks (tm) of
+    the copyright holders.  Use of them is covered by separate agreement
+    with the copyright holders.
+ 5. If any files are modified, you must cause the modified files to carry
+    prominent notices stating that you changed the files and the date of
+    any change.
+ .
+ Disclaimer
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY EXPRESSED
+ OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
