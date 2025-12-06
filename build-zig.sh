@@ -19,7 +19,7 @@ VERSION="0.15.2"
 echo "Building Zig for version: $VERSION"
 echo "PPA: $PPA"
 
-# Fetch the source and create .orig.tar.gz
+# Fetch the source and create .orig.tar.xz
 echo "Fetching Zig source..."
 cd zig0.15
 uscan --repack -v
@@ -27,7 +27,7 @@ cd -
 
 # Determine the base version and PPA number
 FULL_VERSION="${VERSION}~us1-ppa3"
-REPACK_TARBALL="zig0.15_${VERSION}~us1.orig.tar.gz"
+REPACK_TARBALL="zig0.15_${VERSION}~us1.orig.tar.xz"
 
 echo "Full version: $FULL_VERSION"
 
