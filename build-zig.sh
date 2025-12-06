@@ -14,6 +14,7 @@ fi
 
 PPA="ppa:mkasberg/ghostty-ubuntu"
 TIMESTAMP=$(date -u -R)
+PACKAGE_NAME=zig0.15
 VERSION="0.15.2"
 
 echo "Building Zig for version: $VERSION"
@@ -37,7 +38,7 @@ echo "Using temporary build directory: $BUILD_DIR"
 
 # Extract upstream source to temp directory
 echo "Extracting upstream source..."
-tar -xzf "${REPACK_TARBALL}" -C "$BUILD_DIR"
+tar -xf "${REPACK_TARBALL}" -C "$BUILD_DIR"
 UPSTREAM_DIR=$(basename "$BUILD_DIR"/*)
 
 # Copy the upstream tarball to where dpkg-source expects it
