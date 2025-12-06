@@ -13,7 +13,7 @@ Build-Depends: debhelper-compat (= 13),
                libgtk4-layer-shell-dev,
                libonig-dev,
                libxml2-utils,
-               zig0.15
+               zig0.14
 
 Package: ghostty
 Architecture: any
@@ -28,7 +28,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
          libharfbuzz0b,
          libonig5,
          libx11-6
-Conflicts: ghostty
+Conflicts: ghostty-nightly
 Provides: x-terminal-emulator
 Description: Fast, feature-rich, and cross-platform terminal emulator (nightly builds)
  Ghostty is a terminal emulator that differentiates itself by being fast,
