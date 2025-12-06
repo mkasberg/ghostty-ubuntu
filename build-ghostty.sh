@@ -28,15 +28,15 @@ echo "Fetching Ghostty source..."
 
 # Determine the base version and PPA number
 if [[ "$VERSION" == "tip" ]]; then
-    PACKAGE_NAME="ghostty-nightly"
+    PACKAGE_NAME="ghostty"
     # Find the REPACK_TARBALL created by fetch-ghostty-orig-source.sh
-    REPACK_TARBALL=$(ls ghostty-nightly_*+nightly*~ppa1.orig.tar.gz 2>/dev/null | head -n1)
+    REPACK_TARBALL=$(ls ghostty_*+nightly*~ppa1.orig.tar.gz 2>/dev/null | head -n1)
     if [ -z "$REPACK_TARBALL" ]; then
         echo "Error: Could not find repackaged tarball for tip build"
         exit 1
     fi
     # Extract FULL_VERSION from REPACK_TARBALL filename
-    FULL_VERSION=$(echo "$REPACK_TARBALL" | sed -n 's/^ghostty-nightly_\([^)]*\)\.orig\.tar\.gz$/\1/p')
+    FULL_VERSION=$(echo "$REPACK_TARBALL" | sed -n 's/^ghostty_\([^)]*\)\.orig\.tar\.gz$/\1/p')
 else
     PACKAGE_NAME="ghostty"
     FULL_VERSION="${VERSION}~ppa1"
