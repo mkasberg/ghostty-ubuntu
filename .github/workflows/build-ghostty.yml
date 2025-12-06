@@ -1,4 +1,4 @@
-name: Nightly Build
+name: Build Ghostty for PPA
 
 on:
   schedule:
