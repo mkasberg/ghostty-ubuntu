@@ -16,7 +16,7 @@ PPA="ppa:mkasberg/ghostty-ubuntu"
 TIMESTAMP=$(date -u -R)
 PACKAGE_NAME=zig0.14
 VERSION="0.14.1"
-PPA_SUFFIX=ppa1
+PPA_SUFFIX=0~ppa1
 
 echo "Building Zig for version: $VERSION"
 echo "PPA: $PPA"
