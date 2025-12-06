@@ -1,0 +1,56 @@
+Source: zig0.15
+Priority: optional
+Maintainer: Mike Kasberg <kasberg.mike@gmail.com>
+Build-Depends: chrpath,
+               cmake (>= 3.19),
+               debhelper-compat (= 13),
+               help2man,
+               libbsd-dev,
+               libclang-20-dev,
+               libclang-cpp20-dev,
+               libedit-dev,
+               libffi-dev,
+               liblld-20-dev,
+               libmd-dev,
+               libncurses-dev,
+               libunwind-dev,
+               libxml2-dev,
+               llvm-20-dev,
+               pkgconf,
+Standards-Version: 4.7.2
+Section: devel
+Rules-Requires-Root: no
+Homepage: https://ziglang.org/
+
+Package: zig0.15
+Architecture: amd64 arm64
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         zig0.15-dev (= ${source:Version}),
+# FIXME why aren't these getting picked up by dpkg-shlibdeps?
+         llvm-20-dev,
+         libbsd0,
+         libedit2,
+         libffi8,
+         libicu76,
+         libmd0,
+         libtinfo6,
+         libxml2-16
+Suggests: zig-default
+Description: General-purpose imperative language
+ Zig is a general-purpose programming language and toolchain
+ for maintaining robust, optimal and reusable software.
+ .
+ This package contains the binary for Zig.
+
+Package: zig0.15-dev
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+        libclang-common-20-dev
+Description: General-purpose imperative language (stdlib)
+ Zig is a general-purpose programming language and toolchain
+ for maintaining robust, optimal and reusable software.
+ .
+ This package contains the Zig standard library.
