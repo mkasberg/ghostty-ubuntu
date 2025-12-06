@@ -1,6 +1,7 @@
 name: Build Ghostty Tip (Binary)
 
 on:
+  pull_request:
   workflow_dispatch:
   schedule:
     - cron: '0 1 * * *'
@@ -65,7 +66,7 @@ jobs:
       - name: Build Ghostty
         run: |
           docker run --rm -v$PWD/build-binary:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ matrix.zig_version }} /bin/bash build-ghostty.sh tip
-          mv ./build-binary/ghsotty_*.deb ./
+          mv ./build-binary/ghostty_*.deb ./
 
       - name: Lint .deb Package
         # Lintian shouldn't fail our build yet

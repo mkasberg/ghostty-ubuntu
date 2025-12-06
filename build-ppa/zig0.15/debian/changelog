@@ -1,0 +1,11 @@
+zig0.15 (0.15.2~us1-ppa2) questing; urgency=medium
+
+  * Fix install scripts
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Mon, 24 Nov 2025 09:51:59 -0700
+
+zig0.15 (0.15.2~us1-ppa1) questing; urgency=medium
+
+  * Zig 0.15.2 for PPA
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Sun, 23 Nov 2025 20:34:00 -0700
