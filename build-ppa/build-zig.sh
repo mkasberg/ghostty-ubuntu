@@ -12,13 +12,11 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     exit 0
 fi
 
-PPA="ppa:mkasberg/ghostty-ubuntu"
 TIMESTAMP=$(date -u -R)
 PACKAGE_NAME=zig0.15
 VERSION="0.15.2"
 
 echo "Building Zig for version: $VERSION"
-echo "PPA: $PPA"
 
 # Fetch the source and create .orig.tar.xz
 echo "Fetching Zig source..."
@@ -76,10 +74,5 @@ echo "Moving build results and cleaning up..."
 mv "$BUILD_DIR"/${PACKAGE_NAME}_* ./
 rm -rf "$BUILD_DIR"
 
-# Upload to PPA
-echo "Uploading to PPA..."
-dput "$PPA" ${PACKAGE_NAME}_*_source.changes
-
-echo "Nightly build completed successfully!"
+echo "Build completed successfully!"
 echo "Version: $FULL_VERSION"
-echo "Uploaded to: $PPA"

@@ -8,6 +8,9 @@
 
 set -e
 
+# Determine script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     echo "Usage: $0 [version]"
     echo "  version: defaults to 'tip'"
@@ -16,15 +19,13 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
 fi
 
 VERSION=${1:-tip}
-PPA="ppa:mkasberg/ghostty-ubuntu"
 TIMESTAMP=$(date -u -R)
 
 echo "Building Ghostty for version: $VERSION"
-echo "PPA: $PPA"
 
 # Fetch the source and create .orig.tar.gz
 echo "Fetching Ghostty source..."
-./fetch-ghostty-orig-source.sh "$VERSION"
+"$SCRIPT_DIR/fetch-ghostty-orig-source.sh" "$VERSION"
 
 # Determine the base version and PPA number
 if [[ "$VERSION" == "tip" ]]; then
@@ -60,7 +61,7 @@ cp "${REPACK_TARBALL}" "$BUILD_DIR/"
 
 # Copy Debian packaging to temp directory
 echo "Copying Debian packaging..."
-cp -r "$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
+cp -r "$SCRIPT_DIR/$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
 
 # Update changelog in temp directory
 CHANGELOG_FILE="$BUILD_DIR/$UPSTREAM_DIR/debian/changelog"
@@ -89,10 +90,5 @@ echo "Moving build results and cleaning up..."
 mv "$BUILD_DIR"/${PACKAGE_NAME}_* ./
 rm -rf "$BUILD_DIR"
 
-# Upload to PPA
-echo "Uploading to PPA..."
-dput "$PPA" ${PACKAGE_NAME}_*_source.changes
-
-echo "Nightly build completed successfully!"
+echo "Build completed successfully!"
 echo "Version: $FULL_VERSION"
-echo "Uploaded to: $PPA"

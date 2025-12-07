@@ -1,6 +1,7 @@
 name: Build Ghostty for PPA
 
 on:
+  pull_request:
   schedule:
     # Run daily at midnight UTC
     - cron: '0 0 * * *'
@@ -10,10 +11,15 @@ on:
         description: 'Version to build (default: tip)'
         required: false
         default: 'tip'
+      upload:
+        description: 'Upload to PPA (default: true)'
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   ghostty-build:
-    name: Build and Upload Ghostty
+    name: Build Ghostty
     runs-on: ubuntu-latest
     container:
       image: ubuntu:25.10
@@ -76,7 +82,24 @@ jobs:
           
           # Run the build script
           VERSION="${{ github.event.inputs.version || 'tip' }}"
-          .build-ppa/build-ghostty.sh "$VERSION"
+          ./build-ppa/build-ghostty.sh "$VERSION"
         env:
           DEBEMAIL: "kasberg.mike@gmail.com"
           DEBFULLNAME: "Mike Kasberg"
+
+      - name: Upload to PPA
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.upload == 'true')
+        run: |
+          # Set GPG passphrase if provided
+          if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then
+            export GPG_TTY=$(tty)
+            echo "${{ secrets.PPA_GPG_PASSPHRASE }}" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
+          fi
+          
+          # Determine the package name based on version
+          VERSION="${{ github.event.inputs.version || 'tip' }}"
+          if [[ "$VERSION" == "tip" ]]; then
+            dput ppa:mkasberg/ghostty-ubuntu ghostty-nightly_*_source.changes
+          else
+            dput ppa:mkasberg/ghostty-ubuntu ghostty_*_source.changes
+          fi
