@@ -1,19 +1,17 @@
 name: Build Zig for PPA
 
 on:
-  schedule:
-    # Run daily at midnight UTC
-    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version to build (default: tip)'
+      upload:
+        description: 'Upload to PPA (default: true)'
         required: false
-        default: 'tip'
+        default: true
+        type: boolean
 
 jobs:
   build:
-    name: Build and Upload Zig
+    name: Build Zig
     runs-on: ubuntu-latest
     container:
       image: ubuntu:25.10
@@ -69,8 +67,19 @@ jobs:
           fi
           
           # Run the build script
-          VERSION="${{ github.event.inputs.version || 'tip' }}"
-          ./build-ppa/build-zig.sh "$VERSION"
+          ./build-ppa/build-zig.sh
         env:
           DEBEMAIL: "kasberg.mike@gmail.com"
           DEBFULLNAME: "Mike Kasberg"
+
+      - name: Upload to PPA
+        if: github.event.inputs.upload == 'true'
+        run: |
+          # Set GPG passphrase if provided
+          if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then
+            export GPG_TTY=$(tty)
+            echo "${{ secrets.PPA_GPG_PASSPHRASE }}" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
+          fi
+          
+          # Upload the Zig package
+          dput ppa:mkasberg/ghostty-ubuntu zig0.15_*_source.changes
