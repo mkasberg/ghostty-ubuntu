@@ -21,16 +21,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        builds:
-          - distro: "ubuntu"
-            version: "24.04"
-          - distro: "ubuntu"
-            version: "25.04"
-          - distro: "ubuntu"
-            version: "25.10"
-          - distro: "debian"
-            version: "trixie"
-        arch: [amd64, arm64]
+        builds: ${{ github.event_name == 'pull_request' && fromJson('[{distro: "ubuntu", version: "24.04"}, {distro: "ubuntu", version: "25.10"}]') || fromJson('[{distro: "ubuntu", version: "24.04"}, {distro: "ubuntu", version: "25.04"}, {distro: "ubuntu", version: "25.10"}, {distro: "debian", version: "trixie"}]') }}
+        arch: ${{ github.event_name == 'pull_request' && fromJson('["amd64"]') || fromJson('["amd64", "arm64"]') }}
         include:
           - arch: amd64
             runner: ubuntu-24.04
