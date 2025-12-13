@@ -1,0 +1,72 @@
+name: Release Ghostty Binary
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: The version to release.
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  # Repeated pushes to a PR will cancel all previous still running builds of the
+  # PR (for faster feedback), while multiple merges to main will not cancel.
+  group: ${{ github.workflow }}-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build-ghostty:
+    name: Build Ghostty Binary Package
+    uses: ./.github/workflows/build-binary.yml
+    with:
+      build_matrix: |
+        {
+          "builds": [
+            {"distro": "ubuntu", "version": "24.04"},
+            {"distro": "ubuntu", "version": "25.04"},
+            {"distro": "ubuntu", "version": "25.10"},
+            {"distro": "debian", "version": "trixie"}
+          ],
+          "arch": ["amd64", "arm64"],
+          "include": [
+            {"arch": "amd64", "runner": "ubuntu-24.04"},
+            {"arch": "arm64", "runner": "ubuntu-24.04-arm"}
+          ]
+        }
+      version_type: "release"
+      zig_version: "0.14.1"
+
+  release-ghostty:
+    name: (Pre-)Release Ghostty Binary
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: build-ghostty
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          merge-multiple: true
+
+      - name: Validate Release Version
+        run: |
+          if ls *${{ inputs.release_version }}* 1> /dev/null 2>&1; then
+            # Version is correct.
+            # The git tag shouldn't have `~`
+            echo "RELEASE_TAG=$(echo '${{ inputs.release_version }}' | sed 's/~/-/g')" >> $GITHUB_ENV
+          else
+            echo "::error::Release version does not match filenames."
+            exit 1
+          fi
+
+      - name: Publish Release Draft
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: ghostty_*.deb
+          name: ${{ inputs.release_version }}
+          tag_name: ${{ env.RELEASE_TAG }}
+          fail_on_unmatched_files: true

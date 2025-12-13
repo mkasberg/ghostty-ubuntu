@@ -1,0 +1,35 @@
+name: Test Build (Binary)
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  # Repeated pushes to a PR will cancel all previous still running builds of the
+  # PR (for faster feedback)
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-ghostty:
+    name: Build Tip
+    uses: ./.github/workflows/build-binary.yml
+    with:
+      build_matrix: |
+        {
+          "builds": [
+            {"distro": "ubuntu", "version": "24.04"},
+            {"distro": "ubuntu", "version": "25.10"}
+          ],
+          "arch": ["amd64"],
+          "include": [
+            {"arch": "amd64", "runner": "ubuntu-24.04"}
+          ]
+        }
+      zig_version: "0.15.2"
+      version_type: "tip"
