@@ -20,7 +20,7 @@ concurrency:
 jobs:
   build-ghostty:
     name: Build Ghostty Binary Package
-    uses: ./.github/workflows/build-binary.yml
+    uses: ./.github/workflows/binary-build.yml
     with:
       build_matrix: |
         {

@@ -1,24 +1,20 @@
-name: Test Build (Binary)
+name: Nightly
 
 on:
-  pull_request:
   workflow_dispatch:
   schedule:
     - cron: '0 1 * * *'
 
-permissions:
-  contents: write
-
 concurrency:
   # Repeated pushes to a PR will cancel all previous still running builds of the
   # PR (for faster feedback)
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:
-  build-ghostty:
-    name: Build Tip
-    uses: ./.github/workflows/build-binary.yml
+  build-ghostty-binary:
+    name: Test Binary Tip
+    uses: ./.github/workflows/binary-build.yml
     with:
       build_matrix: |
         {
@@ -33,3 +29,10 @@ jobs:
         }
       zig_version: "0.15.2"
       version_type: "tip"
+
+  build-ghostty-ppa:
+    name: Upload Ghostty PPA
+    uses: ./.github/workflows/ppa-build-ghostty.yml
+    with:
+      upload: true
+      version: tip
