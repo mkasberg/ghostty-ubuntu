@@ -1,17 +1,22 @@
-name: Build Zig for PPA
+name: Build Ghostty for PPA
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      upload:
-        description: 'Upload to PPA (default: true)'
+      version:
+        description: 'Version to build (default: tip)'
         required: false
-        default: true
+        type: string
+        default: tip
+      upload:
+        description: 'Upload to PPA (default: false)'
+        required: false
+        default: false
         type: boolean
 
 jobs:
-  build:
-    name: Build Zig
+  ghostty-build:
+    name: Build Ghostty
     runs-on: ubuntu-latest
     container:
       image: ubuntu:25.10
@@ -20,11 +25,17 @@ jobs:
       - name: Checkout packaging repository
         uses: actions/checkout@v4
 
+      - name: Add Ghostty PPA
+        run: |
+          apt-get update
+          apt-get install -y software-properties-common
+          add-apt-repository -y ppa:mkasberg/ghostty-ubuntu
+
       - name: Install system dependencies
         run: |
           apt-get update
           apt-get install -y git devscripts build-essential debhelper wget minisign dput gnupg equivs
-          apt-get build-dep -y ./build-ppa/zig0.15
+          apt-get build-dep -y ./build-ppa/ghostty-nightly
 
       - name: Set up GPG signing
         run: |
@@ -58,7 +69,7 @@ jobs:
           allow_unsigned_uploads = 0
           EOF
 
-      - name: Run build
+      - name: Run ghostty build
         run: |
           # Set GPG passphrase if provided
           if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then
@@ -67,13 +78,14 @@ jobs:
           fi
           
           # Run the build script
-          ./build-ppa/build-zig.sh
+          VERSION="${{ github.event.inputs.version || 'tip' }}"
+          ./build-ppa/build-ghostty.sh "$VERSION"
         env:
           DEBEMAIL: "kasberg.mike@gmail.com"
           DEBFULLNAME: "Mike Kasberg"
 
       - name: Upload to PPA
-        if: github.event.inputs.upload == 'true'
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.upload == 'true')
         run: |
           # Set GPG passphrase if provided
           if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then
@@ -81,5 +93,10 @@ jobs:
             echo "${{ secrets.PPA_GPG_PASSPHRASE }}" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
           
-          # Upload the Zig package
-          dput ppa:mkasberg/ghostty-ubuntu zig0.15_*_source.changes
+          # Determine the package name based on version
+          VERSION="${{ github.event.inputs.version || 'tip' }}"
+          if [[ "$VERSION" == "tip" ]]; then
+            dput ppa:mkasberg/ghostty-ubuntu ghostty-nightly_*_source.changes
+          else
+            dput ppa:mkasberg/ghostty-ubuntu ghostty_*_source.changes
+          fi
