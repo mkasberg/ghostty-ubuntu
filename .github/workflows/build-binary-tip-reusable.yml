@@ -1,19 +1,24 @@
-name: Build Ghostty Tip (Binary)
+name: Reusable Ghostty Tip Binary Build
 
 on:
-  pull_request:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * *'
+  workflow_call:
+    inputs:
+      build_matrix:
+        description: 'Build matrix as JSON string'
+        required: true
+        type: string
+      arch_matrix:
+        description: 'Arch matrix as JSON string'
+        required: true
+        type: string
+      zig_version:
+        description: 'Zig version to use'
+        required: false
+        type: string
+        default: "0.15.2"
 
 permissions:
   contents: write
-
-concurrency:
-  # Repeated pushes to a PR will cancel all previous still running builds of the
-  # PR (for faster feedback), while multiple merges to main will not cancel.
-  group: ${{ github.workflow }}-${{ github.sha }}
-  cancel-in-progress: true
 
 jobs:
   build-ghostty:
@@ -21,23 +26,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        builds:
-          - distro: "ubuntu"
-            version: "24.04"
-          - distro: "ubuntu"
-            version: "25.04"
-          - distro: "ubuntu"
-            version: "25.10"
-          - distro: "debian"
-            version: "trixie"
-        arch: [amd64, arm64]
+        builds: ${{ fromJson(inputs.build_matrix) }}
+        arch: ${{ fromJson(inputs.arch_matrix) }}
         include:
           - arch: amd64
             runner: ubuntu-24.04
-            zig_version: "0.15.2"
+            zig_version: ${{ inputs.zig_version }}
           - arch: arm64
             runner: ubuntu-24.04-arm
-            zig_version: "0.15.2"
+            zig_version: ${{ inputs.zig_version }}
     runs-on: ${{ matrix.runner }}
     steps:
         # See the docs: https://github.com/docker/build-push-action
