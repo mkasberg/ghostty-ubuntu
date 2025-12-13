@@ -1,0 +1,26 @@
+name: Build Ghostty Tip (Binary - PR)
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+concurrency:
+  # Repeated pushes to a PR will cancel all previous still running builds of the
+  # PR (for faster feedback)
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-ghostty:
+    name: Build Ghostty Tip Binary Package
+    uses: ./.github/workflows/build-binary-tip-reusable.yml
+    with:
+      build_matrix: |
+        [
+          {"distro": "ubuntu", "version": "24.04"},
+          {"distro": "ubuntu", "version": "25.10"}
+        ]
+      arch_matrix: '["amd64"]'
+      zig_version: "0.15.2"
