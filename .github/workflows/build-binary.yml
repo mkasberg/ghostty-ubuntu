@@ -1,46 +1,32 @@
-name: Build Ghostty (Binary)
+name: Build Ghostty Binary
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      release_version:
-        description: The version to release.
-        type: string
+      build_matrix:
+        description: 'Build matrix as JSON string'
         required: true
+        type: string
+      zig_version:
+        description: 'Zig version to use'
+        required: false
+        type: string
+        default: "0.15.2"
+      version_type:
+        description: 'Version type to build: "tip" or "release"'
+        required: false
+        type: string
+        default: "tip"
 
 permissions:
   contents: write
 
-concurrency:
-  # Repeated pushes to a PR will cancel all previous still running builds of the
-  # PR (for faster feedback), while multiple merges to main will not cancel.
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
-  cancel-in-progress: true
-
 jobs:
   build-ghostty:
-    name: Build Ghostty Binary Package
+    name: Ghostty Binary
     strategy:
       fail-fast: false
-      matrix:
-        builds:
-          - distro: "ubuntu"
-            version: "24.04"
-          - distro: "ubuntu"
-            version: "25.04"
-          - distro: "ubuntu"
-            version: "25.10"
-          - distro: "debian"
-            version: "trixie"
-        arch: [amd64, arm64]
-        include:
-          - arch: amd64
-            runner: ubuntu-24.04
-          - arch: arm64
-            runner: ubuntu-24.04-arm
+      matrix: ${{ fromJson(inputs.build_matrix) }}
     runs-on: ${{ matrix.runner }}
     steps:
         # See the docs: https://github.com/docker/build-push-action
@@ -52,11 +38,12 @@ jobs:
       - name: Build Docker Image
         uses: docker/build-push-action@v6
         with:
-          tags: ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}
+          tags: ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ inputs.zig_version }}
           context: "{{defaultContext}}:build-binary"
           build-args: |
             DISTRO=${{ matrix.builds.distro }}
             DISTRO_VERSION=${{ matrix.builds.version }}
+            ZIG_VERSION=${{ inputs.zig_version }}
           push: false
           load: true
           cache-from: type=gha
@@ -67,51 +54,19 @@ jobs:
 
       - name: Build Ghostty
         run: |
-          docker run --rm -v$PWD/build-binary:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }} /bin/bash build-ghostty.sh
+          docker run --rm -v$PWD/build-binary:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ inputs.zig_version }} /bin/bash build-ghostty.sh ${{ inputs.version_type }}
           mv ./build-binary/ghostty_*.deb ./
 
       - name: Lint .deb Package
         # Lintian shouldn't fail our build yet
-        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }} lintian ghostty_*.deb || true
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ inputs.zig_version }} lintian ghostty_*.deb || true
 
       - name: Test Installation
-        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }} dpkg -i ghostty_*.deb
+        run: docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ inputs.zig_version }} dpkg -i ghostty_*.deb
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}
+          name: package-${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ inputs.zig_version }}
           retention-days: 7
           path: ghostty_*.deb
-
-  release-ghostty:
-    name: (Pre-)Release Ghostty Binary
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    needs: build-ghostty
-    steps:
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: package-*
-          merge-multiple: true
-
-      - name: Validate Release Version
-        run: |
-          if ls *${{ inputs.release_version }}* 1> /dev/null 2>&1; then
-            # Version is correct.
-            # The git tag shouldn't have `~`
-            echo "RELEASE_TAG=$(echo '${{ inputs.release_version }}' | sed 's/~/-/g')" >> $GITHUB_ENV
-          else
-            echo "::error::Release version does not match filenames."
-            exit 1
-          fi
-
-      - name: Publish Release Draft
-        uses: softprops/action-gh-release@v2
-        with:
-          draft: true
-          files: ghostty_*.deb
-          name: ${{ inputs.release_version }}
-          tag_name: ${{ env.RELEASE_TAG }}
-          fail_on_unmatched_files: true
