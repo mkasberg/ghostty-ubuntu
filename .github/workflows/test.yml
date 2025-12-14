@@ -47,3 +47,9 @@ jobs:
     with:
       upload: false
       version: tip
+      build_matrix: |
+        {
+          "builds": [
+            {"codename": "questing", "container-image": "ubuntu:25.10"}
+          ]
+        }

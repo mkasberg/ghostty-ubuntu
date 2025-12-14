@@ -12,16 +12,6 @@ on:
         description: 'Build matrix as JSON string'
         required: true
         type: string
-      codename:
-        description: 'Ubuntu codename to build for'
-        required: false
-        default: 'questing'
-        type: string
-      container-image:
-        description: 'Container image to use for build'
-        required: false
-        default: 'ubuntu:25.10'
-        type: string
 
 jobs:
   build:
