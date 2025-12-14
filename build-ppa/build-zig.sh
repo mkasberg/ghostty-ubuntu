@@ -2,27 +2,63 @@
 #
 # Automated build script for Zig for Ghostty PPA
 #
-# Usage: ./build-zig.sh
+# Usage: ./build-zig.sh [OPTIONS] [codename]
+#   Options:
+#     -h             Show this help message
+#     -c CODENAME    Ubuntu codename (noble, questing, etc.)
+#     -s             Sign the package (sets SIGN_PACKAGE=true)
+#   codename: Ubuntu codename (noble, questing, etc.)
+#                Defaults to questing
 #
 
 set -e
 
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    echo "Usage: $0 "
-    exit 0
-fi
+# Determine script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Default values
+CODENAME="questing"
+SIGN_PACKAGE=false
+
+# Parse command line arguments
+while getopts 'hc:s' opt; do
+    case "$opt" in
+        'h')
+            echo "Usage: $0 [OPTIONS] [codename]"
+            echo "  Options:"
+            echo "    -h             Show this help message"
+            echo "    -c CODENAME    Ubuntu codename (noble, questing, etc.)"
+            echo "    -s             Sign the package (sets SIGN_PACKAGE=true)"
+            echo "  codename: Ubuntu codename (noble, questing, etc.)"
+            echo "                   Defaults to questing"
+            exit 0
+            ;;
+        'c')
+            CODENAME="$OPTARG"
+            ;;
+        's')
+            SIGN_PACKAGE=true
+            ;;
+        '?')
+            echo "Invalid option: -$OPTARG"
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
 
 TIMESTAMP=$(date -u -R)
 PACKAGE_NAME=zig0.15
 VERSION="0.15.2"
 
 echo "Building Zig for version: $VERSION"
+echo "Target codename: $CODENAME"
 
 # Fetch the source and create .orig.tar.xz
 echo "Fetching Zig source..."
-cd zig0.15
+cd "$SCRIPT_DIR/zig0.15"
 uscan --repack -v
-cd -
+cd "$SCRIPT_DIR"
 
 # Determine the base version and PPA number
 FULL_VERSION="${VERSION}~us1-ppa3"
@@ -41,19 +77,19 @@ UPSTREAM_DIR=$(basename "$BUILD_DIR"/*)
 
 # Copy the upstream tarball to where dpkg-source expects it
 echo "Copying upstream tarball for dpkg-source..."
-cp "${REPACK_TARBALL}" "$BUILD_DIR/"
+cp "$SCRIPT_DIR/${REPACK_TARBALL}" "$BUILD_DIR/"
 
 # Copy Debian packaging to temp directory
 echo "Copying Debian packaging..."
-cp -r "$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
+cp -r "$SCRIPT_DIR/$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
 
 # Update changelog in temp directory
 CHANGELOG_FILE="$BUILD_DIR/$UPSTREAM_DIR/debian/changelog"
 echo "Updating changelog..."
 cat > "$CHANGELOG_FILE" << EOF
-${PACKAGE_NAME} ($FULL_VERSION) questing; urgency=medium
+${PACKAGE_NAME} ($FULL_VERSION) $CODENAME; urgency=medium
 
-  * Nightly build.
+  * Build for $CODENAME.
 
  -- Mike Kasberg <kasberg.mike@gmail.com>  $TIMESTAMP
 
@@ -66,12 +102,16 @@ head -n5 "$CHANGELOG_FILE"
 # Build the source package in temp directory
 echo "Building source package..."
 cd "$BUILD_DIR/$UPSTREAM_DIR"
-debuild -S -sa
-cd -  # return to original directory
+if [[ "$SIGN_PACKAGE" == 'true' ]]; then
+  debuild -S -sa
+else
+  debuild -S -sa -us -uc
+fi
+cd "$SCRIPT_DIR"  # return to script directory
 
-# Move results to current directory and cleanup
+# Move results to script directory and cleanup
 echo "Moving build results and cleaning up..."
-mv "$BUILD_DIR"/${PACKAGE_NAME}_* ./
+mv "$BUILD_DIR"/${PACKAGE_NAME}_* "$SCRIPT_DIR/"
 rm -rf "$BUILD_DIR"
 
 echo "Build completed successfully!"

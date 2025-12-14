@@ -38,6 +38,7 @@ jobs:
           apt-get build-dep -y ./build-ppa/ghostty-nightly
 
       - name: Set up GPG signing
+        if: inputs.upload
         run: |
           # Import GPG private key
           echo "${{ secrets.PPA_GPG_PRIVATE_KEY }}" | gpg --import --batch --no-tty
@@ -58,6 +59,7 @@ jobs:
           gpgconf --launch gpg-agent
 
       - name: Configure dput
+        if: inputs.upload
         run: |
           # Create dput configuration for the PPA
           cat > ~/.dput.cf << 'EOF'
@@ -76,16 +78,20 @@ jobs:
             export GPG_TTY=$(tty)
             echo "${{ secrets.PPA_GPG_PASSPHRASE }}" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
+          SIGN_OPT=""
+          if [[ "${{ inputs.upload }}" == 'true' ]]; then
+            SIGN_OPT="-s"
+          fi
           
           # Run the build script
           VERSION="${{ github.event.inputs.version || 'tip' }}"
-          ./build-ppa/build-ghostty.sh "$VERSION"
+          ./build-ppa/build-ghostty.sh -v "$VERSION" $SIGN_OPT
         env:
           DEBEMAIL: "kasberg.mike@gmail.com"
           DEBFULLNAME: "Mike Kasberg"
 
       - name: Upload to PPA
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.upload == 'true')
+        if: inputs.upload
         run: |
           # Set GPG passphrase if provided
           if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then

@@ -34,6 +34,12 @@ jobs:
     uses: ./.github/workflows/ppa-build-zig.yml
     with:
       upload: false
+      build_matrix: |
+        {
+          "builds": [
+            {"codename": "questing", "container-image": "ubuntu:25.10"}
+          ]
+        }
 
   build-ghostty-ppa:
     name: PPA Ghostty

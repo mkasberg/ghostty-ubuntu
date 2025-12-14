@@ -2,6 +2,9 @@
 ghostty-*.tar.gz
 ghostty-*.*.*/
 
+# Zig source
+zig*.tar.xz
+
 # .deb Packages
 *.deb
 
