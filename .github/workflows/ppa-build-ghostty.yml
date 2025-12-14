@@ -13,13 +13,19 @@ on:
         required: false
         default: false
         type: boolean
+      build_matrix:
+        description: 'Build matrix as JSON string'
+        required: true
+        type: string
 
 jobs:
   ghostty-build:
-    name: Build Ghostty
+    name: Build Ghostty (${{ matrix.builds.codename }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(inputs.build_matrix) }}
     container:
-      image: ubuntu:25.10
+      image: ${{ matrix.builds.container-image }}
     
     steps:
       - name: Checkout packaging repository
@@ -85,7 +91,7 @@ jobs:
           
           # Run the build script
           VERSION="${{ github.event.inputs.version || 'tip' }}"
-          ./build-ppa/build-ghostty.sh -v "$VERSION" $SIGN_OPT
+          ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "$VERSION" $SIGN_OPT
         env:
           DEBEMAIL: "kasberg.mike@gmail.com"
           DEBFULLNAME: "Mike Kasberg"
