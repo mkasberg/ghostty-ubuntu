@@ -2,8 +2,13 @@
 #
 # Automated build script for Ghostty PPA
 #
-# Usage: ./build-ghostty.sh [version]
-#   version: defaults to "tip"
+# Usage: ./build-ghostty.sh [OPTIONS]
+#   Options:
+#     -h             Show this help message
+#     -c CODENAME    Ubuntu codename (noble, questing, etc.)
+#     -s             Sign the package (sets SIGN_PACKAGE=true)
+#     -v VERSION     Ghostty version (tip, 1.0.0, etc.)
+#                Defaults to tip
 #
 
 set -e
@@ -11,14 +16,40 @@ set -e
 # Determine script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    echo "Usage: $0 [version]"
-    echo "  version: defaults to 'tip'"
-    echo "Example: $0 tip"
-    exit 0
-fi
+# Default values
+CODENAME="questing"
+SIGN_PACKAGE=false
+VERSION="tip"
 
-VERSION=${1:-tip}
+# Parse command line arguments
+while getopts 'hc:sv:' opt; do
+    case "$opt" in
+        'h')
+            echo "Usage: $0 [OPTIONS]"
+            echo "  Options:"
+            echo "    -h             Show this help message"
+            echo "    -c CODENAME    Ubuntu codename (noble, questing, etc.)"
+            echo "    -s             Sign the package (sets SIGN_PACKAGE=true)"
+            echo "    -v VERSION     Ghostty version (tip, 1.0.0, etc.)"
+            echo "                   Defaults to tip"
+            exit 0
+            ;;
+        'c')
+            CODENAME="$OPTARG"
+            ;;
+        's')
+            SIGN_PACKAGE=true
+            ;;
+        'v')
+            VERSION="$OPTARG"
+            ;;
+        '?')
+            echo "Invalid option: -$OPTARG"
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
 TIMESTAMP=$(date -u -R)
 
 echo "Building Ghostty for version: $VERSION"
@@ -67,9 +98,9 @@ cp -r "$SCRIPT_DIR/$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
 CHANGELOG_FILE="$BUILD_DIR/$UPSTREAM_DIR/debian/changelog"
 echo "Updating changelog..."
 cat > "$CHANGELOG_FILE" << EOF
-${PACKAGE_NAME} ($FULL_VERSION) questing; urgency=medium
+${PACKAGE_NAME} ($FULL_VERSION) $CODENAME; urgency=medium
 
-  * Nightly build.
+  * Build for $CODENAME.
 
  -- Mike Kasberg <kasberg.mike@gmail.com>  $TIMESTAMP
 
@@ -82,7 +113,11 @@ head -n5 "$CHANGELOG_FILE"
 # Build the source package in temp directory
 echo "Building source package..."
 cd "$BUILD_DIR/$UPSTREAM_DIR"
-debuild -S -sa
+if [[ "$SIGN_PACKAGE" == 'true' ]]; then
+  debuild -S -sa
+else
+  debuild -S -sa -us -uc
+fi
 cd -  # return to original directory
 
 # Move results to current directory and cleanup
