@@ -14,7 +14,7 @@ jobs:
     name: Build Zig for PPA
     uses: ./.github/workflows/ppa-build-zig.yml
     with:
-      upload: true
+      upload: ${{ inputs.upload }}
       build_matrix: |
         {
           "builds": [
