@@ -100,10 +100,11 @@ jobs:
           PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
         run: |
           # Set GPG passphrase if provided
-          if [ -n "PPA_GPG_PASSPHRASE" ]; then
+          if [ -n "$PPA_GPG_PASSPHRASE" ]; then
+            echo "Setting GPG Passphrase..."
             export GPG_TTY=$(tty)
             echo "$PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
           
           # Upload the Zig package
-          dput ppa:mkasberg/ghostty-ubuntu ./build-ppa/zig0.15_*_source.changes
+          cd build-ppa && dput ppa:mkasberg/ghostty-ubuntu zig0.15_*_source.changes

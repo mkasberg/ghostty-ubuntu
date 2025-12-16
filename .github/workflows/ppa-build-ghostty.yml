@@ -113,14 +113,10 @@ jobs:
         run: |
           # Set GPG passphrase if provided
           if [ -n "$PPA_GPG_PASSPHRASE" ]; then
+            echo "Setting GPG Passphrase..."
             export GPG_TTY=$(tty)
             echo "$PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
           
-          # Determine the package name based on version
-          VERSION="${{ github.event.inputs.version || 'tip' }}"
-          if [[ "$VERSION" == "tip" ]]; then
-            dput ppa:mkasberg/ghostty-ubuntu ghostty-nightly_*_source.changes
-          else
-            dput ppa:mkasberg/ghostty-ubuntu ./build-ppa/ghostty_*_source.changes
-          fi
+          # Upload the Ghostty package
+          cd build-ppa && dput ppa:mkasberg/ghostty-ubuntu ghostty*_source.changes
