@@ -94,4 +94,4 @@ jobs:
           fi
           
           # Upload the Zig package
-          dput ppa:mkasberg/ghostty-ubuntu zig0.15_*_source.changes
+          dput ppa:mkasberg/ghostty-ubuntu ./build-ppa/zig0.15_*_source.changes

@@ -110,5 +110,5 @@ jobs:
           if [[ "$VERSION" == "tip" ]]; then
             dput ppa:mkasberg/ghostty-ubuntu ghostty-nightly_*_source.changes
           else
-            dput ppa:mkasberg/ghostty-ubuntu ghostty_*_source.changes
+            dput ppa:mkasberg/ghostty-ubuntu ./build-ppa/ghostty_*_source.changes
           fi
