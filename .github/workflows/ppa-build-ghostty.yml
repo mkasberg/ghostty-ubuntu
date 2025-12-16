@@ -17,6 +17,13 @@ on:
         description: 'Build matrix as JSON string'
         required: true
         type: string
+    secrets:
+      PPA_GPG_PRIVATE_KEY:
+        description: The private key used to sign the .deb
+        required: false
+      PPA_GPG_PASSPHRASE:
+        description: The passphrase for the private key
+        required: false
 
 jobs:
   ghostty-build:
@@ -45,9 +52,11 @@ jobs:
 
       - name: Set up GPG signing
         if: inputs.upload
+        env:
+          PPA_GPG_PRIVATE_KEY: ${{ secrets.PPA_GPG_PRIVATE_KEY }}
         run: |
           # Import GPG private key
-          echo "${{ secrets.PPA_GPG_PRIVATE_KEY }}" | gpg --import --batch --no-tty
+          echo "$PPA_GPG_PRIVATE_KEY" | gpg --import --batch --no-tty
           
           # Configure GPG agent for non-interactive signing
           cat > ~/.gnupg/gpg-agent.conf << 'EOF'
@@ -78,11 +87,15 @@ jobs:
           EOF
 
       - name: Run ghostty build
+        env:
+          PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
+          DEBEMAIL: "kasberg.mike@gmail.com"
+          DEBFULLNAME: "Mike Kasberg"
         run: |
           # Set GPG passphrase if provided
-          if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then
+          if [ -n "$PPA_GPG_PASSPHRASE" ]; then
             export GPG_TTY=$(tty)
-            echo "${{ secrets.PPA_GPG_PASSPHRASE }}" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
+            echo "PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
           SIGN_OPT=""
           if [[ "${{ inputs.upload }}" == 'true' ]]; then
@@ -92,17 +105,16 @@ jobs:
           # Run the build script
           VERSION="${{ github.event.inputs.version || 'tip' }}"
           ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "$VERSION" $SIGN_OPT
-        env:
-          DEBEMAIL: "kasberg.mike@gmail.com"
-          DEBFULLNAME: "Mike Kasberg"
 
       - name: Upload to PPA
         if: inputs.upload
+        env:
+          PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
         run: |
           # Set GPG passphrase if provided
-          if [ -n "${{ secrets.PPA_GPG_PASSPHRASE }}" ]; then
+          if [ -n "$PPA_GPG_PASSPHRASE" ]; then
             export GPG_TTY=$(tty)
-            echo "${{ secrets.PPA_GPG_PASSPHRASE }}" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
+            echo "$PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
           
           # Determine the package name based on version
