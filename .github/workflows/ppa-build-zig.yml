@@ -93,6 +93,11 @@ jobs:
           
           # Run the build script
           ./build-ppa/build-zig.sh -c ${{ matrix.builds.codename }} $SIGN_OPT
+          
+          # Debug: Check if build produced signed files
+          echo "=== Debug: Check if build produced signed files ==="
+          ls -la build-ppa/zig0.15_*_source.changes
+          file build-ppa/zig0.15_*_source.changes
 
       - name: Upload to PPA
         if: inputs.upload
@@ -105,6 +110,29 @@ jobs:
             export GPG_TTY=$(tty)
             echo "$PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
+          
+          # Debug: Test GPG signing
+          echo "=== Debug: Testing GPG signing ==="
+          echo "test" | gpg --clearsign --output /tmp/test.sig /dev/stdin
+          echo "GPG signing test completed"
+          
+          # Debug: Check what files exist
+          echo "=== Debug: Files in build-ppa directory ==="
+          ls -la build-ppa/
+          echo "=== Debug: Zig files ==="
+          ls -la build-ppa/zig0.15_*
+          echo "=== Debug: GPG key info ==="
+          gpg --list-secret-keys --keyid-format LONG
+          echo "=== Debug: Changes file content ==="
+          head -20 build-ppa/zig0.15_*_source.changes
+          echo "=== Debug: Check if changes file is signed ==="
+          grep -A 10 -B 5 "BEGIN PGP" build-ppa/zig0.15_*_source.changes || echo "No PGP signature found in changes file"
+          
+          # Debug: Verify dput configuration
+          echo "=== Debug: dput configuration ==="
+          cat ~/.dput.cf
+          echo "=== Debug: dput version ==="
+          dput --version
           
           # Upload the Zig package
           cd build-ppa && dput ppa:mkasberg/ghostty-ubuntu zig0.15_*_source.changes

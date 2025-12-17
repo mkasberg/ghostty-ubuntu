@@ -102,11 +102,38 @@ head -n5 "$CHANGELOG_FILE"
 # Build the source package in temp directory
 echo "Building source package..."
 cd "$BUILD_DIR/$UPSTREAM_DIR"
+
+# Debug: Check signing environment
+echo "=== Debug: SIGN_PACKAGE value ==="
+echo "SIGN_PACKAGE='$SIGN_PACKAGE'"
+echo "=== Debug: GPG environment ==="
+env | grep -i gpg || echo "No GPG environment variables found"
+echo "=== Debug: GPG agent status ==="
+gpg-agent --daemon 2>&1 || echo "GPG agent not responding"
+echo "=== Debug: Available GPG keys ==="
+gpg --list-secret-keys --keyid-format LONG || echo "No GPG keys found"
+echo "=== Debug: debuild version ==="
+debuild --version
+
 if [[ "$SIGN_PACKAGE" == 'true' ]]; then
-  debuild -S -sa
+  echo "=== Debug: Running debuild with signing ==="
+  debuild -S -sa -v
 else
-  debuild -S -sa -us -uc
+  echo "=== Debug: Running debuild without signing ==="
+  debuild -S -sa -us -uc -v
 fi
+
+# Debug: Check what files were created
+echo "=== Debug: Files created by debuild ==="
+ls -la ../*.changes ../*.dsc 2>/dev/null || echo "No changes/dsc files found"
+echo "=== Debug: Check if changes file is signed ==="
+if [ -f "../${PACKAGE_NAME}_${FULL_VERSION}_source.changes" ]; then
+  file "../${PACKAGE_NAME}_${FULL_VERSION}_source.changes"
+  grep -q "BEGIN PGP" "../${PACKAGE_NAME}_${FULL_VERSION}_source.changes" && echo "Changes file IS signed" || echo "Changes file is NOT signed"
+else
+  echo "No changes file found"
+fi
+
 cd "$SCRIPT_DIR"  # return to script directory
 
 # Move results to script directory and cleanup

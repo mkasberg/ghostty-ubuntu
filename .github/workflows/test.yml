@@ -32,8 +32,11 @@ jobs:
   build-zig-ppa:
     name: PPA Zig
     uses: ./.github/workflows/ppa-build-zig.yml
+    secrets:
+      PPA_GPG_PRIVATE_KEY: ${{ secrets.PPA_GPG_PRIVATE_KEY }}
+      PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
     with:
-      upload: false
+      upload: true
       build_matrix: |
         {
           "builds": [
