@@ -53,6 +53,7 @@ VERSION="0.15.2"
 
 echo "Building Zig for version: $VERSION"
 echo "Target codename: $CODENAME"
+echo "Sign package: $SIGN_PACKAGE"
 
 # Fetch the source and create .orig.tar.xz
 echo "Fetching Zig source..."
@@ -102,7 +103,7 @@ head -n5 "$CHANGELOG_FILE"
 # Build the source package in temp directory
 echo "Building source package..."
 cd "$BUILD_DIR/$UPSTREAM_DIR"
-if [[ "$SIGN_PACKAGE" == 'true' ]]; then
+if [ "$SIGN_PACKAGE" = "true" ]; then
   debuild -S -sa
 else
   debuild -S -sa -us -uc

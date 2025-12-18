@@ -98,7 +98,7 @@ jobs:
             echo "PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
           SIGN_OPT=""
-          if [[ "${{ inputs.upload }}" == 'true' ]]; then
+          if [ "${{ inputs.upload }}" = "true" ]; then
             SIGN_OPT="-s"
           fi
           
