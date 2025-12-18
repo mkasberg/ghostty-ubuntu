@@ -59,7 +59,7 @@ echo "Fetching Ghostty source..."
 "$SCRIPT_DIR/fetch-ghostty-orig-source.sh" "$VERSION"
 
 # Determine the base version and PPA number
-if [[ "$VERSION" == "tip" ]]; then
+if [ "$VERSION" = "tip" ]; then
     PACKAGE_NAME="ghostty-nightly"
     # Find the REPACK_TARBALL created by fetch-ghostty-orig-source.sh
     REPACK_TARBALL=$(ls ghostty-nightly_*+nightly*~ppa1.orig.tar.gz 2>/dev/null | head -n1)
@@ -113,7 +113,7 @@ head -n5 "$CHANGELOG_FILE"
 # Build the source package in temp directory
 echo "Building source package..."
 cd "$BUILD_DIR/$UPSTREAM_DIR"
-if [[ "$SIGN_PACKAGE" == 'true' ]]; then
+if [ "$SIGN_PACKAGE" = 'true' ]; then
   debuild -S -sa
 else
   debuild -S -sa -us -uc
