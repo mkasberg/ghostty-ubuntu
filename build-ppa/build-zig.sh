@@ -50,6 +50,7 @@ shift $((OPTIND - 1))
 TIMESTAMP=$(date -u -R)
 PACKAGE_NAME=zig0.15
 VERSION="0.15.2"
+PPA_VERSION="ppa4"
 
 echo "Building Zig for version: $VERSION"
 echo "Target codename: $CODENAME"
@@ -62,7 +63,7 @@ uscan --repack -v
 cd "$SCRIPT_DIR"
 
 # Determine the base version and PPA number
-FULL_VERSION="${VERSION}~us1-ppa3"
+FULL_VERSION="${VERSION}~us1-${PPA_VERSION}~${CODENAME}1"
 REPACK_TARBALL="zig0.15_${VERSION}~us1.orig.tar.xz"
 
 echo "Full version: $FULL_VERSION"
