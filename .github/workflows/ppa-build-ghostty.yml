@@ -95,7 +95,7 @@ jobs:
           # Set GPG passphrase if provided
           if [ -n "$PPA_GPG_PASSPHRASE" ]; then
             export GPG_TTY=$(tty)
-            echo "PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
+            echo "$PPA_GPG_PASSPHRASE" | gpg --passphrase-fd 0 --batch --no-tty --pinentry-mode loopback --clearsign --output /dev/null /dev/null
           fi
           SIGN_OPT=""
           if [ "${{ inputs.upload }}" = "true" ]; then
