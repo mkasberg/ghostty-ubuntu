@@ -50,7 +50,7 @@ shift $((OPTIND - 1))
 TIMESTAMP=$(date -u -R)
 PACKAGE_NAME=zig0.15
 VERSION="0.15.2"
-PPA_VERSION="ppa4"
+PPA_VERSION="ppa5"
 
 echo "Building Zig for version: $VERSION"
 echo "Target codename: $CODENAME"
@@ -84,6 +84,16 @@ cp "$SCRIPT_DIR/${REPACK_TARBALL}" "$BUILD_DIR/"
 # Copy Debian packaging to temp directory
 echo "Copying Debian packaging..."
 cp -r "$SCRIPT_DIR/$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
+
+# Handle libxml2 dependency based on Ubuntu version
+echo "Adjusting libxml2 dependency for $CODENAME..."
+if [[ "$CODENAME" == "questing" ]]; then
+    echo "Using libxml2-16 for Ubuntu 25.10 (Questing)"
+    # Keep libxml2-16 as is
+else
+    echo "Using libxml2 for Ubuntu 25.04 (Plucky) and earlier"
+    sed -i 's/libxml2-16/libxml2/' "$BUILD_DIR/$UPSTREAM_DIR/debian/control"
+fi
 
 # Update changelog in temp directory
 CHANGELOG_FILE="$BUILD_DIR/$UPSTREAM_DIR/debian/changelog"
