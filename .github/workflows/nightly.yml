@@ -42,6 +42,7 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"codename": "questing", "container-image": "ubuntu:25.10"}
+            {"codename": "questing", "container-image": "ubuntu:25.10"},
+            {"codename": "plucky", "container-image": "ubuntu:25.04"}
           ]
         }
