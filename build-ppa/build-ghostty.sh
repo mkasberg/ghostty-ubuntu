@@ -126,7 +126,7 @@ cd -  # return to original directory
 
 # Move results to current directory and cleanup
 echo "Moving build results and cleaning up..."
-mv "$BUILD_DIR"/${PACKAGE_NAME}_* ./
+mv "$BUILD_DIR"/${PACKAGE_NAME}_* "$SCRIPT_DIR"
 rm -rf "$BUILD_DIR"
 
 echo "Build completed successfully!"
