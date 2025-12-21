@@ -116,11 +116,20 @@ head -n5 "$CHANGELOG_FILE"
 
 # Build the source package in temp directory
 echo "Building source package..."
+if [ "$CODENAME" = "noble" ]; then
+  # Maybe this?
+  # https://bugs.launchpad.net/ubuntu/+source/lintian/+bug/1959629
+  echo "Skipping lintian for noble"
+  DEBUILD_OPTIONS="--no-lintian"
+else
+  DEBUILD_OPTIONS=""
+fi
+
 cd "$BUILD_DIR/$UPSTREAM_DIR"
 if [ "$SIGN_PACKAGE" = 'true' ]; then
-  debuild -S -sa
+  debuild "$DEBUILD_OPTIONS" -S -sa
 else
-  debuild -S -sa -us -uc
+  debuild "$DEBUILD_OPTIONS" -S -sa -us -uc
 fi
 cd -  # return to original directory
 
