@@ -33,6 +33,9 @@ jobs:
       - name: Checkout packaging repository
         uses: actions/checkout@v4
 
+      - name: Patch for ${{ matrix.builds.codename }}
+        run: ./build-ppa/patch-for-dist.sh -c ${{ matrix.builds.codename }}
+
       - name: Install system dependencies
         run: |
           apt-get update
