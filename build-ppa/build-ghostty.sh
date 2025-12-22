@@ -116,10 +116,10 @@ head -n5 "$CHANGELOG_FILE"
 
 # Build the source package in temp directory
 echo "Building source package..."
-if [ "$CODENAME" = "noble" ]; then
+if [ "$CODENAME" = "noble" ] || [ "$CODENAME" = "plucky" ]; then
   # Maybe this?
   # https://bugs.launchpad.net/ubuntu/+source/lintian/+bug/1959629
-  echo "Skipping lintian for noble"
+  echo "Skipping lintian for noble/plucky"
   DEBUILD_OPTIONS="--no-lintian"
 else
   DEBUILD_OPTIONS=""
