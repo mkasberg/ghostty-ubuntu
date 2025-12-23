@@ -36,6 +36,9 @@ else
   GHOSTTY_DIR="ghostty-${VERSION}"
   REPACK_TARBALL="ghostty_${VERSION}${REPACK_SUFFIX}.orig.tar.gz"
   TARBALL_URL="https://release.files.ghostty.org/${VERSION}/${GHOSTTY_TARBALL}"
+  # Non-tip build: use current date with time zeroed
+  DATE=$(date -u +"%Y-%m-%d")
+  MTIME="${DATE} 00:00:00"
 fi
 GHOSTTY_SIGNATURE="${TARBALL_URL}.minisig"
 
@@ -68,12 +71,21 @@ if [ -z "$REPACK_TARBALL" ]; then
   DATE=$(date -u +"%Y%m%dT%H%M")
   if [ -n "$EXTRACTED_VERSION" ]; then
     REPACK_TARBALL="ghostty-nightly_${EXTRACTED_VERSION}+nightly${DATE}${REPACK_SUFFIX}.orig.tar.gz"
+    # Tip build: use DATE from filename construction
+    YEAR=${DATE:0:4}
+    MONTH=${DATE:4:2}
+    DAY=${DATE:6:2}
+    HOUR=${DATE:9:2}
+    MIN=${DATE:11:2}
+    MTIME="${YEAR}-${MONTH}-${DAY} ${HOUR}:${MIN}:00"
   else
     echo "Error: Could not extract version from GHOSTTY_DIR: $GHOSTTY_DIR"
     exit 1
   fi
 fi
-tar -czf "${REPACK_TARBALL}" "${GHOSTTY_DIR}"
+
+# Set MTIME for deterministic tarball
+tar --mtime="$MTIME" -czf "${REPACK_TARBALL}" "${GHOSTTY_DIR}"
 
 echo "Cleaning up..."
 rm -rf "${GHOSTTY_DIR}"
