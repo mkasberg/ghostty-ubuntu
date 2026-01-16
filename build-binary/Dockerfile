@@ -1,9 +1,11 @@
-ARG DISTRO_VERSION="25.04"
+ARG DISTRO_VERSION="25.10"
 ARG DISTRO="ubuntu"
 FROM ${DISTRO}:${DISTRO_VERSION}
 
 ARG DISTRO_VERSION
 ENV DISTRO_VERSION=${DISTRO_VERSION}
+ARG DISTRO
+ENV DISTRO=${DISTRO}
 
 # Install Dependencies
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
@@ -23,8 +25,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
     libadwaita-1-dev \
     libgtk-4-dev \
     libxml2-utils && \
-    # Install libgtk4-layer-shell-dev only for Ubuntu 25.04 and 25.10
-    if [ "$DISTRO_VERSION" = "25.04" ] || [ "$DISTRO_VERSION" = "25.10" ]; then \
+    # Install libgtk4-layer-shell-dev but not on 24.04
+    if [ "$DISTRO" = "ubuntu" ] && [ "$DISTRO_VERSION" != "24.04" ]; then \
         apt-get -qq -y --no-install-recommends install libgtk4-layer-shell-dev; \
     fi && \
     # Clean up for better caching

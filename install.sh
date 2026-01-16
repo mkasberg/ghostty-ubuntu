@@ -22,7 +22,7 @@ ARCH=$(dpkg --print-architecture)
 
 case "$ID" in
   ubuntu|pop|tuxedo|neon)
-    if [[ "$VERSION_ID" =~ ^(25.10|25.04|24.04)$ ]]; then
+    if [[ "$VERSION_ID" =~ ^(25.10|24.04)$ ]]; then
       SUFFIX="${ARCH}_${VERSION_ID}"
     else
       echo "This installer is not compatible with Ubuntu $VERSION_ID"
@@ -31,7 +31,7 @@ case "$ID" in
     ;;
   
   elementary)
-    if [[ "$UBUNTU_VERSION_ID" =~ ^(25.10|25.04|24.04)$ ]]; then
+    if [[ "$UBUNTU_VERSION_ID" =~ ^(25.10|24.04)$ ]]; then
       SUFFIX="${ARCH}_${UBUNTU_VERSION_ID}"
     else
       echo "This installer is not compatible with Ubuntu $UBUNTU_VERSION_ID"
@@ -69,7 +69,6 @@ case "$ID" in
     else
       declare -A SUPPORTED_VERSIONS=(
         ["questing"]="25.10"
-        ["plucky"]="25.04"
         ["noble"]="24.04"
       )
 
@@ -83,7 +82,7 @@ case "$ID" in
     ;;
 
   *)
-    if [[ "$UBUNTU_VERSION_ID" =~ ^(25.10|25.04|24.04)$ ]]; then
+    if [[ "$UBUNTU_VERSION_ID" =~ ^(25.10|24.04)$ ]]; then
       SUFFIX="${ARCH}_${UBUNTU_VERSION_ID}"
     else
       echo "This install script is not compatible with $ID."

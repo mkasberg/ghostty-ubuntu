@@ -87,12 +87,12 @@ cp -r "$SCRIPT_DIR/$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
 
 # Handle libxml2 dependency based on Ubuntu version
 echo "Adjusting libxml2 dependency for $CODENAME..."
-if [[ "$CODENAME" == "questing" ]]; then
-    echo "Using libxml2-16 for Ubuntu 25.10 (Questing)"
-    # Keep libxml2-16 as is
-else
-    echo "Using libxml2 for Ubuntu 25.04 (Plucky) and earlier"
+if [[ "$CODENAME" == "noble" ]]; then
+    echo "Using libxml2 for Ubuntu 24.04 (Noble) and earlier"
     sed -i 's/libxml2-16/libxml2/' "$BUILD_DIR/$UPSTREAM_DIR/debian/control"
+else
+    echo "Using libxml2-16 for Ubuntu 25.10+ (Questing)"
+    # Keep libxml2-16 as is
 fi
 
 # Update changelog in temp directory
