@@ -18,7 +18,7 @@ else
 fi
 
 
-# Use 25.04 format for ubuntu versions, "bookwork" format for Debian
+# Use 25.10 format for ubuntu versions, "bookwork" format for Debian
 if [ $(lsb_release -si) = "Debian" ]; then
   DISTRO_VERSION=$(lsb_release -sc)
 else
@@ -49,10 +49,10 @@ ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
 
 echo "Build Ghostty with zig"
 # Set build args based on distro version
-if [ "$DISTRO_VERSION" = "25.04" ] || [ "$DISTRO_VERSION" = "25.10" ]; then
-  BUILD_ARGS=""
-else
+if [ "$DISTRO_VERSION" = "24.04" ]; then
   BUILD_ARGS="-fno-sys=gtk4-layer-shell"
+else
+  BUILD_ARGS=""
 fi
 
 DESTDIR=zig-out zig build \
@@ -81,7 +81,7 @@ DEBIAN_VERSION="$CLEAN_GHOSTTY_VERSION-$DEBIAN_SUFFIX"
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
 sed -i "s/DEBIAN_ARCH/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
 sed -i "s/DEBIAN_VERSION/$DEBIAN_VERSION/g" ./zig-out/DEBIAN/control
-if [ "$DISTRO_VERSION" = "25.04" ] || [ "$DISTRO_VERSION" = "25.10" ]; then
+if [ "$DISTRO_VERSION" != "24.04" ]; then
   sed -i "s/Depends:/Depends: libgtk4-layer-shell0,/g" ./zig-out/DEBIAN/control
 fi
 

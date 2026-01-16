@@ -22,7 +22,6 @@ jobs:
         {
           "builds": [
             {"codename": "noble", "container-image": "ubuntu:24.04"},
-            {"codename": "plucky", "container-image": "ubuntu:25.04"},
             {"codename": "questing", "container-image": "ubuntu:25.10"}
           ]
         }
