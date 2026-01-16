@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(inputs.build_matrix) }}
     container:
       image: ${{ matrix.builds.container-image }}
