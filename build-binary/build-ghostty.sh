@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # https://ghostty.org/docs/install/build
 GHOSTTY_VERSION="1.2.3"
@@ -42,7 +43,9 @@ if [ "$1" == "tip" ]; then
 fi
 
 # On Ubuntu it's libbz2, not libbzip2
-sed -i 's/linkSystemLibrary2("bzip2", dynamic_link_opts)/linkSystemLibrary2("bz2", dynamic_link_opts)/' src/build/SharedDeps.zig
+patch -p1 < "$SCRIPT_DIR/patches/001-bzip2-to-bz2.patch"
+# Patch for our version of harfbuzz
+patch -p1 < "$SCRIPT_DIR/patches/002-harfbuzz.patch"
 
 echo "Fetch Zig Cache"
 ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
