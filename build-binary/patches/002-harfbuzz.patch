@@ -2,7 +2,7 @@ diff --git i/pkg/harfbuzz/buffer.zig w/pkg/harfbuzz/buffer.zig
 index b97c1bef4..dbb37887a 100644
 --- i/pkg/harfbuzz/buffer.zig
 +++ w/pkg/harfbuzz/buffer.zig
-@@ -282,14 +282,6 @@ pub const ClusterLevel = enum(u2) {
+@@ -282,14 +282,6 @@
      /// the exact cluster values of each character, but is harder to use for
      /// clients, since clusters might appear in any order.
      characters = c.HB_BUFFER_CLUSTER_LEVEL_CHARACTERS,
@@ -15,5 +15,5 @@ index b97c1bef4..dbb37887a 100644
 -    /// algorithm.
 -    graphemes = c.HB_BUFFER_CLUSTER_LEVEL_GRAPHEMES,
  };
- 
+
  /// The hb_glyph_info_t is the structure that holds information about the
