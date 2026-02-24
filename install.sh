@@ -62,6 +62,20 @@ case "$ID" in
     SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
     ;;
 
+  sparky)
+    # Map sparky versions to Debian codenames
+    declare -A SPARKY_TO_DEBIAN=(
+      ["8"]="trixie"
+    )
+    SPARKY_VERSION=$(echo "$VERSION_ID" | cut -d'.' -f1)
+    DEBIAN_CODENAME=${SPARKY_TO_DEBIAN[$SPARKY_VERSION]}
+    if [ -z "$DEBIAN_CODENAME" ]; then
+      echo "This installer is not compatible with Sparky Linux $VERSION_ID"
+      exit 1
+    fi
+    SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
+    ;;
+
   linuxmint|zorin)
     if [ "$DEBIAN_CODENAME" = "trixie" ]; then
       # Handle LMDE (Linux Mint Debian Edition)
