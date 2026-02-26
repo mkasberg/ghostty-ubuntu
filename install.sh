@@ -67,7 +67,7 @@ case "$ID" in
     declare -A SPARKY_TO_DEBIAN=(
       ["8"]="trixie"
     )
-    SPARKY_VERSION=$(echo "$VERSION_ID" | cut -d'.' -f1)
+    SPARKY_VERSION="$VERSION_ID"
     DEBIAN_CODENAME=${SPARKY_TO_DEBIAN[$SPARKY_VERSION]}
     if [ -z "$DEBIAN_CODENAME" ]; then
       echo "This installer is not compatible with Sparky Linux $VERSION_ID"
