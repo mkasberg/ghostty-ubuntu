@@ -108,8 +108,7 @@ jobs:
           fi
           
           # Run the build script
-          VERSION="${{ github.event.inputs.version || 'tip' }}"
-          ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "$VERSION" $SIGN_OPT
+          ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "${{ inputs.version }}" $SIGN_OPT
 
       - name: Upload to PPA
         if: inputs.upload
