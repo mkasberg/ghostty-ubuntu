@@ -1,13 +1,13 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-GHOSTTY_VERSION ?= $(shell cat VERSION | sed 's/main+/ubuntu-nightly-/g')
+GHOSTTY_VERSION ?= $(shell cat VERSION)
 
 %:
 	dh $@
 
 override_dh_auto_install:
-	DESTDIR=$(CURDIR)/debian/ghostty-nightly zig0.15 build \
+	DESTDIR=$(CURDIR)/debian/ghostty zig0.15 build \
 		--summary all \
 		--prefix /usr \
 		--system vendor-zig-cache/p \
@@ -19,4 +19,4 @@ override_dh_auto_install:
 		-Dversion-string=$(GHOSTTY_VERSION)
 
 override_dh_install:
-	dh_install --sourcedir=debian/ghostty-nightly
+	dh_install --sourcedir=debian/ghostty

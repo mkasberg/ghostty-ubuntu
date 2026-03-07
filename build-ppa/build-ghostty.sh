@@ -7,8 +7,8 @@
 #     -h             Show this help message
 #     -c CODENAME    Ubuntu codename (noble, questing, etc.)
 #     -s             Sign the package (sets SIGN_PACKAGE=true)
-#     -v VERSION     Ghostty version (tip, 1.0.0, etc.)
-#                Defaults to tip
+#     -v VERSION     Ghostty version (1.0.0, etc.)
+#                Defaults to 1.3.0
 #
 
 set -e
@@ -19,7 +19,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Default values
 CODENAME="questing"
 SIGN_PACKAGE=false
-VERSION="tip"
+VERSION="1.3.0"
 PPA_VERSION="ppa1"
 
 # Parse command line arguments
@@ -31,8 +31,8 @@ while getopts 'hc:sv:' opt; do
             echo "    -h             Show this help message"
             echo "    -c CODENAME    Ubuntu codename (noble, questing, etc.)"
             echo "    -s             Sign the package (sets SIGN_PACKAGE=true)"
-            echo "    -v VERSION     Ghostty version (tip, 1.0.0, etc.)"
-            echo "                   Defaults to tip"
+            echo "    -v VERSION     Ghostty version (1.0.0, etc.)"
+            echo "                   Defaults to 1.3.0"
             exit 0
             ;;
         'c')
@@ -62,22 +62,9 @@ echo "Fetching Ghostty source..."
 "$SCRIPT_DIR/fetch-ghostty-orig-source.sh" "$VERSION"
 
 # Determine the base version and PPA number
-if [ "$VERSION" = "tip" ]; then
-    PACKAGE_NAME="ghostty-nightly"
-    # Find the REPACK_TARBALL created by fetch-ghostty-orig-source.sh
-    REPACK_TARBALL=$(ls ghostty-nightly_*+nightly*~${PPA_VERSION}.orig.tar.gz 2>/dev/null | head -n1)
-    if [ -z "$REPACK_TARBALL" ]; then
-        echo "Error: Could not find repackaged tarball for tip build"
-        exit 1
-    fi
-    # Extract FULL_VERSION from REPACK_TARBALL filename
-    FULL_VERSION=$(echo "$REPACK_TARBALL" | sed -n 's/^ghostty-nightly_\([^)]*\)\.orig\.tar\.gz$/\1/p')
-    FULL_VERSION="${FULL_VERSION}-${CODENAME}1"
-else
-    PACKAGE_NAME="ghostty"
-    FULL_VERSION="${VERSION}~${PPA_VERSION}-${CODENAME}1"
-    REPACK_TARBALL="ghostty_${VERSION}~${PPA_VERSION}.orig.tar.gz"
-fi
+PACKAGE_NAME="ghostty"
+FULL_VERSION="${VERSION}~${PPA_VERSION}-${CODENAME}1"
+REPACK_TARBALL="ghostty_${VERSION}~${PPA_VERSION}.orig.tar.gz"
 
 echo "Full version: $FULL_VERSION"
 

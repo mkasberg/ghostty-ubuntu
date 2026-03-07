@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   build-ghostty-binary:
-    name: Binary Tip
+    name: Binary 1.3.0
     uses: ./.github/workflows/binary-build.yml
     with:
       build_matrix: |
@@ -27,7 +27,7 @@ jobs:
           ]
         }
       zig_version: "0.15.2"
-      version_type: "tip"
+      version_type: "1.3.0"
 
   build-zig-ppa:
     name: PPA Zig
@@ -46,7 +46,7 @@ jobs:
     uses: ./.github/workflows/ppa-build-ghostty.yml
     with:
       upload: false
-      version: tip
+      version: 1.3.0
       build_matrix: |
         {
           "builds": [

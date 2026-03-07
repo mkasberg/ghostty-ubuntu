@@ -1,8 +1,13 @@
-name: Release Zig for PPA
+name: Release Ghostty for PPA
 
 on:
   workflow_dispatch:
     inputs:
+      version:
+        description: 'Ghostty version to build (default: 1.3.0)'
+        required: false
+        default: '1.3.0'
+        type: string
       upload:
         description: 'Upload to PPA (default: false)'
         required: false
@@ -10,13 +15,14 @@ on:
         type: boolean
 
 jobs:
-  build-zig:
-    name: Build Zig for PPA
-    uses: ./.github/workflows/ppa-build-zig.yml
+  build-ghostty:
+    name: Build Ghostty for PPA
+    uses: ./.github/workflows/ppa-build-ghostty.yml
     secrets:
       PPA_GPG_PRIVATE_KEY: ${{ secrets.PPA_GPG_PRIVATE_KEY }}
       PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
     with:
+      version: ${{ inputs.version }}
       upload: ${{ inputs.upload }}
       build_matrix: |
         {
