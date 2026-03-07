@@ -53,7 +53,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y git devscripts build-essential debhelper wget minisign dput gnupg equivs
-          apt-get build-dep -y ./build-ppa/ghostty-nightly
+          apt-get build-dep -y ./build-ppa/ghostty
 
       - name: Set up GPG signing
         if: inputs.upload
@@ -108,8 +108,7 @@ jobs:
           fi
           
           # Run the build script
-          VERSION="${{ github.event.inputs.version || 'tip' }}"
-          ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "$VERSION" $SIGN_OPT
+          ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "${{ inputs.version }}" $SIGN_OPT
 
       - name: Upload to PPA
         if: inputs.upload

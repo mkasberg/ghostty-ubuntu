@@ -11,24 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-ghostty-binary:
-    name: Binary Tip
-    uses: ./.github/workflows/binary-build.yml
-    with:
-      build_matrix: |
-        {
-          "builds": [
-            {"distro": "ubuntu", "version": "24.04"},
-            {"distro": "ubuntu", "version": "25.10"}
-          ],
-          "arch": ["amd64"],
-          "include": [
-            {"arch": "amd64", "runner": "ubuntu-24.04"}
-          ]
-        }
-      zig_version: "0.15.2"
-      version_type: "tip"
-
   build-zig-ppa:
     name: PPA Zig
     uses: ./.github/workflows/ppa-build-zig.yml
@@ -46,7 +28,7 @@ jobs:
     uses: ./.github/workflows/ppa-build-ghostty.yml
     with:
       upload: false
-      version: tip
+      version: '1.3.0'
       build_matrix: |
         {
           "builds": [

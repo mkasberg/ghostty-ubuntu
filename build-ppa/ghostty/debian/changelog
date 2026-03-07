@@ -1,4 +1,4 @@
-ghostty-nightly (1.2.3~nightly20251204~vendor1-0~ppa1) questing; urgency=medium
+ghostty (1.3.0~ppa1) questing; urgency=medium
 
   * Initial nightly package release.
 

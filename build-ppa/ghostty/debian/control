@@ -1,4 +1,4 @@
-Source: ghostty-nightly
+Source: ghostty
 Section: utils
 Priority: optional
 Maintainer: Mike Kasberg <kasberg.mike@gmail.com>
@@ -15,7 +15,7 @@ Build-Depends: debhelper-compat (= 13),
                libxml2-utils,
                zig0.15
 
-Package: ghostty-nightly
+Package: ghostty
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libadwaita-1-0,
@@ -28,12 +28,9 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
          libharfbuzz0b,
          libonig5,
          libx11-6
-Conflicts: ghostty
 Provides: x-terminal-emulator
-Description: Fast, feature-rich, and cross-platform terminal emulator (nightly builds)
+Description: Fast, feature-rich, and cross-platform terminal emulator
  Ghostty is a terminal emulator that differentiates itself by being fast,
  feature-rich, and native. While there are many excellent terminal emulators
  available, they all force you to choose between speed, features, or native
  UIs. Ghostty provides all three.
- .
- This package contains nightly builds from the main branch.

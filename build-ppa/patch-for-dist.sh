@@ -41,9 +41,9 @@ done
 if [ "$CODENAME" = "noble" ]; then
   # Noble does not have libgtk4-layer-shell
   # Build without that system lib, and remove the dependency on it.
-  sed -i 's/-Doptimize=ReleaseFast/-Doptimize=ReleaseFast -fno-sys=gtk4-layer-shell/' "$SCRIPT_DIR/ghostty-nightly/debian/rules"
-  sed -i '/libgtk4-layer-shell0/d' "$SCRIPT_DIR/ghostty-nightly/debian/control"
-  sed -i '/libgtk4-layer-shell-dev/d' "$SCRIPT_DIR/ghostty-nightly/debian/control"
+  sed -i 's/-Doptimize=ReleaseFast/-Doptimize=ReleaseFast -fno-sys=gtk4-layer-shell/' "$SCRIPT_DIR/ghostty/debian/rules"
+  sed -i '/libgtk4-layer-shell0/d' "$SCRIPT_DIR/ghostty/debian/control"
+  sed -i '/libgtk4-layer-shell-dev/d' "$SCRIPT_DIR/ghostty/debian/control"
 
   # libicu76 is libicu74 in 24.04
   sed -i 's/libicu76/libicu74/' "$SCRIPT_DIR/zig0.15/debian/control"
