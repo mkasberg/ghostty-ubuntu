@@ -9,13 +9,32 @@
 # Ghostty Ubuntu
 
 This repository contains build scripts to produce an _unofficial_ Ubuntu/Debian
-package (.deb) for [Ghostty](https://ghostty.org).
+package (.deb) and PPA for [Ghostty](https://ghostty.org).
 
 This is an unofficial community project to provide a package that's easy to
 install on Ubuntu. If you're looking for the Ghostty source code, see
 [ghostty-org/ghostty](https://github.com/ghostty-org/ghostty).
 
-## Install/Update
+## Install/Update (PPA, recommended)
+
+We have an Ubuntu PPA on Lanuchpad: [mkasberg/ghostty-ubuntu](https://launchpad.net/~mkasberg/+archive/ubuntu/ghostty-ubuntu)
+
+_Most users on Ubuntu or Ubuntu-compatible systems should use this installation
+method._
+
+```sh
+sudo add-apt-repository ppa:mkasberg/ghostty-ubuntu
+sudo apt update
+sudo apt install ghostty
+```
+
+After adding the PPA, updates will happen automatically via apt!
+
+## .deb Install/Update
+
+For users who can't or don't want to use the PPA, or distributions that aren't
+compatible with the Ubuntu PPA, you can download a binary .deb package from
+GitHub releases.
 
 :zap: Just paste this into your terminal and run it!
 
@@ -72,8 +91,3 @@ Alternatively, you can try running [build-ghostty.sh](build-ghostty.sh) on your
 own system, but you'll have to have all the build dependencies installed as in
 the [Dockerfile](Dockerfile).
 
-## Roadmap
-
-- [x] Produce a .deb package on GitHub Releases
-- [ ] Set up a PPA (or other apt repo?) for easier updates
-- [ ] Ghostty is available in official Ubuntu repos
