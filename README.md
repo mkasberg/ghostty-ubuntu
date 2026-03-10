@@ -54,7 +54,7 @@ If you prefer to download and install the package manually instead of running th
    - **Debian Forky:** [ghostty_1.3.0-0.ppa1_amd64_forky.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.0-0-ppa1/ghostty_1.3.0-0.ppa1_amd64_forky.deb)
    - **Debian Trixie:** [ghostty_1.3.0-0.ppa1_amd64_trixie.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.0-0-ppa1/ghostty_1.3.0-0.ppa1_amd64_trixie.deb)
 
-   - **Arm64 Ubuntu 25.10 Plucky:** [ghostty_1.3.0-0.ppa1_arm64_25.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.0-0-ppa1/ghostty_1.3.0-0.ppa1_arm64_25.10.deb)
+   - **Arm64 Ubuntu 25.10 Questing:** [ghostty_1.3.0-0.ppa1_arm64_25.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.0-0-ppa1/ghostty_1.3.0-0.ppa1_arm64_25.10.deb)
    - **Arm64 Ubuntu 24.04 LTS Noble:** [ghostty_1.3.0-0.ppa1_arm64_24.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.0-0-ppa1/ghostty_1.3.0-0.ppa1_arm64_24.04.deb)
    - **Arm64 Debian Forky:** [ghostty_1.3.0-0.ppa1_arm64_forky.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.0-0-ppa1/ghostty_1.3.0-0.ppa1_arm64_forky.deb)
    - **Arm64 Debian Trixie:** [ghostty_1.3.0-0.ppa1_arm64_trixie.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.3.0-0-ppa1/ghostty_1.3.0-0.ppa1_arm64_trixie.deb)
