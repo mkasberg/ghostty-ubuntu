@@ -20,7 +20,6 @@ jobs:
           "builds": [
             {"distro": "ubuntu", "version": "24.04"},
             {"distro": "ubuntu", "version": "25.10"},
-            {"distro": "debian", "version": "trixie"},
             {"distro": "debian", "version": "forky"}
           ],
           "arch": ["amd64"],
