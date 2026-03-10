@@ -15,12 +15,10 @@ This is an unofficial community project to provide a package that's easy to
 install on Ubuntu. If you're looking for the Ghostty source code, see
 [ghostty-org/ghostty](https://github.com/ghostty-org/ghostty).
 
-## Install/Update (PPA, recommended)
+## Install/Update
 
-We have an Ubuntu PPA on Lanuchpad: [mkasberg/ghostty-ubuntu](https://launchpad.net/~mkasberg/+archive/ubuntu/ghostty-ubuntu)
-
-_Most users on Ubuntu or Ubuntu-compatible systems should use this installation
-method._
+:rocket: Add the [Launchpad PPA](https://launchpad.net/~mkasberg/+archive/ubuntu/ghostty-ubuntu)
+and install Ghostty:
 
 ```sh
 sudo add-apt-repository ppa:mkasberg/ghostty-ubuntu
@@ -28,13 +26,17 @@ sudo apt update
 sudo apt install ghostty
 ```
 
-After adding the PPA, updates will happen automatically via apt!
+After adding the PPA and installing Ghostty, updates will happen automatically
+via apt!
 
-## .deb Install/Update
+## Alternative Installation Methods
 
-For users who can't or don't want to use the PPA, or distributions that aren't
-compatible with the Ubuntu PPA, you can download a binary .deb package from
-GitHub releases.
+The PPA above is the recommended installation method for anyone who can use it.
+If you can't use the PPA, or don't want to use the PPA, or your distribution
+isn't compatible with the PPA, you can try one of the alternative installation
+methods below.
+
+### Curl Install/Update
 
 :zap: Just paste this into your terminal and run it!
 
@@ -42,7 +44,7 @@ GitHub releases.
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
 ```
 
-## Manual Installation
+### Manual Installation
 
 If you prefer to download and install the package manually instead of running the short script above, here are instructions.
 
@@ -58,7 +60,7 @@ If you prefer to download and install the package manually instead of running th
    ```sh
    sudo dpkg -i <filename>.deb
    ```
-## Updating
+### Updating
 
 To update to a new version, just follow any of the installation methods above. There's no need to uninstall the old version; it will be updated correctly.
 
