@@ -1,6 +1,5 @@
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/mkasberg/ghostty-ubuntu/total)
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/mkasberg/ghostty-ubuntu/latest/total)
 ![GitHub Release](https://img.shields.io/github/v/release/mkasberg/ghostty-ubuntu)
 ![GitHub Release Date](https://img.shields.io/github/release-date/mkasberg/ghostty-ubuntu)
 
