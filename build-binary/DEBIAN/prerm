@@ -1,12 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-if [ "$1" = "remove" ]; then
+if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
     # Remove Ghostty from ubuntu default terminal alternatives
     update-alternatives --remove x-terminal-emulator /usr/bin/ghostty
-
-    # Remove Ghostty diversion from terminfo
-    if dpkg-divert --list | grep -F "/usr/share/terminfo/g/ghostty"; then
-        dpkg-divert --package ghostty --no-rename --remove "/usr/share/terminfo/g/ghostty"
-    fi
 fi
+
+exit 0
