@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "purge" ] || [ "$1" = "abort-install" ] || [ "$1" = "disappear" ]; then
+    # Remove Ghostty diversion from terminfo
+    if dpkg-divert --list | grep -F "/usr/share/terminfo/g/ghostty" >/dev/null; then
+        dpkg-divert --package ghostty --remove --rename --divert "/usr/share/terminfo/g/ghostty.distrib" "/usr/share/terminfo/g/ghostty"
+    fi
+fi
+
+exit 0
