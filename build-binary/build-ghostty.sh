@@ -4,7 +4,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # https://ghostty.org/docs/install/build
-GHOSTTY_VERSION="1.3.0"
+GHOSTTY_VERSION="1.3.1"
 
 if [ "$1" == "tip" ]; then
   DEBIAN_SUFFIX="0~nightly"
