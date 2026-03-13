@@ -20,7 +20,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CODENAME="questing"
 SIGN_PACKAGE=false
 VERSION="tip"
-PPA_VERSION="ppa2"
+PPA_VERSION="ppa1"
 
 # Parse command line arguments
 while getopts 'hc:sv:' opt; do
