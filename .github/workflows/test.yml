@@ -28,7 +28,7 @@ jobs:
     uses: ./.github/workflows/ppa-build-ghostty.yml
     with:
       upload: false
-      version: '1.3.0'
+      version: '1.3.1'
       build_matrix: |
         {
           "builds": [
