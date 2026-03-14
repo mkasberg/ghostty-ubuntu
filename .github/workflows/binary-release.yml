@@ -27,7 +27,8 @@ jobs:
           "builds": [
             {"distro": "ubuntu", "version": "24.04"},
             {"distro": "ubuntu", "version": "25.10"},
-            {"distro": "debian", "version": "trixie"}
+            {"distro": "debian", "version": "trixie"},
+            {"distro": "debian", "version": "forky"}
           ],
           "arch": ["amd64", "arm64"],
           "include": [
@@ -36,7 +37,7 @@ jobs:
           ]
         }
       version_type: "release"
-      zig_version: "0.14.1"
+      zig_version: "0.15.2"
 
   release-ghostty:
     name: (Pre-)Release Ghostty Binary

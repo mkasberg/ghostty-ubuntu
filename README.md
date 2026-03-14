@@ -1,6 +1,5 @@
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/mkasberg/ghostty-ubuntu/total)
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/mkasberg/ghostty-ubuntu/latest/total)
 ![GitHub Release](https://img.shields.io/github/v/release/mkasberg/ghostty-ubuntu)
 ![GitHub Release Date](https://img.shields.io/github/release-date/mkasberg/ghostty-ubuntu)
 
@@ -9,7 +8,7 @@
 # Ghostty Ubuntu
 
 This repository contains build scripts to produce an _unofficial_ Ubuntu/Debian
-package (.deb) for [Ghostty](https://ghostty.org).
+package (.deb) and PPA for [Ghostty](https://ghostty.org).
 
 This is an unofficial community project to provide a package that's easy to
 install on Ubuntu. If you're looking for the Ghostty source code, see
@@ -17,29 +16,57 @@ install on Ubuntu. If you're looking for the Ghostty source code, see
 
 ## Install/Update
 
+:rocket: Add the [Launchpad PPA](https://launchpad.net/~mkasberg/+archive/ubuntu/ghostty-ubuntu)
+and install Ghostty:
+
+```sh
+sudo add-apt-repository ppa:mkasberg/ghostty-ubuntu
+sudo apt update
+sudo apt install ghostty
+```
+
+After adding the PPA and installing Ghostty, updates will happen automatically
+via apt!
+
+## Supported Operating Systems
+
+We provide amd64 and and arm64 builds for:
+
+ - Ubuntu 25.10 Jammy
+ - Ubuntu 24.04 LTS Noble
+ - Debian Forky
+ - Debian Trixie
+
+## Alternative Installation Methods
+
+The PPA above is the recommended installation method for anyone who can use it.
+If you can't use the PPA, or don't want to use the PPA, or your distribution
+isn't compatible with the PPA, you can try one of the alternative installation
+methods below.
+
+### Curl Install/Update
+
 :zap: Just paste this into your terminal and run it!
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
 ```
 
-## Manual Installation
+### Manual Installation
 
 If you prefer to download and install the package manually instead of running the short script above, here are instructions.
 
-1. Download the .deb package for your Ubuntu version. (Also available on our [Releases](https://github.com/mkasberg/ghostty-ubuntu/releases) page.)
-   - **Ubuntu 25.10 Questing:** [ghostty_1.2.3-0.ppa1_amd64_25.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_25.10.deb)
-   - **Ubuntu 24.04 LTS Noble:** [ghostty_1.2.3-0.ppa1_amd64_24.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_24.04.deb)
-   - **Debian Trixie:** [ghostty_1.2.3-0.ppa1_amd64_trixie.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_amd64_trixie.deb)
-   - **Arm64 Ubuntu 25.10 Plucky:** [ghostty_1.2.3-0.ppa1_arm64_25.10.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_arm64_25.10.deb)
-   - **Arm64 Ubuntu 24.04 LTS Noble:** [ghostty_1.2.3-0.ppa1_arm64_24.04.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_arm64_24.04.deb)
-   - **Arm64 Debian Trixie:** [ghostty_1.2.3-0.ppa1_arm64_trixie.deb](https://github.com/mkasberg/ghostty-ubuntu/releases/download/1.2.3-0-ppa1/ghostty_1.2.3-0.ppa1_arm64_trixie.deb)
+1. Download the .deb package for your Ubuntu version from our
+   [Releases](https://github.com/mkasberg/ghostty-ubuntu/releases) page. Make sure
+   you get the correct OS, version, and arch (amd64/arm64).
+
 2. Install the downloaded .deb package.
 
    ```sh
    sudo dpkg -i <filename>.deb
    ```
-## Updating
+
+### Updating
 
 To update to a new version, just follow any of the installation methods above. There's no need to uninstall the old version; it will be updated correctly.
 
@@ -72,8 +99,3 @@ Alternatively, you can try running [build-ghostty.sh](build-ghostty.sh) on your
 own system, but you'll have to have all the build dependencies installed as in
 the [Dockerfile](Dockerfile).
 
-## Roadmap
-
-- [x] Produce a .deb package on GitHub Releases
-- [ ] Set up a PPA (or other apt repo?) for easier updates
-- [ ] Ghostty is available in official Ubuntu repos

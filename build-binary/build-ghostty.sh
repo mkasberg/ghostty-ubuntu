@@ -4,7 +4,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # https://ghostty.org/docs/install/build
-GHOSTTY_VERSION="1.2.3"
+GHOSTTY_VERSION="1.3.1"
 
 if [ "$1" == "tip" ]; then
   DEBIAN_SUFFIX="0~nightly"
@@ -26,6 +26,15 @@ else
   DISTRO_VERSION=$(lsb_release -sr)
 fi
 DISTRO=$(lsb_release -sc)
+
+case "$DISTRO_VERSION" in
+  "24.04" | "trixie" | "forky")
+    HAS_GTK4_LAYER_SHELL=false
+    ;;
+  *)
+    HAS_GTK4_LAYER_SHELL=true
+    ;;
+esac
 
 echo "Fetch Ghostty Source"
 wget -q "$SOURCE_URL"
@@ -52,10 +61,10 @@ ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
 
 echo "Build Ghostty with zig"
 # Set build args based on distro version
-if [ "$DISTRO_VERSION" = "24.04" ]; then
-  BUILD_ARGS="-fno-sys=gtk4-layer-shell"
-else
+if [ "$HAS_GTK4_LAYER_SHELL" = "true" ]; then
   BUILD_ARGS=""
+else
+  BUILD_ARGS="-fno-sys=gtk4-layer-shell"
 fi
 
 DESTDIR=zig-out zig build \
@@ -84,7 +93,8 @@ DEBIAN_VERSION="$CLEAN_GHOSTTY_VERSION-$DEBIAN_SUFFIX"
 cp -r ../DEBIAN/ ./zig-out/DEBIAN/
 sed -i "s/DEBIAN_ARCH/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
 sed -i "s/DEBIAN_VERSION/$DEBIAN_VERSION/g" ./zig-out/DEBIAN/control
-if [ "$DISTRO_VERSION" != "24.04" ]; then
+if [ "$HAS_GTK4_LAYER_SHELL" = "true" ]; then
+  # Add dependency on libgtk4-layer-shell0.
   sed -i "s/Depends:/Depends: libgtk4-layer-shell0,/g" ./zig-out/DEBIAN/control
 fi
 
