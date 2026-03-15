@@ -11,7 +11,7 @@ on:
       ppa:
         description: Target PPA for upload
         required: false
-        default: mkasberg/ghostty-ubuntu-nightly
+        default: ghostty-ubuntu-nightly
         type: string
       build_matrix:
         description: 'Build matrix as JSON string'
@@ -75,10 +75,10 @@ jobs:
         run: |
           # Create dput configuration for the PPA
           cat > ~/.dput.cf << 'EOF'
-          [ghostty-ubuntu]
+          [${{ inputs.ppa }}]
           fqdn = ppa.launchpad.net
           method = https
-          incoming = ~${{ inputs.ppa }}/ubuntu/
+          incoming = ~mkasberg/${{ inputs.ppa }}/ubuntu/
           login = anonymous
           allow_unsigned_uploads = 0
           EOF
@@ -115,4 +115,4 @@ jobs:
           fi
           
           # Upload the Zig package
-          cd build-ppa && dput ppa:${{ inputs.ppa }} zig0.15_*_source.changes
+          cd build-ppa && dput ppa:mkasberg/${{ inputs.ppa }} zig0.15_*_source.changes

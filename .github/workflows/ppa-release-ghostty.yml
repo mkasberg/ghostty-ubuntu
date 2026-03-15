@@ -22,7 +22,7 @@ jobs:
     with:
       version: ${{ inputs.version }}
       upload: ${{ inputs.upload }}
-      ppa: mkasberg/ghostty-ubuntu
+      ppa: ghostty-ubuntu
       build_matrix: |
         {
           "builds": [

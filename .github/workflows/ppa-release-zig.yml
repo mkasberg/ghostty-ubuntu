@@ -11,11 +11,11 @@ on:
       ppa:
         description: Target PPA for upload
         required: true
-        default: mkasberg/ghostty-ubuntu-nightly
+        default: ghostty-ubuntu-nightly
         type: choice
         options:
-          - mkasberg/ghostty-ubuntu-nightly
-          - mkasberg/ghostty-ubuntu
+          - ghostty-ubuntu-nightly
+          - ghostty-ubuntu
 
 jobs:
   build-zig:
@@ -24,7 +24,7 @@ jobs:
     secrets: inherit
     with:
       upload: ${{ inputs.upload }}
-      ppa: ${{ inputs.ppa_name }}
+      ppa: ${{ inputs.ppa }}
       build_matrix: |
         {
           "builds": [
