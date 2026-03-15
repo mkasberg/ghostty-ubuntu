@@ -33,11 +33,10 @@ jobs:
   build-ghostty-ppa:
     name: Upload Ghostty PPA
     uses: ./.github/workflows/ppa-build-ghostty.yml
-    secrets:
-      PPA_GPG_PRIVATE_KEY: ${{ secrets.PPA_GPG_PRIVATE_KEY }}
-      PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
+    secrets: inherit
     with:
       upload: true
+      ppa: mkasberg/ghostty-ubuntu-nightly
       version: tip
       build_matrix: |
         {

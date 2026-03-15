@@ -4,20 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       upload:
-        description: 'Upload to PPA (default: true)'
+        description: 'Upload to PPA (default: false)'
         required: false
-        default: true
+        default: false
         type: boolean
+      ppa:
+        description: Target PPA for upload
+        required: true
+        default: mkasberg/ghostty-ubuntu-nightly
+        type: choice
+        options:
+          - mkasberg/ghostty-ubuntu-nightly
+          - mkasberg/ghostty-ubuntu
 
 jobs:
   build-zig:
     name: Build Zig for PPA
     uses: ./.github/workflows/ppa-build-zig.yml
-    secrets:
-      PPA_GPG_PRIVATE_KEY: ${{ secrets.PPA_GPG_PRIVATE_KEY }}
-      PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
+    secrets: inherit
     with:
       upload: ${{ inputs.upload }}
+      ppa: ${{ inputs.ppa_name }}
       build_matrix: |
         {
           "builds": [

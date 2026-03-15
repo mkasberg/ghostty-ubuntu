@@ -18,12 +18,11 @@ jobs:
   build-ghostty:
     name: Build Ghostty for PPA
     uses: ./.github/workflows/ppa-build-ghostty.yml
-    secrets:
-      PPA_GPG_PRIVATE_KEY: ${{ secrets.PPA_GPG_PRIVATE_KEY }}
-      PPA_GPG_PASSPHRASE: ${{ secrets.PPA_GPG_PASSPHRASE }}
+    secrets: inherit
     with:
       version: ${{ inputs.version }}
       upload: ${{ inputs.upload }}
+      ppa: mkasberg/ghostty-ubuntu
       build_matrix: |
         {
           "builds": [

@@ -13,6 +13,11 @@ on:
         required: false
         default: false
         type: boolean
+      ppa:
+        description: Target PPA for upload
+        required: false
+        default: mkasberg/ghostty-ubuntu-nightly
+        type: string
       build_matrix:
         description: 'Build matrix as JSON string'
         required: true
@@ -47,7 +52,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y software-properties-common
-          add-apt-repository -y ppa:mkasberg/ghostty-ubuntu
+          add-apt-repository -y ppa:${{ inputs.ppa }}
 
       - name: Install system dependencies
         run: |
@@ -86,7 +91,7 @@ jobs:
           [ghostty-ubuntu]
           fqdn = ppa.launchpad.net
           method = https
-          incoming = ~mkasberg/ghostty-ubuntu/ubuntu/
+          incoming = ~${{ inputs.ppa }}/ubuntu/
           login = anonymous
           allow_unsigned_uploads = 0
           EOF
@@ -123,4 +128,4 @@ jobs:
           fi
           
           # Upload the Ghostty package
-          cd build-ppa && dput ppa:mkasberg/ghostty-ubuntu ghostty*_source.changes
+          cd build-ppa && dput ppa:${{ inputs.ppa }} ghostty*_source.changes
