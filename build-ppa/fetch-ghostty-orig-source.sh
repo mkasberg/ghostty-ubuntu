@@ -23,15 +23,14 @@ fi
 
 VERSION=${1:-tip}
 
+PACKAGE_NAME="ghostty"
 REPACK_SUFFIX="~ppa1"
 GHOSTTY_PUBKEY="RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV"
 if [ "$VERSION" = "tip" ]; then
-  PACKAGE_NAME="ghostty-nightly"
   GHOSTTY_TARBALL="ghostty-source.tar.gz"
   REPACK_TARBALL=""
   TARBALL_URL="https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-source.tar.gz"
 else
-  PACKAGE_NAME="ghostty"
   GHOSTTY_TARBALL="ghostty-${VERSION}.tar.gz"
   GHOSTTY_DIR="ghostty-${VERSION}"
   REPACK_TARBALL="ghostty_${VERSION}${REPACK_SUFFIX}.orig.tar.gz"
@@ -70,7 +69,7 @@ if [ -z "$REPACK_TARBALL" ]; then
   EXTRACTED_VERSION=$(echo "$GHOSTTY_DIR" | sed -n 's/^ghostty-\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/p')
   DATE=$(date -u +"%Y%m%dT%H%M")
   if [ -n "$EXTRACTED_VERSION" ]; then
-    REPACK_TARBALL="ghostty-nightly_${EXTRACTED_VERSION}+nightly${DATE}${REPACK_SUFFIX}.orig.tar.gz"
+    REPACK_TARBALL="ghostty_${EXTRACTED_VERSION}+nightly${DATE}${REPACK_SUFFIX}.orig.tar.gz"
     # Tip build: use DATE from filename construction
     YEAR=${DATE:0:4}
     MONTH=${DATE:4:2}
