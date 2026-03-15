@@ -47,7 +47,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Checkout ghostty-ubuntu
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build Ghostty
         run: |
