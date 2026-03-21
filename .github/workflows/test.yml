@@ -20,6 +20,7 @@ jobs:
           "builds": [
             {"distro": "ubuntu", "version": "24.04"},
             {"distro": "ubuntu", "version": "25.10"},
+            {"distro": "ubuntu", "version": "26.04"},
             {"distro": "debian", "version": "forky"}
           ],
           "arch": ["amd64"],
@@ -38,7 +39,8 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"codename": "questing", "container-image": "ubuntu:25.10"}
+            {"codename": "questing", "container-image": "ubuntu:25.10"},
+            {"codename": "resolute", "container-image": "ubuntu:26.04"}
           ]
         }
 

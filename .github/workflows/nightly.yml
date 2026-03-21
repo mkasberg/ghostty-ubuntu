@@ -20,7 +20,8 @@ jobs:
         {
           "builds": [
             {"distro": "ubuntu", "version": "24.04"},
-            {"distro": "ubuntu", "version": "25.10"}
+            {"distro": "ubuntu", "version": "25.10"},
+            {"distro": "ubuntu", "version": "26.04"}
           ],
           "arch": ["amd64"],
           "include": [
