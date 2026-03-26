@@ -246,7 +246,7 @@ Copyright: 1996, ACN S.A
            Yaniv Kamay <yaniv@qumranet.com>
 License: Expat
 
-Files: lib/libunwind/* src/zig_clang_*.cpp src/zig_llvm-ar.cpp
+Files: lib/libtsan/* lib/libunwind/* src/zig_clang_*.cpp src/zig_llvm-ar.cpp
 Copyright: 2009-2019 LLVM contributors
 License: LLVM-exception
 

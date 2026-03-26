@@ -1,1 +1,5 @@
 zig0.15 source: source-contains-prebuilt-wasm-binary [stage1/zig1.wasm]
+
+# File from under RFC-3549, but also multi-licensed under BSD-2-Clause.
+# See: https://lintian.debian.org/tags/license-problem-non-free-RFC.html
+zig0.15 source: license-problem-non-free-RFC [lib/libc/include/generic-freebsd/netlink/netlink.h]
