@@ -28,15 +28,6 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          zig0.15-dev (= ${source:Version}),
-# FIXME why aren't these getting picked up by dpkg-shlibdeps?
-         llvm-20-dev,
-         libbsd0,
-         libedit2,
-         libffi8,
-         libicu76,
-         libmd0,
-         libtinfo6,
-         libxml2-16
 Suggests: zig-default
 Description: General-purpose imperative language
  Zig is a general-purpose programming language and toolchain
