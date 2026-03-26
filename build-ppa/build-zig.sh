@@ -50,7 +50,7 @@ shift $((OPTIND - 1))
 TIMESTAMP=$(date -u -R)
 PACKAGE_NAME=zig0.15
 VERSION="0.15.2"
-PPA_VERSION="ppa7"
+PPA_VERSION="0ppa7"
 
 echo "Building Zig for version: $VERSION"
 echo "Target codename: $CODENAME"
