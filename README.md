@@ -78,18 +78,22 @@ community](https://ghostty.org/docs/install/binary) to produce non-macOS
 packages.) I'm sure the scripts I have so far can be improved, so please open an
 issue or PR if you notice any problems!
 
-GitHub Actions will run CI on each PR to test that we can produce a build.
+GitHub Actions will run CI on each PR to test that we can produce a build, and
+the GitHub workflows at [binary-build.yml](.github/workflows/binary-build.yml),
+[ppa-build-zig.yml](.github/workflows//ppa-build-zig.yml), and
+[ppa-build-ghostty.yml](.github/workflows/ppa-build-ghostty.yml) are the most
+up-to-date documentation of the build process.
 
-If you want to test locally, our current approach uses Docker for a build
-environment. The details of how the process works are in
-[build.yml](.github/workflows//build.yml), but at a high level you can build the
-docker image
+If you want to build locally, the binary build is the easier. At a high level,
+you can build the Docker image to get a build environment for any Ubuntu version
+(if you don't want to use your laptop as the build environment).
 
 ```bash
-docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=24.10 .
+cd build-binary
+docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=25.10 --build-arg ZIG_VERSION=0.15.2 .
 ```
 
-And then use that build environment to produce a binary .deb package
+Then you can use that build environment to produce a binary .deb package.
 
 ```bash
 docker run --rm -v$PWD:/workspace -w /workspace ghostty-ubuntu:latest /bin/bash build-ghostty.sh
@@ -97,5 +101,6 @@ docker run --rm -v$PWD:/workspace -w /workspace ghostty-ubuntu:latest /bin/bash 
 
 Alternatively, you can try running [build-ghostty.sh](build-ghostty.sh) on your
 own system, but you'll have to have all the build dependencies installed as in
-the [Dockerfile](Dockerfile).
+the [Dockerfile](build-binary/Dockerfile).
 
+Building the PPA package locally is left as an exercise for the reader.
