@@ -12,7 +12,7 @@ if [ "$1" == "tip" ]; then
   SOURCE_URL="https://github.com/ghostty-org/ghostty/releases/download/tip/$SOURCE_FILENAME.tar.gz"
   MINISIG_URL="$SOURCE_URL.minisig"
 else
-  DEBIAN_SUFFIX="0~ppa1"
+  DEBIAN_SUFFIX="0~ppa2"
   SOURCE_FILENAME="ghostty-$GHOSTTY_VERSION"
   SOURCE_URL="https://release.files.ghostty.org/$GHOSTTY_VERSION/$SOURCE_FILENAME.tar.gz"
   MINISIG_URL="$SOURCE_URL.minisig"
