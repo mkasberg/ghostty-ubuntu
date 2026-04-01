@@ -32,8 +32,9 @@ via apt!
 
 We provide amd64 and and arm64 builds for:
 
- - Ubuntu 25.10 Jammy
- - Ubuntu 24.04 LTS Noble
+ - Ubuntu 26.04 Resolute Raccoon
+ - Ubuntu 25.10 Questing Quokka
+ - Ubuntu 24.04 LTS Noble Numbat
  - Debian Forky
  - Debian Trixie
 
