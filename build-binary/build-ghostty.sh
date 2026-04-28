@@ -2,6 +2,7 @@
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # https://ghostty.org/docs/install/build
 GHOSTTY_VERSION="1.3.1"
@@ -27,15 +28,6 @@ else
 fi
 DISTRO=$(lsb_release -sc)
 
-case "$DISTRO_VERSION" in
-  "24.04" | "trixie" | "forky")
-    HAS_GTK4_LAYER_SHELL=false
-    ;;
-  *)
-    HAS_GTK4_LAYER_SHELL=true
-    ;;
-esac
-
 echo "Fetch Ghostty Source"
 wget -q "$SOURCE_URL"
 wget -q "$MINISIG_URL"
@@ -51,74 +43,39 @@ if [ "$1" == "tip" ]; then
   GHOSTTY_VERSION=$(cat VERSION)
 fi
 
-# On Ubuntu it's libbz2, not libbzip2
-patch -p1 < "$SCRIPT_DIR/patches/001-bzip2-to-bz2.patch"
-# Patch for our version of harfbuzz
-patch -p1 < "$SCRIPT_DIR/patches/002-harfbuzz.patch"
-
 echo "Fetch Zig Cache"
-ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
+ZIG_GLOBAL_CACHE_DIR=vendor-zig-cache ./nix/build-support/fetch-zig-cache.sh
 
-echo "Build Ghostty with zig"
-# Set build args based on distro version
-if [ "$HAS_GTK4_LAYER_SHELL" = "true" ]; then
-  BUILD_ARGS=""
-else
-  BUILD_ARGS="-fno-sys=gtk4-layer-shell"
-fi
+echo "Copy debian/ packaging"
+cp -r "$REPO_DIR/build-ppa/ghostty/debian" ./debian
 
-DESTDIR=zig-out zig build \
-  --summary all \
-  --prefix /usr \
-  --system /tmp/offline-cache/p \
-  -Doptimize=ReleaseFast \
-  -Dcpu=baseline \
-  -Dpie=true \
-  -Demit-docs \
-  -Dversion-string=$GHOSTTY_VERSION \
-  $BUILD_ARGS
+# Apply source patches (dpkg-buildpackage -b skips dpkg-source, so quilt
+# patches from debian/patches/ aren't applied automatically).
+# Exit code 2 means patches are already applied, which is fine.
+QUILT_PATCHES=debian/patches quilt push -a || [ $? -eq 2 ]
 
-echo "Setup Debian Package"
-UNAME_M="$(uname -m)"
-if [ "${UNAME_M}" = "x86_64" ]; then
-    DEBIAN_ARCH="amd64"
-elif [ "${UNAME_M}" = "aarch64" ]; then \
-    DEBIAN_ARCH="arm64"
-fi
+# Apply distro-specific patches to debian/ packaging
+case "$DISTRO_VERSION" in
+  "24.04" | "trixie" | "forky")
+    # Noble/trixie/forky: no libgtk4-layer-shell
+    sed -i 's/-Doptimize=ReleaseFast/-Doptimize=ReleaseFast -fno-sys=gtk4-layer-shell/' debian/rules
+    sed -i -e '/libgtk4-layer-shell0/d' -e '/libgtk4-layer-shell-dev/d' debian/control
+    ;;
+esac
 
+# Generate changelog entry with correct version and distro
 CLEAN_GHOSTTY_VERSION=$(echo "$GHOSTTY_VERSION" | sed "s/-/+/g")
 DEBIAN_VERSION="$CLEAN_GHOSTTY_VERSION-$DEBIAN_SUFFIX"
 
-# Debian control files
-cp -r ../DEBIAN/ ./zig-out/DEBIAN/
-sed -i "s/DEBIAN_ARCH/$DEBIAN_ARCH/g" ./zig-out/DEBIAN/control
-sed -i "s/DEBIAN_VERSION/$DEBIAN_VERSION/g" ./zig-out/DEBIAN/control
-if [ "$HAS_GTK4_LAYER_SHELL" = "true" ]; then
-  # Add dependency on libgtk4-layer-shell0.
-  sed -i "s/Depends:/Depends: libgtk4-layer-shell0,/g" ./zig-out/DEBIAN/control
-fi
-
-# Changelog and copyright
-mkdir -p ./zig-out/usr/share/doc/ghostty/
-cp ../copyright ./zig-out/usr/share/doc/ghostty/
-cp ../changelog.Debian ./zig-out/usr/share/doc/ghostty/
-sed -i "s/DIST/$DISTRO/" zig-out/usr/share/doc/ghostty/changelog.Debian
-gzip -n -9 zig-out/usr/share/doc/ghostty/changelog.Debian
-
-# Compress manpages
-gzip -n -9 zig-out/usr/share/man/man1/ghostty.1
-gzip -n -9 zig-out/usr/share/man/man5/ghostty.5
-
-## postinst, preinst and prerm are used by dpkg-deb; ensure they are executable
-chmod +x zig-out/DEBIAN/postinst
-chmod +x zig-out/DEBIAN/preinst
-chmod +x zig-out/DEBIAN/prerm
-
-# Zsh looks for /usr/local/share/zsh/site-functions/
-# but looks for /usr/share/zsh/vendor-completions/
-# (note the difference when we're not in /usr/local).
-mv zig-out/usr/share/zsh/site-functions zig-out/usr/share/zsh/vendor-completions
+# Prepend a new changelog entry for this build
+DEBEMAIL="kasberg.mike@gmail.com" DEBFULLNAME="Mike Kasberg" \
+  dch --newversion "$DEBIAN_VERSION" --distribution "$DISTRO" "Build for $DISTRO."
 
 echo "Build Debian Package"
-dpkg-deb --build zig-out "ghostty_${DEBIAN_VERSION}_${DEBIAN_ARCH}.deb"
-mv "ghostty_${DEBIAN_VERSION}_${DEBIAN_ARCH}.deb" "../ghostty_${DEBIAN_VERSION}_${DEBIAN_ARCH}_${DISTRO_VERSION}.deb"
+ZIG=zig dpkg-buildpackage -b -us -uc -d
+
+# Move the build artifacts back to the build-binary directory
+mv ../ghostty_*.deb ../ghostty_*.buildinfo ../ghostty_*.changes "$SCRIPT_DIR/"
+
+echo "Build complete!"
+ls -la "$SCRIPT_DIR"/ghostty_*.deb

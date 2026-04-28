@@ -12,12 +12,16 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
     apt-get -qq -y --no-install-recommends install \
     # Build Tools
     build-essential \
+    debhelper \
+    devscripts \
+    fakeroot \
     libbz2-dev \
     libonig-dev \
     lintian \
     lsb-release \
     minisign \
     pandoc \
+    quilt \
     wget \
     # Ghostty Dependencies
     # https://ghostty.org/docs/install/build#debian-and-ubuntu

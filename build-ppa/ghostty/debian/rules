@@ -2,12 +2,13 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 GHOSTTY_VERSION ?= $(shell cat VERSION | sed 's/main+/ubuntu-nightly-/g')
+ZIG ?= zig0.15
 
 %:
 	dh $@
 
 override_dh_auto_install:
-	DESTDIR=$(CURDIR)/debian/ghostty zig0.15 build \
+	DESTDIR=$(CURDIR)/debian/ghostty $(ZIG) build \
 		--summary all \
 		--prefix /usr \
 		--system vendor-zig-cache/p \
@@ -18,8 +19,16 @@ override_dh_auto_install:
 		-Demit-docs \
 		-Dversion-string=$(GHOSTTY_VERSION)
 
-override_dh_strip:
-	dh_strip -Xlibghostty-vt.a
+	# TODO: Consider passing -Dstrip=false to zig build and producing a
+	# ghostty-dbgsym package (see ghostty-debian PR #11).
+	# Remove static libraries — zig produces libghostty-vt.a but this package
+	# only ships the .so. A separate libghostty-dev package may be warranted
+	# in the future.
+	find $(CURDIR)/debian/ghostty -name '*.a' -delete
 
 override_dh_install:
 	dh_install --sourcedir=debian/ghostty
+	# zig installs zsh completions to site-functions/, but ghostty.install
+	# copies them to vendor-completions/ (the correct path for /usr/share/zsh).
+	# Remove the original to avoid shipping both.
+	rm -rf debian/ghostty/usr/share/zsh/site-functions

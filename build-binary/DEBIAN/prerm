@@ -1,9 +1,0 @@
-#!/bin/sh
-set -e
-
-if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
-    # Remove Ghostty from ubuntu default terminal alternatives
-    update-alternatives --remove x-terminal-emulator /usr/bin/ghostty
-fi
-
-exit 0
