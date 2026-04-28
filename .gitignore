@@ -5,7 +5,9 @@ ghostty-*.*.*/
 # Zig source
 zig*.tar.xz
 
-# .deb Packages
+# Debian packaging artifacts
 *.deb
+*.buildinfo
+*.changes
 
 

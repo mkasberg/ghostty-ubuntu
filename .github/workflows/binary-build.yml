@@ -51,7 +51,7 @@ jobs:
 
       - name: Build Ghostty
         run: |
-          docker run --rm -v$PWD/build-binary:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ inputs.zig_version }} /bin/bash build-ghostty.sh ${{ inputs.version_type }}
+          docker run --rm -v$PWD:/workspace -w /workspace ghostty:${{ matrix.builds.distro }}-${{ matrix.builds.version }}-${{ matrix.arch }}-${{ inputs.zig_version }} /bin/bash build-binary/build-ghostty.sh ${{ inputs.version_type }}
           mv ./build-binary/ghostty_*.deb ./
 
       - name: Lint .deb Package
