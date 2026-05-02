@@ -29,6 +29,7 @@ jobs:
   build:
     name: Build Zig (${{ matrix.builds.codename }})
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     strategy:
       matrix: ${{ fromJson(inputs.build_matrix) }}
     container:

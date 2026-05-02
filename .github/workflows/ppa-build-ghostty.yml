@@ -34,7 +34,7 @@ jobs:
   ghostty-build:
     name: Build Ghostty (${{ matrix.builds.codename }})
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(inputs.build_matrix) }}

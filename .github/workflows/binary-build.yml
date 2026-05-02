@@ -21,6 +21,7 @@ on:
 jobs:
   build-ghostty:
     name: Ghostty Binary
+    timeout-minutes: 12
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(inputs.build_matrix) }}
