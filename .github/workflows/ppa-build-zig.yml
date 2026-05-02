@@ -30,6 +30,7 @@ jobs:
     name: Build Zig (${{ matrix.builds.codename }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(inputs.build_matrix) }}
     container:
       image: ${{ matrix.builds.container-image }}
