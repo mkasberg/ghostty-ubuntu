@@ -44,6 +44,7 @@ jobs:
     name: (Pre-)Release Ghostty Binary
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     needs: build-ghostty
     steps:
       - name: Download All Artifacts
