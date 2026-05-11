@@ -64,7 +64,7 @@ If you prefer to download and install the package manually instead of running th
 2. Install the downloaded .deb package.
 
    ```sh
-   sudo dpkg -i <filename>.deb
+   sudo apt-get install ./ghostty_*.deb
    ```
 
 ### Updating
