@@ -14,6 +14,15 @@ This is an unofficial community project to provide a package that's easy to
 install on Ubuntu. If you're looking for the Ghostty source code, see
 [ghostty-org/ghostty](https://github.com/ghostty-org/ghostty).
 
+> [!NOTE]
+> [Ghostty is in the official Ubuntu
+> repositories](https://launchpad.net/ubuntu/+source/ghostty) for Ubuntu 26.04+.
+> However, that version may lag behind the latest Ghostty release. As of May,
+> 2026, the official Ubuntu repositories provide Ghostty 1.3.0 and the PPA below
+> provides Ghostty 1.3.1. If the official Ubuntu packages are recent enough for
+> you, that may be the better option. If you want the most recent version of
+> Ghostty, the PPA below will allow you to install it.
+
 ## Install/Update
 
 :rocket: Add the [Launchpad PPA](https://launchpad.net/~mkasberg/+archive/ubuntu/ghostty-ubuntu)
