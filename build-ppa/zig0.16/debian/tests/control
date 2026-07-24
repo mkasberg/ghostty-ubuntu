@@ -1,11 +1,11 @@
 # ensure we can run the binary we just installed
-Test-Command: /usr/bin/zig0.15 --help
-Depends: zig0.15
+Test-Command: /usr/bin/zig0.16 --help
+Depends: zig0.16
 Restrictions: allow-stderr
 Features: test-name=zigexec
 
-Test-Command: /usr/bin/zig0.15 test test/behavior.zig
+Test-Command: /usr/bin/zig0.16 test test/behavior.zig
 Architecture: amd64 arm64
-Depends: zig0.15
+Depends: zig0.16
 Restrictions: allow-stderr
 Features: test-name=upstream-tests

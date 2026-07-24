@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-VERSION=0.15
+VERSION=0.16
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
 export ZIG_GLOBAL_CACHE_DIR=/tmp/zig-cache
@@ -7,7 +7,7 @@ export ZIG_GLOBAL_CACHE_DIR=/tmp/zig-cache
 	dh $@ --buildsystem=cmake
 
 override_dh_auto_configure:
-	ln -s /usr/lib/llvm-20/lib/clang/20/include/ lib/
+	ln -s /usr/lib/llvm-21/lib/clang/21/include/ lib/
 	# without specifying MCPU, it targets native
 	#	we want to specify -DZIG_TARGET_TRIPLE=$(DEB_HOST_MULTIARCH), but it breaks PIE
 	dh_auto_configure -- \
@@ -26,12 +26,12 @@ override_dh_auto_install:
 	rmdir $(BBASE)/lib/zig/docs
 	dh_auto_install
 
-	# dh_shlibdeps fails to get dependency information for /usr/lib/llvm-20/lib/libLLVM.so.20.1
-	# llvm-20-dev is explicitly added as a runtime dependency of zig0.15
+	# dh_shlibdeps fails to get dependency information for /usr/lib/llvm-21/lib/libLLVM.so.21.1
+	# llvm-21-dev is explicitly added as a runtime dependency of zig0.16
 	chrpath -d debian/tmp/usr/bin/zig
 
-	# Create symlink /usr/bin/zig0.15
-	ln -s ../lib/zig0.15/bin/zig debian/tmp/usr/bin/zig0.15
+	# Create symlink /usr/bin/zig0.16
+	ln -s ../lib/zig0.16/bin/zig debian/tmp/usr/bin/zig0.16
 
 override_dh_auto_test:
 	$(BBASE)/bin/zig test test/behavior.zig
