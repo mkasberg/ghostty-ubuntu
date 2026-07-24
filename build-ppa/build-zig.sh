@@ -48,9 +48,9 @@ done
 shift $((OPTIND - 1))
 
 TIMESTAMP=$(date -u -R)
-PACKAGE_NAME=zig0.15
-VERSION="0.15.2"
-PPA_VERSION="ppa7"
+PACKAGE_NAME=zig0.16
+VERSION="0.16.0"
+PPA_VERSION="ppa1"
 
 echo "Building Zig for version: $VERSION"
 echo "Target codename: $CODENAME"
@@ -58,13 +58,15 @@ echo "Sign package: $SIGN_PACKAGE"
 
 # Fetch the source and create .orig.tar.xz
 echo "Fetching Zig source..."
-cd "$SCRIPT_DIR/zig0.15"
+cd "$SCRIPT_DIR/zig0.16"
 uscan --repack -v
 cd "$SCRIPT_DIR"
 
 # Determine the base version and PPA number
-FULL_VERSION="${VERSION}~us1-${PPA_VERSION}~${CODENAME}1"
-REPACK_TARBALL="zig0.15_${VERSION}~us1.orig.tar.xz"
+# Version scheme: UPSTREAMVERSION~ppaN-0~CODENAME1
+# ~ppaN is the repack suffix and must match repacksuffix in zig0.16/debian/watch.
+FULL_VERSION="${VERSION}~${PPA_VERSION}-0~${CODENAME}1"
+REPACK_TARBALL="${PACKAGE_NAME}_${VERSION}~${PPA_VERSION}.orig.tar.xz"
 
 echo "Full version: $FULL_VERSION"
 

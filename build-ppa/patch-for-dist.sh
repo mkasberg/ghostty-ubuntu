@@ -46,7 +46,7 @@ if [ "$CODENAME" = "noble" ]; then
   sed -i '/libgtk4-layer-shell-dev/d' "$SCRIPT_DIR/ghostty/debian/control"
 
   # libicu76 is libicu74 in 24.04
-  sed -i 's/libicu76/libicu74/' "$SCRIPT_DIR/zig0.15/debian/control"
+  sed -i 's/libicu76/libicu74/' "$SCRIPT_DIR/zig0.16/debian/control"
 fi
 
 echo "Done patching packaging source for $CODENAME"

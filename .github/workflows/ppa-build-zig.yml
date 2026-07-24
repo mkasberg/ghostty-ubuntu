@@ -47,7 +47,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y git devscripts build-essential debhelper wget minisign dput gnupg equivs
-          apt-get build-dep -y ./build-ppa/zig0.15
+          apt-get build-dep -y ./build-ppa/zig0.16
 
       - name: Set up GPG signing
         if: inputs.upload
@@ -117,4 +117,4 @@ jobs:
           fi
           
           # Upload the Zig package
-          cd build-ppa && dput ppa:mkasberg/${{ inputs.ppa }} zig0.15_*_source.changes
+          cd build-ppa && dput ppa:mkasberg/${{ inputs.ppa }} zig0.16_*_source.changes
