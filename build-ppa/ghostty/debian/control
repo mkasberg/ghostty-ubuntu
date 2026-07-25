@@ -13,7 +13,7 @@ Build-Depends: debhelper-compat (= 13),
                libgtk4-layer-shell-dev,
                libonig-dev,
                libxml2-utils,
-               zig0.15
+               zig0.16
 
 Package: ghostty
 Architecture: any

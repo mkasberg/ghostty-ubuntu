@@ -26,7 +26,7 @@ jobs:
             {"arch": "amd64", "runner": "ubuntu-26.04"}
           ]
         }
-      zig_version: "0.15.2"
+      zig_version: "0.16.0"
       version_type: "tip"
 
   build-ghostty-ppa:
