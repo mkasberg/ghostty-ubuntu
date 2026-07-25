@@ -25,16 +25,14 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"distro": "ubuntu", "version": "24.04"},
-            {"distro": "ubuntu", "version": "25.10"},
             {"distro": "ubuntu", "version": "26.04"},
             {"distro": "debian", "version": "trixie"},
             {"distro": "debian", "version": "forky"}
           ],
           "arch": ["amd64", "arm64"],
           "include": [
-            {"arch": "amd64", "runner": "ubuntu-24.04"},
-            {"arch": "arm64", "runner": "ubuntu-24.04-arm"}
+            {"arch": "amd64", "runner": "ubuntu-26.04"},
+            {"arch": "arm64", "runner": "ubuntu-26.04-arm"}
           ]
         }
       version_type: "release"

@@ -43,8 +43,7 @@ via apt!
 We provide amd64 and and arm64 builds for:
 
  - Ubuntu 26.04 Resolute Raccoon
- - Ubuntu 25.10 Questing Quokka
- - Ubuntu 24.04 LTS Noble Numbat
+ - Ubuntu 24.04 LTS Noble Numbat (up to Ghostty 1.3.1)
  - Debian Forky
  - Debian Trixie
 
@@ -100,7 +99,7 @@ you can build the Docker image to get a build environment for any Ubuntu version
 (if you don't want to use your laptop as the build environment).
 
 ```bash
-docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=25.10 --build-arg ZIG_VERSION=0.15.2 build-binary/
+docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=26.04 --build-arg ZIG_VERSION=0.15.2 build-binary/
 ```
 
 Then you can use that build environment to produce a binary .deb package.

@@ -18,14 +18,12 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"distro": "ubuntu", "version": "24.04"},
-            {"distro": "ubuntu", "version": "25.10"},
             {"distro": "ubuntu", "version": "26.04"},
             {"distro": "debian", "version": "forky"}
           ],
           "arch": ["amd64"],
           "include": [
-            {"arch": "amd64", "runner": "ubuntu-24.04"}
+            {"arch": "amd64", "runner": "ubuntu-26.04"}
           ]
         }
       zig_version: "0.15.2"
@@ -39,7 +37,6 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"codename": "questing", "container-image": "ubuntu:25.10"},
             {"codename": "resolute", "container-image": "ubuntu:26.04"}
           ]
         }
@@ -53,7 +50,6 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"codename": "questing", "container-image": "ubuntu:25.10"},
             {"codename": "resolute", "container-image": "ubuntu:26.04"}
           ]
         }

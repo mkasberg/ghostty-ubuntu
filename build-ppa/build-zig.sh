@@ -8,7 +8,7 @@
 #     -c CODENAME    Ubuntu codename (noble, questing, etc.)
 #     -s             Sign the package (sets SIGN_PACKAGE=true)
 #   codename: Ubuntu codename (noble, questing, etc.)
-#                Defaults to questing
+#                Defaults to resolute
 #
 
 set -e
@@ -17,7 +17,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Default values
-CODENAME="questing"
+CODENAME="resolute"
 SIGN_PACKAGE=false
 
 # Parse command line arguments
@@ -30,7 +30,7 @@ while getopts 'hc:s' opt; do
             echo "    -c CODENAME    Ubuntu codename (noble, questing, etc.)"
             echo "    -s             Sign the package (sets SIGN_PACKAGE=true)"
             echo "  codename: Ubuntu codename (noble, questing, etc.)"
-            echo "                   Defaults to questing"
+            echo "                   Defaults to resolute"
             exit 0
             ;;
         'c')
@@ -86,16 +86,6 @@ cp "$SCRIPT_DIR/${REPACK_TARBALL}" "$BUILD_DIR/"
 # Copy Debian packaging to temp directory
 echo "Copying Debian packaging..."
 cp -r "$SCRIPT_DIR/$PACKAGE_NAME/debian" "$BUILD_DIR/$UPSTREAM_DIR/"
-
-# Handle libxml2 dependency based on Ubuntu version
-echo "Adjusting libxml2 dependency for $CODENAME..."
-if [[ "$CODENAME" == "noble" ]]; then
-    echo "Using libxml2 for Ubuntu 24.04 (Noble) and earlier"
-    sed -i 's/libxml2-16/libxml2/' "$BUILD_DIR/$UPSTREAM_DIR/debian/control"
-else
-    echo "Using libxml2-16 for Ubuntu 25.10+ (Questing)"
-    # Keep libxml2-16 as is
-fi
 
 # Update changelog in temp directory
 CHANGELOG_FILE="$BUILD_DIR/$UPSTREAM_DIR/debian/changelog"
