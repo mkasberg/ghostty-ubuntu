@@ -56,7 +56,7 @@ QUILT_PATCHES=debian/patches quilt push -a || [ $? -eq 2 ]
 
 # Apply distro-specific patches to debian/ packaging
 case "$DISTRO_VERSION" in
-  "24.04" | "trixie" | "forky")
+  "trixie" | "forky")
     # Noble/trixie/forky: no libgtk4-layer-shell
     sed -i 's/-Doptimize=ReleaseFast/-Doptimize=ReleaseFast -fno-sys=gtk4-layer-shell/' debian/rules
     sed -i -e '/libgtk4-layer-shell0/d' -e '/libgtk4-layer-shell-dev/d' debian/control

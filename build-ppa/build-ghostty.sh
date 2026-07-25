@@ -17,7 +17,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Default values
-CODENAME="questing"
+CODENAME="resolute"
 SIGN_PACKAGE=false
 VERSION="tip"
 PPA_VERSION="ppa2"
@@ -115,14 +115,7 @@ head -n5 "$CHANGELOG_FILE"
 
 # Build the source package in temp directory
 echo "Building source package..."
-if [ "$CODENAME" = "noble" ] || [ "$CODENAME" = "plucky" ]; then
-  # Maybe this?
-  # https://bugs.launchpad.net/ubuntu/+source/lintian/+bug/1959629
-  echo "Skipping lintian for noble/plucky"
-  DEBUILD_OPTIONS="--no-lintian"
-else
-  DEBUILD_OPTIONS=""
-fi
+DEBUILD_OPTIONS=""
 
 cd "$BUILD_DIR/$UPSTREAM_DIR"
 if [ "$SIGN_PACKAGE" = 'true' ]; then

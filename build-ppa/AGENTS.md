@@ -19,4 +19,4 @@ Ghostty PPA packaging source is at `build-ppa/ghostty`. Ghostty publishes a "tip
 
 Zig PPA packaging source is at `zig0.16/debian`. We also have some non-standard scripts in this build-ppa dir to fetch sources, do minor workarounds, and perform the PPA builds.
 
-Zig packages use the version scheme `UPSTREAMVERSION~ppaN-0~CODENAME1`. Zig 0.16 requires LLVM 21, so zig PPA builds only target questing and resolute (noble lacks LLVM 21).
+Zig packages use the version scheme `UPSTREAMVERSION~ppaN-0~CODENAME1`. Zig 0.16 requires LLVM 21, so zig PPA builds only target resolute (noble lacks LLVM 21).
