@@ -40,7 +40,7 @@ case "$ID" in
     ;;
 
   debian)
-    if [ "$VERSION_CODENAME" = "trixie" ]; then
+    if [[ "$VERSION_CODENAME" =~ ^(trixie|forky)$ ]]; then
       SUFFIX="${ARCH}_${VERSION_CODENAME}"
     else
       echo "This installer is not compatible with Debian $VERSION_CODENAME"
