@@ -99,7 +99,7 @@ you can build the Docker image to get a build environment for any Ubuntu version
 (if you don't want to use your laptop as the build environment).
 
 ```bash
-docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=26.04 --build-arg ZIG_VERSION=0.15.2 build-binary/
+docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=26.04 --build-arg ZIG_VERSION=0.16.0 build-binary/
 ```
 
 Then you can use that build environment to produce a binary .deb package.

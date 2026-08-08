@@ -11,7 +11,7 @@ on:
         description: 'Zig version to use'
         required: false
         type: string
-        default: "0.15.2"
+        default: "0.16.0"
       version_type:
         description: 'Version type to build: "tip" or "release"'
         required: false
