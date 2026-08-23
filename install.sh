@@ -20,7 +20,12 @@ echo "Installing/Updating Ghostty..."
 source /etc/os-release
 ARCH=$(dpkg --print-architecture)
 
-case "$ID" in
+DISTRO_ID="$ID"
+if [[ "$ID" == "tuxedo" && "$ID_LIKE" == "debian" ]]; then
+  DISTRO_ID="debian"
+fi
+
+case "$DISTRO_ID" in
   ubuntu|pop|tuxedo|neon)
     if [[ "$VERSION_ID" =~ ^(26.04|24.04)$ ]]; then
       SUFFIX="${ARCH}_${VERSION_ID}"
