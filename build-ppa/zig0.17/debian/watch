@@ -1,8 +1,8 @@
 version=4
 
 # example URIs:
-# https://ziglang.org/download/0.16.0/zig-0.16.0.tar.xz
-# https://ziglang.org/download/0.16.0/zig-0.16.0.tar.xz.minisig
+# https://ziglang.org/download/0.17.0/zig-0.17.0.tar.xz
+# https://ziglang.org/download/0.17.0/zig-0.17.0.tar.xz.minisig
 
 # FIXME
 #pgpsigurlmangle=s/$/.minisig/, \
@@ -12,4 +12,4 @@ version=4
 # It must match PPA_VERSION in build-ppa/build-zig.sh.
 opts="dversionmangle=s/\+dfsg(\.?\d+)?$//, \
       repacksuffix=~ppa1" \
-      https://ziglang.org/download/ .*/zig-(0.16.0)\.tar\.xz
+      https://ziglang.org/download/ .*/zig-(0.17.0)\.tar\.xz

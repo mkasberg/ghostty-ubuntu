@@ -1,0 +1,6 @@
+zig0.17 (0.17.0~ppa1-0) resolute; urgency=medium
+
+  * Zig 0.17.0 for PPA
+  * Bump LLVM build deps to 22, required by zig 0.17
+
+ -- Mike Kasberg <kasberg.mike@gmail.com>  Thu, 29 Oct 2026 20:00:00 -0600
