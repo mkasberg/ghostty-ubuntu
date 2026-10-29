@@ -56,8 +56,12 @@ fi
 tar -xzf "${GHOSTTY_TARBALL}"
 
 echo "Fetching zig cache..."
-sed -i 's/zig fetch/zig0.15 fetch/g' "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
+sed -i 's/zig fetch/zig0.17 fetch/g' "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
 ZIG_GLOBAL_CACHE_DIR="${GHOSTTY_DIR}/vendor-zig-cache" "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
+
+# Zig 0.17 leaves fetched packages compressed in vendor-zig-cache/p, but
+# `zig build --system` needs them as directories.
+"$(dirname "$0")/../unpack-zig-cache.sh" "${GHOSTTY_DIR}/vendor-zig-cache"
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.exe' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.dll' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.chm' -delete

@@ -19,10 +19,10 @@ install on Ubuntu. If you're looking for the Ghostty source code, see
 > repositories](https://launchpad.net/ubuntu/+source/ghostty) for Ubuntu 26.04+.
 > To install Ghostty from the Ubuntu repositories, just run `sudo apt install
 > ghostty`. However, that version may lag behind the latest Ghostty release. As
-> of May, 2026, the official Ubuntu repositories provide Ghostty 1.3.0 and the
-> PPA below provides Ghostty 1.3.1. If the official Ubuntu packages are recent
-> enough for you, that may be the better option. If you want the most recent
-> version of Ghostty, the PPA below will allow you to install it.
+> of October, 2026, the official Ubuntu repositories provide Ghostty 1.3.0 and
+> the PPA below provides Ghostty 1.4.0. If the official Ubuntu packages are
+> recent enough for you, that may be the better option. If you want the most
+> recent version of Ghostty, the PPA below will allow you to install it.
 
 ## Install/Update
 
@@ -40,7 +40,7 @@ via apt!
 
 ## Supported Operating Systems
 
-We provide amd64 and and arm64 builds for:
+We provide amd64 and arm64 builds for:
 
  - Ubuntu 26.04 Resolute Raccoon
  - Ubuntu 24.04 LTS Noble Numbat (up to Ghostty 1.3.1)
@@ -95,21 +95,57 @@ the GitHub workflows at [binary-build.yml](.github/workflows/binary-build.yml),
 up-to-date documentation of the build process.
 
 If you want to build locally, the binary build is the easier. At a high level,
-you can build the Docker image to get a build environment for any Ubuntu version
-(if you don't want to use your laptop as the build environment).
+you can build the Docker image to get a build environment for any supported
+distro (if you don't want to use your laptop as the build environment).
 
 ```bash
-docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=26.04 --build-arg ZIG_VERSION=0.15.2 build-binary/
+docker build -t ghostty-ubuntu:latest --build-arg DISTRO=ubuntu --build-arg DISTRO_VERSION=26.04 --build-arg ZIG_VERSION=0.17.0 build-binary/
 ```
 
-Then you can use that build environment to produce a binary .deb package.
+For Debian, swap in a Debian base image. Debian Trixie is the current stable
+release and the version most people want:
+
+```bash
+docker build -t ghostty-debian:latest --build-arg DISTRO=debian --build-arg DISTRO_VERSION=13 --build-arg ZIG_VERSION=0.17.0 build-binary/
+```
+
+Then you can use that build environment to produce a binary .deb package. The
+package is written to `build-binary/` on your host.
 
 ```bash
 docker run --rm -v$PWD:/workspace -w /workspace ghostty-ubuntu:latest /bin/bash build-binary/build-ghostty.sh
 ```
 
+`podman` works the same way; just substitute it for `docker`, and add `:Z` to
+the volume mount if you have SELinux enforcing:
+
+```bash
+podman run --rm -v$PWD:/workspace:Z -w /workspace ghostty-debian:latest /bin/bash build-binary/build-ghostty.sh
+```
+
+You can confirm the result by installing it into a clean container:
+
+```bash
+docker run --rm -v$PWD:/workspace -w /workspace debian:13 /bin/bash -c \
+  'apt-get update && apt-get install -y ./build-binary/ghostty_*.deb && ghostty +version'
+```
+
 Alternatively, you can try running [build-ghostty.sh](build-binary/build-ghostty.sh) on your
 own system, but you'll have to have all the build dependencies installed as in
 the [Dockerfile](build-binary/Dockerfile).
+
+## Notes on Zig Versions
+
+Ghostty pins a specific Zig version (`minimum_zig_version` in
+`build.zig.zon`), and Ghostty 1.4.0 requires Zig 0.17.0. The PPA builds Zig
+itself from [build-ppa/zig0.17](build-ppa/zig0.17) because no Ubuntu release
+ships a new enough version; that package needs LLVM 22, which is why PPA builds
+target Ubuntu 26.04 only.
+
+Zig 0.17 also changes how fetched dependencies are cached. It leaves them
+compressed in `<cache>/p/<hash>.tar.gz` instead of unpacking them, so
+`zig build --system <cache>/p` can't find them. Both build scripts run
+[unpack-zig-cache.sh](unpack-zig-cache.sh) after fetching to expand them into
+the directory layout `--system` expects.
 
 Building the PPA package locally is left as an exercise for the reader.

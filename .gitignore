@@ -1,13 +1,20 @@
 # Ghostty source
 ghostty-*.tar.gz
+ghostty-*.tar.gz.minisig
 ghostty-*.*.*/
 
 # Zig source
 zig*.tar.xz
+zig*.tar.xz.minisig
 
 # Debian packaging artifacts
 *.deb
 *.buildinfo
 *.changes
+*.build
+*.dsc
+*.debian.tar.*
+*.orig.tar.*
 
-
+# Zig cache unpacked from the source tarball by unpack-zig-cache.sh
+vendor-zig-cache/

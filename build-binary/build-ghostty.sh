@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # https://ghostty.org/docs/install/build
-GHOSTTY_VERSION="1.3.1"
+GHOSTTY_VERSION="1.4.0"
 
 if [ "$1" == "tip" ]; then
   DEBIAN_SUFFIX="0~nightly"
@@ -45,6 +45,10 @@ fi
 
 echo "Fetch Zig Cache"
 ZIG_GLOBAL_CACHE_DIR=vendor-zig-cache ./nix/build-support/fetch-zig-cache.sh
+
+# Zig 0.17 leaves fetched packages compressed in vendor-zig-cache/p, but
+# `zig build --system` needs them as directories.
+"$REPO_DIR/unpack-zig-cache.sh" vendor-zig-cache
 
 echo "Copy debian/ packaging"
 cp -r "$REPO_DIR/build-ppa/ghostty/debian" ./debian

@@ -38,7 +38,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -qq update && \
 
 # Install zig
 # https://ziglang.org/download/
-ARG ZIG_VERSION="0.14.1"
+ARG ZIG_VERSION="0.17.0"
 RUN echo "https://ziglang.org/download/$ZIG_VERSION/zig-$(uname -m)-linux-$ZIG_VERSION.tar.xz"
 RUN wget -q "https://ziglang.org/download/$ZIG_VERSION/zig-$(uname -m)-linux-$ZIG_VERSION.tar.xz" && \
     wget -q "https://ziglang.org/download/$ZIG_VERSION/zig-$(uname -m)-linux-$ZIG_VERSION.tar.xz.minisig" && \
