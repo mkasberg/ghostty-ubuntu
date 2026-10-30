@@ -1,4 +1,4 @@
-Source: zig0.16
+Source: zig0.17
 Priority: optional
 Maintainer: Mike Kasberg <kasberg.mike@gmail.com>
 Build-Depends: chrpath,
@@ -6,28 +6,28 @@ Build-Depends: chrpath,
                debhelper-compat (= 13),
                help2man,
                libbsd-dev,
-               libclang-21-dev,
-               libclang-cpp21-dev,
+               libclang-22-dev,
+               libclang-cpp22-dev,
                libedit-dev,
                libffi-dev,
-               liblld-21-dev,
+               liblld-22-dev,
                libmd-dev,
                libncurses-dev,
                libunwind-dev,
                libxml2-dev,
-               llvm-21-dev,
+               llvm-22-dev,
                pkgconf,
-Standards-Version: 4.7.2
+Standards-Version: 4.7.3
 Section: devel
 Rules-Requires-Root: no
 Homepage: https://ziglang.org/
 
-Package: zig0.16
+Package: zig0.17
 Architecture: amd64 arm64
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         zig0.16-dev (= ${source:Version}),
+         zig0.17-dev (= ${source:Version}),
 Suggests: zig-default
 Description: General-purpose imperative language
  Zig is a general-purpose programming language and toolchain
@@ -35,11 +35,11 @@ Description: General-purpose imperative language
  .
  This package contains the binary for Zig.
 
-Package: zig0.16-dev
+Package: zig0.17-dev
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
-        libclang-common-21-dev
+        libclang-common-22-dev
 Description: General-purpose imperative language (stdlib)
  Zig is a general-purpose programming language and toolchain
  for maintaining robust, optimal and reusable software.
