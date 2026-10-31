@@ -22,9 +22,13 @@ export BBASE:=obj-$(DEB_HOST_MULTIARCH)/stage3
 override_dh_auto_install:
 	help2man -s 1 -N -n "zig compiler and build tool" -v version $(BBASE)/bin/zig -o zig$(VERSION).1
 	mkdir -p debian/tmp/usr/share/doc/zig$(VERSION)
-	mv $(BBASE)/lib/zig/docs/* debian/tmp/usr/share/doc/zig$(VERSION)/
-	rmdir $(BBASE)/lib/zig/docs
+	if [ -d "$(BBASE)/lib/zig/docs" ] && [ -n "$$(ls -A $(BBASE)/lib/zig/docs)" ]; then mv $(BBASE)/lib/zig/docs/* debian/tmp/usr/share/doc/zig$(VERSION)/; fi
+	if [ -d "$(BBASE)/lib/zig/docs" ]; then rmdir $(BBASE)/lib/zig/docs; fi
 	dh_auto_install
+	# Upstream 0.17 installs langref.html to usr/doc via cmake install;
+	# consolidate it under usr/share/doc/zig$(VERSION)
+	if [ -d debian/tmp/usr/doc ] && [ -n "$$(ls -A debian/tmp/usr/doc)" ]; then mv debian/tmp/usr/doc/* debian/tmp/usr/share/doc/zig$(VERSION)/; fi
+	if [ -d debian/tmp/usr/doc ]; then rmdir debian/tmp/usr/doc; fi
 
 	# dh_shlibdeps fails to get dependency information for /usr/lib/llvm-22/lib/libLLVM.so.22.1
 	# llvm-22-dev is explicitly added as a runtime dependency of zig0.17
