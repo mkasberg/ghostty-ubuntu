@@ -22,29 +22,31 @@ rm -rf "$PKG_DIR"
 mkdir -p "$PKG_DIR"
 
 # Unpack each cached tarball, then normalize: the package manifest must
-# end up at the package root. Tarballs hold the package either at the
-# archive root or under a single top-level directory (which `zig fetch`
-# normalizes away); handle both without guessing up front.
+# end up at the package root. The stored tarballs wrap the package in one
+# (sometimes more) top-level directories, occasionally reusing the hash
+# name, so extract to a temp dir and descend to the manifest instead of
+# guessing strip levels (a same-name nested dir breaks naive mv-up).
 for f in "$CACHE_DIR"/p/*.tar.gz; do
   [ -f "$f" ] || continue
   name=$(basename "$f" .tar.gz)
   dest="$PKG_DIR/$name"
   rm -rf "$dest"
   mkdir -p "$dest"
-  tar -xzf "$f" -C "$dest"
-  if [ ! -f "$dest/build.zig.zon" ]; then
-    if [ "$(find "$dest" -mindepth 1 -maxdepth 1 | wc -l)" -eq 1 ]; then
-      sub=$(find "$dest" -mindepth 1 -maxdepth 1)
-      if [ -d "$sub" ]; then
-        for e in "$sub"/* "$sub"/.*; do
-          case "$e" in "$sub/."|"$sub/..") continue ;; esac
-          [ -e "$e" ] || continue
-          mv "$e" "$dest"/
-        done
-        rmdir "$sub"
-      fi
-    fi
-  fi
+  tmp=$(mktemp -d)
+  tar -xzf "$f" -C "$tmp"
+  root="$tmp"
+  while [ ! -f "$root/build.zig.zon" ]; do
+    [ "$(find "$root" -mindepth 1 -maxdepth 1 | wc -l)" -eq 1 ] || break
+    child=$(find "$root" -mindepth 1 -maxdepth 1)
+    [ -d "$child" ] || break
+    root="$child"
+  done
+  for e in "$root"/* "$root"/.*; do
+    case "$e" in "$root/."|"$root/..") continue ;; esac
+    [ -e "$e" ] || continue
+    mv "$e" "$dest"/
+  done
+  rm -rf "$tmp"
 done
 
 # Carry over any already-unpacked entries (older zig cache layouts).
