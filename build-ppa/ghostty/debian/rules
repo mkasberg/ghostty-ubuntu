@@ -8,11 +8,11 @@ ZIG ?= zig0.17
 	dh $@
 
 override_dh_auto_install:
-	DESTDIR=$(CURDIR)/debian/ghostty $(ZIG) build \
+	DESTDIR=$(CURDIR)/debian/ghostty ZIG_GLOBAL_CACHE_DIR=$(CURDIR)/vendor-zig-cache $(ZIG) build \
 		--summary all \
 		--prefix /usr \
-		--system vendor-zig-cache/p \
-		--global-cache-dir zig-cache \
+		--system $(CURDIR)/vendor-zig-pkgs \
+		--cache-dir $(CURDIR)/zig-cache \
 		-Doptimize=ReleaseFast \
 		-Dcpu=baseline \
 		-Dpie=true \
