@@ -59,19 +59,21 @@ for entry in "$CACHE_DIR"/p/*/; do
   fi
 done
 
-# Sanity check: every materialized package should have a manifest.
-# On failure, show the tarball layout so we can fix the normalization.
+# Sanity check: every materialized *zig* package should have a manifest at
+# its root. Foreign (C library / data / font) packages legitimately have
+# no build.zig.zon anywhere -- those are fine. Only warn when a manifest
+# exists but isn't at the root, which --system can't use.
 missing=0
 for d in "$PKG_DIR"/*/; do
   [ -d "$d" ] || continue
   if [ ! -f "$d/build.zig.zon" ]; then
-    echo "WARNING: no build.zig.zon in $d" >&2
-    echo "  top-level: $(find "$d" -mindepth 1 -maxdepth 1 | head -n 5 | tr '\n' ' ')" >&2
-    f="$CACHE_DIR/p/$(basename "$d").tar.gz"
-    if [ -f "$f" ]; then
-      echo "  tarball layout: $(tar -tzf "$f" 2>/dev/null | head -n 5 | tr '\n' ' ')" >&2
+    found=$(find "$d" -name build.zig.zon | head -n 3 | tr '\n' ' ')
+    if [ -z "$found" ]; then
+      echo "Foreign package (no manifest, ok): $(basename "$d")" >&2
+    else
+      echo "WARNING: manifest not at package root in $d: $found" >&2
+      missing=$((missing + 1))
     fi
-    missing=$((missing + 1))
   fi
 done
 echo "Materialized $(ls "$PKG_DIR" | wc -l) packages in $PKG_DIR ($missing missing manifest)"
