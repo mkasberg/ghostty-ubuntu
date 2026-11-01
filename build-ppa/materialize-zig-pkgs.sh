@@ -21,23 +21,29 @@ PKG_DIR="$ROOT/vendor-zig-pkgs"
 rm -rf "$PKG_DIR"
 mkdir -p "$PKG_DIR"
 
-# Unpack each cached tarball. Zig package tarballs hold the package either
-# at the archive root or under a single top-level directory; mirror what
-# `zig fetch` does and strip that single top-level directory when present.
+# Unpack each cached tarball, then normalize: the package manifest must
+# end up at the package root. Tarballs hold the package either at the
+# archive root or under a single top-level directory (which `zig fetch`
+# normalizes away); handle both without guessing up front.
 for f in "$CACHE_DIR"/p/*.tar.gz; do
   [ -f "$f" ] || continue
   name=$(basename "$f" .tar.gz)
   dest="$PKG_DIR/$name"
   rm -rf "$dest"
   mkdir -p "$dest"
-  if [ "$(tar -tzf "$f" 2>/dev/null | cut -d/ -f1 | sort -u | wc -l)" -eq 1 ]; then
-    first=$(tar -tzf "$f" 2>/dev/null | head -n 1)
-    case "$first" in
-      */*) tar -xzf "$f" -C "$dest" --strip-components=1 ;;
-      *) tar -xzf "$f" -C "$dest" ;;
-    esac
-  else
-    tar -xzf "$f" -C "$dest"
+  tar -xzf "$f" -C "$dest"
+  if [ ! -f "$dest/build.zig.zon" ]; then
+    if [ "$(find "$dest" -mindepth 1 -maxdepth 1 | wc -l)" -eq 1 ]; then
+      sub=$(find "$dest" -mindepth 1 -maxdepth 1)
+      if [ -d "$sub" ]; then
+        for e in "$sub"/* "$sub"/.*; do
+          case "$e" in "$sub/."|"$sub/..") continue ;; esac
+          [ -e "$e" ] || continue
+          mv "$e" "$dest"/
+        done
+        rmdir "$sub"
+      fi
+    fi
   fi
 done
 
@@ -52,11 +58,17 @@ for entry in "$CACHE_DIR"/p/*/; do
 done
 
 # Sanity check: every materialized package should have a manifest.
+# On failure, show the tarball layout so we can fix the normalization.
 missing=0
 for d in "$PKG_DIR"/*/; do
   [ -d "$d" ] || continue
   if [ ! -f "$d/build.zig.zon" ]; then
     echo "WARNING: no build.zig.zon in $d" >&2
+    echo "  top-level: $(find "$d" -mindepth 1 -maxdepth 1 | head -n 5 | tr '\n' ' ')" >&2
+    f="$CACHE_DIR/p/$(basename "$d").tar.gz"
+    if [ -f "$f" ]; then
+      echo "  tarball layout: $(tar -tzf "$f" 2>/dev/null | head -n 5 | tr '\n' ' ')" >&2
+    fi
     missing=$((missing + 1))
   fi
 done
