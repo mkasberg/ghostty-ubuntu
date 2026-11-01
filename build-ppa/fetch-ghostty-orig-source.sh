@@ -62,6 +62,10 @@ find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.exe' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.dll' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.chm' -delete
 
+echo "Materializing --system pkg dir for zig 0.17..."
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+"$SCRIPT_DIR/materialize-zig-pkgs.sh" "${GHOSTTY_DIR}"
+
 echo "Repacking ghostty source..."
 # If REPACK_TARBALL is not set (tip builds), extract version from GHOSTTY_DIR
 if [ -z "$REPACK_TARBALL" ]; then

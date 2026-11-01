@@ -46,6 +46,9 @@ fi
 echo "Fetch Zig Cache"
 ZIG_GLOBAL_CACHE_DIR=vendor-zig-cache ./nix/build-support/fetch-zig-cache.sh
 
+echo "Materialize --system pkg dir for zig 0.17 (see fetch-ghostty-orig-source.sh)"
+"$REPO_DIR/build-ppa/materialize-zig-pkgs.sh" "$PWD"
+
 echo "Copy debian/ packaging"
 cp -r "$REPO_DIR/build-ppa/ghostty/debian" ./debian
 
