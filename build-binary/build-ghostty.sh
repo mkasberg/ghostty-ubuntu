@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # https://ghostty.org/docs/install/build
-GHOSTTY_VERSION="1.3.1"
+GHOSTTY_VERSION="1.4.0"
 
 if [ "$1" == "tip" ]; then
   DEBIAN_SUFFIX="0~nightly"
