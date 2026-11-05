@@ -37,7 +37,7 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"codename": "resolute", "container-image": "ubuntu:26.04"}
+            {"codename": "stonking", "container-image": "ubuntu:26.10"}
           ]
         }
 
