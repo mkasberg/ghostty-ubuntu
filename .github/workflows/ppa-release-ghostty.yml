@@ -26,6 +26,7 @@ jobs:
       build_matrix: |
         {
           "builds": [
+            {"codename": "stonking", "container-image": "ubuntu:26.10"},
             {"codename": "resolute", "container-image": "ubuntu:26.04"}
           ]
         }
