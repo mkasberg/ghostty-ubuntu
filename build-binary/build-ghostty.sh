@@ -80,5 +80,12 @@ ZIG=zig dpkg-buildpackage -b -us -uc -d
 # Move the build artifacts back to the build-binary directory
 mv ../ghostty_*.deb ../ghostty_*.buildinfo ../ghostty_*.changes "$SCRIPT_DIR/"
 
+# Append the distro version to the .deb filename to distinguish builds for
+# different distros (e.g. 26.04, trixie, forky) that would otherwise share
+# the same Debian filename and collide in the GitHub release.
+for f in "$SCRIPT_DIR"/ghostty_*.deb; do
+  mv "$f" "${f%.deb}_${DISTRO_VERSION}.deb"
+done
+
 echo "Build complete!"
 ls -la "$SCRIPT_DIR"/ghostty_*.deb
