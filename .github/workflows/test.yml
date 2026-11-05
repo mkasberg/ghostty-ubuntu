@@ -18,7 +18,7 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"distro": "ubuntu", "version": "26.04"},
+            {"distro": "ubuntu", "version": "26.10"},
             {"distro": "debian", "version": "forky"}
           ],
           "arch": ["amd64"],
@@ -50,6 +50,6 @@ jobs:
       build_matrix: |
         {
           "builds": [
-            {"codename": "resolute", "container-image": "ubuntu:26.04"}
+            {"codename": "stonking", "container-image": "ubuntu:26.10"}
           ]
         }

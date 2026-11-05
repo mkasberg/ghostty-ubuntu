@@ -25,6 +25,7 @@ jobs:
       build_matrix: |
         {
           "builds": [
+            {"distro": "ubuntu", "version": "26.10"},
             {"distro": "ubuntu", "version": "26.04"},
             {"distro": "debian", "version": "trixie"},
             {"distro": "debian", "version": "forky"}
