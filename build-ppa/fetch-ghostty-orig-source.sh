@@ -56,7 +56,16 @@ fi
 tar -xzf "${GHOSTTY_TARBALL}"
 
 echo "Fetching zig cache..."
-sed -i 's/zig fetch/zig0.17 fetch/g' "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
+# Our PPA package installs the compiler as zig0.17, but upstream's
+# fetch-zig-cache.sh invokes it as plain `zig`.
+# Older Ghostty (e.g. 1.4.0) used `zig fetch ...`, newer Ghostty
+# (https://github.com/ghostty-org/ghostty/commit/3de71293, Nov 2026)
+# uses `zig build --fetch=needed ...`. A `zig` shim on PATH handles
+# both, whereas the previous `sed 's/zig fetch/.../'` only handled the old form.
+ZIG_SHIM_DIR="$(mktemp -d)"
+trap 'rm -rf "$ZIG_SHIM_DIR"' EXIT
+ln -s "$(command -v zig0.17)" "$ZIG_SHIM_DIR/zig"
+export PATH="$ZIG_SHIM_DIR:$PATH"
 ZIG_GLOBAL_CACHE_DIR="${GHOSTTY_DIR}/vendor-zig-cache" "${GHOSTTY_DIR}/nix/build-support/fetch-zig-cache.sh"
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.exe' -delete
 find "${GHOSTTY_DIR}/vendor-zig-cache" -name '*.dll' -delete
