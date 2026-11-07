@@ -20,7 +20,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CODENAME="resolute"
 SIGN_PACKAGE=false
 VERSION="tip"
-PPA_VERSION="ppa2"
+PPA_VERSION="ppa3"
 PACKAGE_NAME="ghostty"
 
 # Parse command line arguments
