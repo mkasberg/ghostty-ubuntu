@@ -24,7 +24,7 @@ fi
 VERSION=${1:-tip}
 
 PACKAGE_NAME="ghostty"
-REPACK_SUFFIX="~ppa2"
+REPACK_SUFFIX="~ppa3"
 GHOSTTY_PUBKEY="RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV"
 if [ "$VERSION" = "tip" ]; then
   GHOSTTY_TARBALL="ghostty-source.tar.gz"
