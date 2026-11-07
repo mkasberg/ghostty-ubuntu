@@ -22,7 +22,7 @@ ARCH=$(dpkg --print-architecture)
 
 case "$ID" in
   ubuntu|pop|tuxedo|neon)
-    if [[ "$VERSION_ID" =~ ^(26.04|24.04)$ ]]; then
+    if [[ "$VERSION_ID" =~ ^(26.10|26.04|24.04)$ ]]; then
       SUFFIX="${ARCH}_${VERSION_ID}"
     else
       echo "This installer is not compatible with Ubuntu $VERSION_ID"
@@ -31,7 +31,7 @@ case "$ID" in
     ;;
 
   elementary)
-    if [[ "$UBUNTU_VERSION_ID" =~ ^(26.04|24.04)$ ]]; then
+    if [[ "$UBUNTU_VERSION_ID" =~ ^(26.10|26.04|24.04)$ ]]; then
       SUFFIX="${ARCH}_${UBUNTU_VERSION_ID}"
     else
       echo "This installer is not compatible with Ubuntu $UBUNTU_VERSION_ID"
@@ -82,6 +82,7 @@ case "$ID" in
       SUFFIX="${ARCH}_${DEBIAN_CODENAME}"
     else
       declare -A SUPPORTED_VERSIONS=(
+        ["stonking"]="26.10"
         ["resolute"]="26.04"
         ["noble"]="24.04"
       )
@@ -96,7 +97,7 @@ case "$ID" in
     ;;
 
   *)
-    if [[ "$UBUNTU_VERSION_ID" =~ ^(26.04|24.04)$ ]]; then
+    if [[ "$UBUNTU_VERSION_ID" =~ ^(26.10|26.04|24.04)$ ]]; then
       SUFFIX="${ARCH}_${UBUNTU_VERSION_ID}"
     else
       echo "This install script is not compatible with $ID."
@@ -114,10 +115,20 @@ case "$ID" in
 esac
 
 
-GHOSTTY_DEB_URL=$(
-   curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \
-   grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/[^\s/]+/ghostty_[^\s/_]+_${SUFFIX}.deb"
-)
+if [[ "$SUFFIX" == *_24.04 ]]; then
+  # Ubuntu 24.04 (Noble) is not compatible with Ghostty 1.4+, so install the
+  # latest Ghostty 1.3.1 release instead of the latest release.
+  echo "Ubuntu 24.04 detected. Installing Ghostty 1.3.1 (last version compatible with 24.04)..."
+  GHOSTTY_DEB_URL=$(
+     curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases?per_page=100 | \
+     grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/1\\.3\\.1[^\\s/]*/ghostty_[^\\s/_]+_${SUFFIX}.deb" | head -n 1
+  )
+else
+  GHOSTTY_DEB_URL=$(
+     curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \
+     grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/[^\\s/]+/ghostty_[^\\s/_]+_${SUFFIX}.deb"
+  )
+fi
 if [[ -z "$GHOSTTY_DEB_URL" ]]; then
   echo "Error: Failed to retrieve the .deb package URL from GitHub."
   exit 1

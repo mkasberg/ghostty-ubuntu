@@ -42,6 +42,7 @@ via apt!
 
 We provide amd64 and and arm64 builds for:
 
+ - Ubuntu 26.10 Stonking Stingray
  - Ubuntu 26.04 Resolute Raccoon
  - Ubuntu 24.04 LTS Noble Numbat (up to Ghostty 1.3.1)
  - Debian Forky
