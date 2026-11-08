@@ -31,8 +31,56 @@ on:
         required: false
 
 jobs:
+  fetch-orig:
+    name: Fetch shared .orig.tar.gz
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: ubuntu:26.04
+    outputs:
+      tarball: ${{ steps.info.outputs.tarball }}
+
+    steps:
+      - name: Checkout packaging repository
+        uses: actions/checkout@v6
+
+      - name: Add Ghostty PPA
+        run: |
+          apt-get update
+          apt-get install -y software-properties-common
+          add-apt-repository -y ppa:mkasberg/${{ inputs.ppa }}
+
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          apt-get install -y git wget minisign
+          apt-get build-dep -y ./build-ppa/ghostty
+
+      # The .orig.tar.gz is built exactly once here and shared with every
+      # codename build below. Each matrix job previously regenerated and
+      # uploaded its own copy of the same-named tarball, and Launchpad
+      # rejects the second upload when the bytes differ.
+      - name: Fetch Ghostty source
+        run: ./build-ppa/fetch-ghostty-orig-source.sh "${{ inputs.version }}"
+
+      - name: Record tarball name
+        id: info
+        run: |
+          TARBALL=$(ls -t ghostty_*.orig.tar.gz | head -n1)
+          echo "tarball=$TARBALL" >> "$GITHUB_OUTPUT"
+          echo "Shared orig tarball: $TARBALL"
+
+      - name: Upload shared orig tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghostty-orig-${{ inputs.version }}
+          path: ghostty_*.orig.tar.gz
+          retention-days: 3
+          if-no-files-found: error
+
   ghostty-build:
     name: Build Ghostty (${{ matrix.builds.codename }})
+    needs: fetch-orig
     runs-on: ubuntu-latest
     timeout-minutes: 25
     strategy:
@@ -44,6 +92,12 @@ jobs:
     steps:
       - name: Checkout packaging repository
         uses: actions/checkout@v6
+
+      - name: Download shared .orig.tar.gz
+        uses: actions/download-artifact@v4
+        with:
+          name: ghostty-orig-${{ inputs.version }}
+          path: shared-orig
 
       - name: Patch for ${{ matrix.builds.codename }}
         run: ./build-ppa/patch-for-dist.sh -c ${{ matrix.builds.codename }}
@@ -112,8 +166,9 @@ jobs:
             SIGN_OPT="-s"
           fi
           
-          # Run the build script
-          ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "${{ inputs.version }}" $SIGN_OPT
+          # Run the build script with the shared .orig.tar.gz so every
+          # codename references byte-identical upstream source.
+          ./build-ppa/build-ghostty.sh -c ${{ matrix.builds.codename }} -v "${{ inputs.version }}" -o "shared-orig/${{ needs.fetch-orig.outputs.tarball }}" $SIGN_OPT
 
       - name: Upload to PPA
         if: inputs.upload

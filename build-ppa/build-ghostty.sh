@@ -9,6 +9,10 @@
 #     -s             Sign the package (sets SIGN_PACKAGE=true)
 #     -v VERSION     Ghostty version (tip, 1.0.0, etc.)
 #                Defaults to tip
+#     -o TARBALL     Use existing .orig.tar.gz instead of fetching.
+#                Required for multi-distro uploads: all codenames must
+#                reference a byte-identical .orig.tar.gz, so it is built
+#                once and shared.
 #
 
 set -e
@@ -20,11 +24,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CODENAME="resolute"
 SIGN_PACKAGE=false
 VERSION="tip"
-PPA_VERSION="ppa3"
+ORIG_TARBALL=""
+PPA_VERSION="ppa4"
 PACKAGE_NAME="ghostty"
 
 # Parse command line arguments
-while getopts 'hc:sv:' opt; do
+while getopts 'hc:sv:o:' opt; do
     case "$opt" in
         'h')
             echo "Usage: $0 [OPTIONS]"
@@ -34,6 +39,7 @@ while getopts 'hc:sv:' opt; do
             echo "    -s             Sign the package (sets SIGN_PACKAGE=true)"
             echo "    -v VERSION     Ghostty version (tip, 1.0.0, etc.)"
             echo "                   Defaults to tip"
+            echo "    -o TARBALL     Use existing .orig.tar.gz instead of fetching"
             exit 0
             ;;
         'c')
@@ -44,6 +50,9 @@ while getopts 'hc:sv:' opt; do
             ;;
         'v')
             VERSION="$OPTARG"
+            ;;
+        'o')
+            ORIG_TARBALL="$OPTARG"
             ;;
         '?')
             echo "Invalid option: -$OPTARG"
@@ -58,24 +67,42 @@ echo "Building Ghostty for version: $VERSION"
 echo "Ubuntu codename: $CODENAME"
 echo "Sign package: $SIGN_PACKAGE"
 
-# Fetch the source and create .orig.tar.gz
-echo "Fetching Ghostty source..."
-"$SCRIPT_DIR/fetch-ghostty-orig-source.sh" "$VERSION"
+# Fetch the source and create .orig.tar.gz, unless a shared one was provided.
+# All codenames uploaded from one run must reference a byte-identical
+# .orig.tar.gz (Launchpad rejects a same-named orig with different contents),
+# so multi-distro builds share a single tarball via -o instead of each
+# regenerating their own.
+REPACK_TARBALL=""
+if [ -n "$ORIG_TARBALL" ]; then
+    echo "Using provided orig tarball: $ORIG_TARBALL"
+    if [ ! -f "$ORIG_TARBALL" ]; then
+        echo "Error: provided orig tarball not found: $ORIG_TARBALL"
+        exit 1
+    fi
+    REPACK_TARBALL="$ORIG_TARBALL"
+else
+    echo "Fetching Ghostty source..."
+    "$SCRIPT_DIR/fetch-ghostty-orig-source.sh" "$VERSION"
+fi
 
 # Determine the base version and PPA number
 if [ "$VERSION" = "tip" ]; then
-    # Find the REPACK_TARBALL created by fetch-ghostty-orig-source.sh
-    REPACK_TARBALL=$(ls ghostty_*+nightly*~${PPA_VERSION}.orig.tar.gz 2>/dev/null | head -n1)
     if [ -z "$REPACK_TARBALL" ]; then
-        echo "Error: Could not find repackaged tarball for tip build"
-        exit 1
+        # Find the REPACK_TARBALL created by fetch-ghostty-orig-source.sh
+        REPACK_TARBALL=$(ls ghostty_*+nightly*~${PPA_VERSION}.orig.tar.gz 2>/dev/null | head -n1)
+        if [ -z "$REPACK_TARBALL" ]; then
+            echo "Error: Could not find repackaged tarball for tip build"
+            exit 1
+        fi
     fi
     # Extract FULL_VERSION from REPACK_TARBALL filename
-    FULL_VERSION=$(echo "$REPACK_TARBALL" | sed -n 's/^ghostty_\([^)]*\)\.orig\.tar\.gz$/\1/p')
+    FULL_VERSION=$(basename "$REPACK_TARBALL" | sed -n 's/^ghostty_\([^)]*\)\.orig\.tar\.gz$/\1/p')
     FULL_VERSION="${FULL_VERSION}-${CODENAME}1"
 else
     FULL_VERSION="${VERSION}~${PPA_VERSION}-${CODENAME}1"
-    REPACK_TARBALL="ghostty_${VERSION}~${PPA_VERSION}.orig.tar.gz"
+    if [ -z "$REPACK_TARBALL" ]; then
+        REPACK_TARBALL="ghostty_${VERSION}~${PPA_VERSION}.orig.tar.gz"
+    fi
 fi
 
 echo "Full version: $FULL_VERSION"
