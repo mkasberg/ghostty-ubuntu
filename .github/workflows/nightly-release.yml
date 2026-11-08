@@ -1,0 +1,66 @@
+name: Nightly Release Ghostty Binary
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  build-nightly-ghostty:
+    name: Build Nightly
+    uses: ./.github/workflows/binary-build.yml
+    with:
+      build_matrix: |
+        {
+          "builds": [
+            {"distro": "ubuntu", "version": "24.04"},
+            {"distro": "ubuntu", "version": "25.10"},
+            {"distro": "ubuntu", "version": "26.04"},
+            {"distro": "debian", "version": "trixie"},
+            {"distro": "debian", "version": "forky"}
+          ],
+          "arch": ["amd64", "arm64"],
+          "include": [
+            {"arch": "amd64", "runner": "ubuntu-24.04"},
+            {"arch": "arm64", "runner": "ubuntu-24.04-arm"}
+          ]
+        }
+      version_type: "tip"
+      zig_version: "0.15.2"
+
+  release-nightly-ghostty:
+    name: Publish Nightly Release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: build-nightly-ghostty
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          merge-multiple: true
+
+      - name: Publish Nightly Prerelease
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nightly
+          name: Nightly
+          body: |
+            Automated nightly build from Ghostty `tip`. Updated daily.
+            **This is a prerelease — it may contain bugs.**
+
+            ### Install
+            ```bash
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install-nightly.sh)"
+            ```
+          prerelease: true
+          make_latest: false
+          files: ghostty_*.deb
+          fail_on_unmatched_files: true

@@ -63,6 +63,17 @@ methods below.
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
 ```
 
+### Curl Install/Update (Nightly)
+
+:zap: To install the latest nightly build (built from Ghostty `tip`):
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install-nightly.sh)"
+```
+
+> [!WARNING]
+> Nightly builds may contain bugs. Use at your own risk.
+
 ### Manual Installation
 
 If you prefer to download and install the package manually instead of running the short script above, here are instructions.
