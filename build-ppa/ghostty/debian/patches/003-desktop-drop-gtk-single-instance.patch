@@ -1,0 +1,19 @@
+diff --git i/dist/linux/app.desktop.in w/dist/linux/app.desktop.in
+index e05c47b..f799b97 100644
+--- i/dist/linux/app.desktop.in
++++ w/dist/linux/app.desktop.in
+@@ -4,7 +4,7 @@ Name=@NAME@
+ Type=Application
+ Comment=A terminal emulator
+ TryExec=@GHOSTTY@
+-Exec=@GHOSTTY@ --gtk-single-instance=true
++Exec=@GHOSTTY@
+ Icon=com.mitchellh.ghostty
+ Categories=System;TerminalEmulator;
+ Keywords=terminal;tty;pty;
+@@ -23,4 +23,4 @@ X-KDE-Shortcuts=Ctrl+Alt+T
+ 
+ [Desktop Action new-window]
+ Name=New Window
+-Exec=@GHOSTTY@ --gtk-single-instance=true
++Exec=@GHOSTTY@

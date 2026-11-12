@@ -1,2 +1,3 @@
 001-bzip2-to-bz2.patch
 002-harfbuzz.patch
+003-desktop-drop-gtk-single-instance.patch
