@@ -37,7 +37,7 @@ jobs:
           ]
         }
       version_type: "release"
-      zig_version: "0.17.0"
+      zig_version: "0.17.1"
 
   release-ghostty:
     name: (Pre-)Release Ghostty Binary
